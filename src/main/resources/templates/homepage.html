@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shC1qX5udXq2veKSTZ+6Z5LqAg4+XNOB/r/x"
+        crossorigin="anonymous">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <style>
+        .list-group-item-icon {
+            display: grid;
+            justify-items: center;
+            text-align: center;
+            gap: 1rem;
+        }
+
+        .list-group-item-icon i {
+            font-size: 2rem; /* Adjust the icon size as needed */
+        }
+    </style>
+</head>
+
+<body>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <h1 class="text-center">Welcome to the Dashboard</h1>
+      <div class="list-group mt-3">
+        <a href="/products" class="list-group-item list-group-item-action list-group-item-icon">
+          <i class="fas fa-box"></i>
+          <span>Products</span>
+        </a>
+        <a href="/raw-materials" class="list-group-item list-group-item-action list-group-item-icon">
+          <i class="fas fa-cubes"></i>
+          <span>Raw Materials</span>
+        </a>
+        <a href="/reports" class="list-group-item list-group-item-action list-group-item-icon">
+          <i class="fas fa-chart-bar"></i>
+          <span>Reports (Admin Only)</span>
+        </a>
+        <a href="/product-price-histogram" class="list-group-item list-group-item-action list-group-item-icon">
+          <i class="fas fa-chart-line"></i>
+          <span>Product Price Histogram (Admin Only)</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

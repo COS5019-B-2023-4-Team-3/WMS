@@ -1,0 +1,14 @@
+/* Styles for products */
+.product {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    /* Adjust styles for smaller screens */
+    .product {
+        padding: 10px;
+    }
+}
