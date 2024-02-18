@@ -136,8 +136,11 @@ CREATE TABLE IF NOT EXISTS `deployment`.`OrderItem` (
 DROP PROCEDURE IF EXISTS `test`.PopulateProducts;
 DROP PROCEDURE IF EXISTS `test`.PopulateRawMaterials;
 DROP PROCEDURE IF EXISTS `test`.PopulateOrders;
+DROP PROCEDURE IF EXISTS `test`.PopulateOrderItems;
 DROP PROCEDURE IF EXISTS `test`.PopulateReports;
 DROP PROCEDURE IF EXISTS `test`.PopulateTestTables;
+DROP PROCEDURE IF EXISTS `test`.PopulateUsers;
+DROP PROCEDURE IF EXISTS `test`.PopulateRoles;
 
 DELIMITER //
 
@@ -321,7 +324,7 @@ BEGIN
 END//
 
 
-CREATE PROCEDURE `test`.PopulateTables()
+CREATE PROCEDURE `test`.PopulateTestTables()
 BEGIN
 	-- Call PopulateProducts
 	CALL `test`.PopulateProducts();
@@ -338,7 +341,9 @@ BEGIN
 	CALL `test`.PopulateRoles();
 	
 	CALL `test`.PopulateUsers();
-	
+
+	CALL `test`.PopulateOrderItems();
+
 END//
 
 DELIMITER ;
