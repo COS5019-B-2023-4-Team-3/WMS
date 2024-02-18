@@ -25,7 +25,7 @@ public class LoginControllerIntegrationTest {
     @Test
     public void testLoginUser_Success() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/login")
-                        .param("username", "test")
+                        .param("username", "test_employee")
                         .param("password", "test"))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
                 .andExpect(MockMvcResultMatchers.redirectedUrl(null));
