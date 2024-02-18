@@ -47,7 +47,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successForwardUrl("/homepage")// Redirect to the homepage after successful login
                 .permitAll() // Allow access to the custom login page
                 .and()
-                .logout().logoutUrl("/logout").logoutSuccessUrl("/login")
+                .logout()
+                .logoutUrl("/logout") // Configure the logout URL
+                .logoutSuccessUrl("/login?logout") // Redirect to login page after logout
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID")
                 .and()
                 .csrf().disable();
     }
