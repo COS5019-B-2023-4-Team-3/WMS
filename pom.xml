@@ -80,6 +80,7 @@
             <version>4.0.1</version> <!-- Adjust the version as needed -->
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
@@ -108,17 +109,37 @@
             <version>1.0.24</version>
         </dependency>
 
-        <!-- Spring Boot Starter Test (for testing) -->
+        <!-- Spring Boot Starter Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Spring Boot Security Test -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- hibernate validator -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.2.5.Final</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Mockito inline -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-inline</artifactId>
+            <version>4.3.1</version>
+            <scope>test</scope>
+        </dependency>
+
+
     </dependencies>
 
 </project>

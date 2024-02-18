@@ -287,9 +287,9 @@ BEGIN
     DECLARE role_id_admin INT;
 
     -- Check if the roles already exist
-    SELECT role_id INTO role_id_external_vendor FROM `test`.`roles` WHERE role_name = 'External_Vendor';
-    SELECT role_id INTO role_id_employee FROM `test`.`roles` WHERE role_name = 'Employee';
-    SELECT role_id INTO role_id_admin FROM `test`.`roles` WHERE role_name = 'Admin';
+    SELECT role_id INTO role_id_external_vendor FROM `test`.`roles` WHERE role_name = 'EXTERNAL';
+    SELECT role_id INTO role_id_employee FROM `test`.`roles` WHERE role_name = 'EMPLOYEE';
+    SELECT role_id INTO role_id_admin FROM `test`.`roles` WHERE role_name = 'ADMIN';
 
     -- Insert roles if they do not exist
     IF role_id_external_vendor IS NULL THEN
