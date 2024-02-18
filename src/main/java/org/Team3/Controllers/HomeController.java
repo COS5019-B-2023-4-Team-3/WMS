@@ -31,12 +31,12 @@ public class HomeController {
     private String getRoleForUser(Principal principal) {
         if (principal instanceof Authentication authentication) {
             for (GrantedAuthority authority : authentication.getAuthorities()) {
-                if ("Admin".equals(authority.getAuthority())) {
-                    return "Admin";
+                if ("ADMIN".equals(authority.getAuthority())) {
+                    return "ADMIN";
                 }
             }
         }
-        return "Employee";
+        return "EMPLOYEE";
     }
 
     @GetMapping("/logout")
