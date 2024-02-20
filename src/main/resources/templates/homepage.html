@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,23 +26,26 @@
           <a class="nav-link scrollto active" href="/raw_materials"><i class="fas fa-cubes"></i><br>Raw Materials</a>
         </li>
         <!-- Display reports only for ADMIN role -->
-        <li class="nav-item" th:if="${userRole == 'ADMIN'}">
+        <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
           <a class="nav-link scrollto active" href="/reports"><i class="fas fa-chart-bar"></i><br>Reports</a>
         </li>
         <!-- Display orders only for EXTERNAL role -->
-        <li class="nav-item" th:if="${userRole == 'EXTERNAL'}">
+        <li class="nav-item" sec:authorize="hasAuthority('EXTERNAL')">
           <a class="nav-link scrollto active" href="/external_orders"><i class="fas fa-shopping-cart"></i><br>Orders</a>
         </li>
         <!-- Display orders only for EMPLOYEE or ADMIN role -->
-        <li class="nav-item" th:if="${userRole != 'EXTERNAL'}">
+        <li class="nav-item" sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')">
           <a class="nav-link scrollto active" href="/internal-orders"><i class="fas fa-shopping-basket"></i><br>Orders</a>
         </li>
-        <li class="nav-item" th:if="${userRole == 'ADMIN'}">
+        <!-- Display users only for ADMIN role -->
+        <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
           <a class="nav-link scrollto active d-lg-block" href="/users-list"><i class="fas fa-users fa-lg"></i><br>Users</a>
         </li>
-        <li class="nav-item" th:if="${userRole == 'ADMIN'}">
+        <!-- Display vendors only for ADMIN role -->
+        <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
           <a class="nav-link scrollto active d-lg-block" href="/vendors"><i class="fas fa-truck fa-lg"></i><br>Vendors</a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link scrollto active" href="/profile_settings"><i class="fas fa-user-cog"></i><br>Profile Settings</a>
         </li>
@@ -56,7 +60,7 @@
         </li>
       </ul>
       <!-- Logout button -->
-      <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
+      <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
         <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
       </form>
     </div>
