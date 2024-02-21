@@ -32,11 +32,12 @@ public class HomeController {
         if (principal instanceof Authentication authentication) {
             for (GrantedAuthority authority : authentication.getAuthorities()) {
                 String role = authority.getAuthority();
-                if ("ADMIN".equals(role)) {
+                System.out.println(role);
+                if ("ROLE_ADMIN".equals(role)) {
                     return "ADMIN";
-                } else if ("EMPLOYEE".equals(role)) {
+                } else if ("ROLE_EMPLOYEE".equals(role)) {
                     return "EMPLOYEE";
-                } else if ("EXTERNAL".equals(role)) {
+                } else if ("ROLE_EXTERNAL".equals(role)) {
                     return "EXTERNAL";
                 }
             }
