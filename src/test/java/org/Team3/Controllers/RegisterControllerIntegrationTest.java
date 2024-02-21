@@ -54,7 +54,7 @@ public class RegisterControllerIntegrationTest {
     public void testRegisterUser_UserAlreadyExists() throws Exception {
         // Assuming the user already exists in the system
         mockMvc.perform(MockMvcRequestBuilders.post("/register")
-                        .param("email", "test")
+                        .param("email", "test_employee")
                         .param("password", "test"))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/register?error=true"));

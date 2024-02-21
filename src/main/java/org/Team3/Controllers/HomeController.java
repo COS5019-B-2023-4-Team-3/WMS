@@ -31,12 +31,18 @@ public class HomeController {
     private String getRoleForUser(Principal principal) {
         if (principal instanceof Authentication authentication) {
             for (GrantedAuthority authority : authentication.getAuthorities()) {
-                if ("ADMIN".equals(authority.getAuthority())) {
+                String role = authority.getAuthority();
+                if ("ADMIN".equals(role)) {
                     return "ADMIN";
+                } else if ("EMPLOYEE".equals(role)) {
+                    return "EMPLOYEE";
+                } else if ("EXTERNAL".equals(role)) {
+                    return "EXTERNAL";
                 }
             }
         }
-        return "EMPLOYEE";
+        // If no specific role is found, return a default role (e.g., "UNKNOWN")
+        return "UNKNOWN";
     }
 
     @GetMapping("/logout")

@@ -55,6 +55,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID")
                 .and()
                 .csrf().disable();
+
+        //@TODO: Configure session management
+//        http
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+//                .invalidSessionUrl("/login")
+//                .sessionFixation().migrateSession()
+//                .maximumSessions(1)
+//                .maxSessionsPreventsLogin(true);
     }
 
 }
