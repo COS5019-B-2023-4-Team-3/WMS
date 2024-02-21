@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
+  <link href="/static/css/styles.css" rel="stylesheet">
 </head>
 <body>
 <div class="container mt-5">
@@ -36,7 +36,7 @@
   </div>
 </div>
 <!-- Toast message -->
-<div th:if="${error}" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+<div th:if="${error}" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px;">
   <div class="toast-header">
     <strong class="mr-auto">Error</strong>
     <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -53,14 +53,27 @@
 
 <!-- JavaScript code for displaying the toast -->
 <script th:inline="javascript">
-    /*<![CDATA[*/
-    $(document).ready(function () {
-        var error = [[${param.error}]];
-        if (error) {
-            $('.toast').toast('show');
-        }
-    });
-    /*]]>*/
-    </script>
+  /*<![CDATA[*/
+  $(document).ready(function () {
+      var error = [[${param.error}]];
+      if (error) {
+          var errorMessage;
+          switch(error) {
+              case 'invalid_username_or_password':
+                  errorMessage = "Invalid username or password.";
+                  break;
+              case 'unauthorized':
+                  errorMessage = "You are not authorized to access this page.";
+                  break;
+              // Add more cases as needed for different error types
+              default:
+                  errorMessage = "An unknown error occurred.";
+          }
+          $('.toast-body').text(errorMessage);
+          $('.toast').toast({ autohide: false, delay: 5000 }).toast('show');
+      }
+  });
+  /*]]>*/
+</script>
 </body>
 </html>

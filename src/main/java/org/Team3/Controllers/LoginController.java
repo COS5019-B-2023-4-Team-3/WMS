@@ -16,7 +16,16 @@ public class LoginController {
 
 
     @GetMapping("/login")
-    public String showLoginForm() {
+    public String showLoginForm(Model model, @RequestParam(name = "error", required = false) String error) {
+        if (error != null) {
+            if (error.equals("invalid_username_or_password")) {
+                model.addAttribute("error", "Invalid username or password.");
+            } else if (error.equals("unauthorized")) {
+                model.addAttribute("error", "You are not authorized to access this page.");
+            } else {
+                model.addAttribute("error", "An unknown error occurred.");
+            }
+        }
         return "login";
     }
 
