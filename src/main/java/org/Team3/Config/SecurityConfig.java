@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
@@ -57,14 +56,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable();
 
-        // Configure session management
-        http
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                .invalidSessionUrl("/login")
-                .sessionFixation().migrateSession()
-                .maximumSessions(1)
-                .maxSessionsPreventsLogin(true);
+        //@TODO: Configure session management
+//        http
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+//                .invalidSessionUrl("/login")
+//                .sessionFixation().migrateSession()
+//                .maximumSessions(1)
+//                .maxSessionsPreventsLogin(true);
     }
 
 }
