@@ -37,7 +37,7 @@ public class LoginControllerIntegrationTest {
                         .param("username", "nonexistentuser")
                         .param("password", "password"))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/login?error"));
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/login?error=invalid_username_or_password"));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class LoginControllerIntegrationTest {
                         .param("username", "testuser")
                         .param("password", "wrongpassword"))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/login?error"));
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/login?error=invalid_username_or_password"));
     }
 }
 

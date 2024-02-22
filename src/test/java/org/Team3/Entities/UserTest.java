@@ -63,7 +63,7 @@ class UserTest {
     void getAuthorities_ShouldReturnCorrectRole() {
         // Arrange
         Role role = new Role();
-        role.setRoleName("ADMIN");
+        role.setName("ADMIN");
         user.setRole(role);
 
         // Act
@@ -77,7 +77,7 @@ class UserTest {
     @Test
     void getRole_ShouldReturnCorrectRole() {
         Role role = new Role();
-        role.setRoleName("USER");
+        role.setName("USER");
         user.setRole(role);
 
         assertEquals(role, user.getRole());

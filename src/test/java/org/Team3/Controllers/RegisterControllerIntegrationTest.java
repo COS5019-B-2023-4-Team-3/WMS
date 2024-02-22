@@ -57,6 +57,6 @@ public class RegisterControllerIntegrationTest {
                         .param("email", "test_employee")
                         .param("password", "test"))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/register?error=true"));
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/register?error=username_already_exists"));
     }
 }

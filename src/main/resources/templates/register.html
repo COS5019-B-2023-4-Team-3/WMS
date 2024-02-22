@@ -35,9 +35,8 @@
   </div>
 </div>
 
-<!-- Display error message if username already exists -->
 <!-- Toast message -->
-<div th:if="${param.error}" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+<div th:if="${param.error}" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px;">
   <div class="toast-header">
     <strong class="mr-auto">Error</strong>
     <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -48,20 +47,21 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<!-- Show toast message if error parameter is present in URL -->
+<!-- JavaScript code for displaying the toast -->
 <script th:inline="javascript">
-    /*<![CDATA[*/
-    $(document).ready(function () {
-        var error = [[${param.error}]];
-        if (error) {
-            $('.toast').toast('show');
-        }
-    });
-    /*]]>*/
+  /*<![CDATA[*/
+      $(document).ready(function () {
+       var urlParams = new URLSearchParams(window.location.search);
+       var error = urlParams.get('error');
+          if (error) {
+              $('.toast-body').text(error);
+              $('.toast').toast({ autohide: false, delay: 5000 }).toast('show');
+          }
+      });
+  /*]]>*/
 </script>
 </body>
 </html>
