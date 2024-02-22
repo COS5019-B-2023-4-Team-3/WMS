@@ -28,7 +28,7 @@ public class RegisterController {
         if (userService.userExists(email)) {
             // User already exists, add error message to redirect attributes
             model.addAttribute("error", "Username already exists");
-            return "redirect:/register?error=true";
+            return "redirect:/register?error=username_already_exists";
         }
 
         // Register the new user
