@@ -46,34 +46,23 @@
   <div class="toast-body" th:text="${error}"></div>
 </div>
 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <!-- JavaScript code for displaying the toast -->
 <script th:inline="javascript">
   /*<![CDATA[*/
-  $(document).ready(function () {
-      var error = [[${param.error}]];
-      if (error) {
-          var errorMessage;
-          switch(error) {
-              case 'invalid_username_or_password':
-                  errorMessage = "Invalid username or password.";
-                  break;
-              case 'unauthorized':
-                  errorMessage = "You are not authorized to access this page.";
-                  break;
-              // Add more cases as needed for different error types
-              default:
-                  errorMessage = "An unknown error occurred.";
+      $(document).ready(function () {
+          var error = /*[[${error}]]*/ '';
+          if (error) {
+              $('.toast-body').text(error);
+              $('.toast').toast({ autohide: false, delay: 5000 }).toast('show');
           }
-          $('.toast-body').text(errorMessage);
-          $('.toast').toast({ autohide: false, delay: 5000 }).toast('show');
-      }
-  });
+      });
   /*]]>*/
 </script>
+
 </body>
 </html>
