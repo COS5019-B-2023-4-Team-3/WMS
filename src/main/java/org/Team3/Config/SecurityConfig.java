@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 /**
  * Customize these configurations based on the application's requirements and security policies.
@@ -37,14 +39,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/register").permitAll() // Allow access to the custom login page
+                .antMatchers("/register").permitAll() // Allow access to the custom registration page
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasRole("USER")
+                .antMatchers("/employee/**").hasRole("EMPLOYEE")
+                .antMatchers("/vendor/**").hasRole("EXTERNAL")
+                .antMatchers("/error").permitAll() // Permit access to the error page
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login").loginProcessingUrl("/login")
-                .successForwardUrl("/homepage")// Redirect to the homepage after successful login
+                .failureUrl("/login?error=invalid_username_or_password")
+                .successForwardUrl("/homepage") // Redirect to the homepage after successful login
                 .permitAll() // Allow access to the custom login page
                 .and()
                 .logout()
@@ -64,6 +69,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .sessionFixation().migrateSession()
 //                .maximumSessions(1)
 //                .maxSessionsPreventsLogin(true);
+    }
+
+    private String determineError(HttpServletRequest request) {
+        return request.getParameter("error");
     }
 
 }
