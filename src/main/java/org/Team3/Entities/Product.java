@@ -31,24 +31,17 @@ public class Product {
     @Column(name = "expiry_date")
     private LocalDate expiryDate;
 
-    @Column(name = "product_price")
+    @Column(name = "product_selling_price")
     private double price;
+
+    @Column(name = "product_unit_cost")
+    private double cost;
+
     @Column(name = "current_stock_level")
     private int currentStockLevel;
 
     @Column(name = "min_acceptable_stock_level")
     private int minStockLevel;
-
-    public Product(){}
-
-    public Product(String name, String skuCode, double price, int shelfLife, int currentStockLevel, int minStockLevel) {
-        this.name = name;
-        this.price = price;
-        this.skuCode = skuCode;
-        this.shelfLife = shelfLife;
-        this.currentStockLevel = currentStockLevel;
-        this.minStockLevel = minStockLevel;
-    }
 
     public Long getId() {
         return id;
@@ -104,6 +97,14 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
     }
 
     public int getCurrentStockLevel() {
