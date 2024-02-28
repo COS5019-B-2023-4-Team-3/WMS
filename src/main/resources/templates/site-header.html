@@ -1,23 +1,26 @@
 <header xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-Pkl8x1rBJwqJCpHMk2uLW5K75zr/MXjU9fXG3fhgC9NUT+ry/1+cNemgCuyIJ/74+83MhMT6rVPtsB+1DlQbLQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/static/css/styles.css">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <div class="row w-100">
-                <!-- Search bar -->
-                <div class="col-md-4 d-flex justify-content-end align-items-center">
+            <!-- Navbar content -->
+            <div class="d-flex justify-content-between w-100 align-items-center">
+                <!-- Left side: Search bar -->
+                <div>
                     <form class="form-inline my-2 my-lg-0" th:action="@{/search}" method="get" id="searchForm">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
                     </form>
                 </div>
 
-                <!-- Logo -->
-                <div class="col-md-4 text-center">
+                <!-- Center: Logo -->
+                <div class="text-center mx-auto">
                     <a class="navbar-brand" href="#">
                         <img class="logo-img" src="/img/logo.png" alt="Logo">
                     </a>
                 </div>
 
-                <!-- Logout button -->
-                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                <!-- Right side: Logout button -->
+                <div>
                     <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
                         <button class="btn btn-outline-danger my-2 my-sm-0 ml-15" style="margin-left: 55px;" type="submit">Logout</button>
                     </form>
@@ -30,38 +33,74 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light" sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')">
         <div class="collapse navbar-collapse justify-content-center" id="innerEmployeeHeaderNav">
             <ul class="navbar-nav">
-                <li class="nav-item" >
-                    <a class="nav-link scrollto active" href="/products"><i class="fas fa-box"></i><br>Products</a>
+                <li class="nav-item">
+                    <a class="nav-link scrollto active" href="/products">
+                        <div class="icon-text-container">
+                            <i class="fas fa-box fa-2x"></i><br>
+                            <span>Products</span>
+                        </div>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link scrollto active" href="/raw_ingredients"><i class="fas fa-cubes"></i><br>Raw Ingredients</a>
-                </li>
-                <!-- Display reports only for ADMIN role -->
-                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
-                    <a class="nav-link scrollto active" href="/reports"><i class="fas fa-chart-bar"></i><br>Reports</a>
-                </li>
-                <!-- Display orders only for EXTERNAL role -->
-                <li class="nav-item" sec:authorize="hasAuthority('EXTERNAL')">
-                    <a class="nav-link scrollto active" href="/external_orders"><i class="fas fa-shopping-cart"></i><br>Orders</a>
-                </li>
-                <!-- Display orders only for EMPLOYEE or ADMIN role -->
-                <li class="nav-item">
-                    <a class="nav-link scrollto active" href="/internal-orders"><i class="fas fa-shopping-basket"></i><br>Orders</a>
-                </li>
-                <!-- Display users only for ADMIN role -->
-                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
-                    <a class="nav-link scrollto active" href="/users-list"><i class="fas fa-users fa-lg"></i><br>Users</a>
-                </li>
-                <!-- Display vendors only for ADMIN role -->
-                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
-                    <a class="nav-link scrollto active" href="/vendors"><i class="fas fa-truck fa-lg"></i><br>Vendors</a>
+                    <a class="nav-link scrollto active" href="/raw_ingredients">
+                        <div class="icon-text-container">
+                            <i class="fas fa-cubes fa-2x"></i><br>
+                            <span>Raw Ingredients</span>
+                        </div>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link scrollto active" href="/profile_settings"><i class="fas fa-user-cog"></i><br>Profile Settings</a>
+                    <a class="nav-link scrollto active" href="/reports">
+                        <div class="icon-text-container">
+                            <i class="fas fa-chart-bar fa-2x"></i><br>
+                            <span>Reports</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link scrollto active" href="/external_orders">
+                        <div class="icon-text-container">
+                            <i class="fas fa-shopping-cart fa-2x"></i><br>
+                            <span>Orders</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link scrollto active" href="/internal-orders">
+                        <div class="icon-text-container">
+                            <i class="fas fa-shopping-basket fa-2x"></i><br>
+                            <span>Orders</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link scrollto active" href="/users-list">
+                        <div class="icon-text-container">
+                            <i class="fas fa-users fa-2x"></i><br>
+                            <span>Users</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link scrollto active" href="/vendors">
+                        <div class="icon-text-container">
+                            <i class="fas fa-truck fa-2x"></i><br>
+                            <span>Vendors</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link scrollto active" href="/profile_settings">
+                        <div class="icon-text-container">
+                            <i class="fas fa-user-cog fa-2x"></i><br>
+                            <span>Profile Settings</span>
+                        </div>
+                    </a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="employeeNavbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-bell"></i><br>Notifications
+                        <i class="fas fa-bell fa-2x"></i><br>
+                        <span>Notifications</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <!-- Dynamic content for notifications -->
@@ -77,31 +116,76 @@
         <div class="collapse navbar-collapse justify-content-center" id="innerVendorHeaderNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link scrollto active" href="#"><i class="fas fa-home"></i><br>Home</a>
+                    <a class="nav-link scrollto active" href="#">
+                        <div class="icon-text-container">
+                            <i class="fas fa-home fa-2x"></i><br>
+                            <span>Home</span>
+                        </div>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link scrollto active" href="#"><i class="fas fa-utensils"></i><br>Our Range</a>
+                    <a class="nav-link scrollto active" href="#">
+                        <div class="icon-text-container">
+                            <i class="fas fa-utensils fa-2x"></i><br>
+                            <span>Our Range</span>
+                        </div>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link scrollto active" href="#"><i class="fas fa-book"></i><br>Our Story</a>
+                    <a class="nav-link scrollto active" href="#">
+                        <div class="icon-text-container">
+                            <i class="fas fa-book fa-2x"></i><br>
+                            <span>Our Story</span>
+                        </div>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link scrollto active" href="#"><i class="fas fa-store"></i><br>Shop</a>
+                    <a class="nav-link scrollto active" href="#">
+                        <div class="icon-text-container">
+                            <i class="fas fa-store fa-2x"></i><br>
+                            <span>Shop</span>
+                        </div>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link scrollto active" href="#"><i class="fas fa-leaf"></i><br>Vegan</a>
+                    <a class="nav-link scrollto active" href="#">
+                        <div class="icon-text-container">
+                            <i class="fas fa-leaf fa-2x"></i><br>
+                            <span>Vegan</span>
+                        </div>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link scrollto active" href="#"><i class="fas fa-carrot"></i><br>Vegetarian</a>
+                    <a class="nav-link scrollto active" href="#">
+                        <div class="icon-text-container">
+                            <i class="fas fa-carrot fa-2x"></i><br>
+                            <span>Vegetarian</span>
+                        </div>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link scrollto active" href="#"><i class="fas fa-star-of-david"></i><br>Kosher</a>
+                    <a class="nav-link scrollto active" href="#">
+                        <div class="icon-text-container">
+                            <i class="fas fa-star-of-david fa-2x"></i><br>
+                            <span>Kosher</span>
+                        </div>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link scrollto active" href="#"><i class="fas fa-bread-slice"></i><br>Gluten Free</a>
+                    <a class="nav-link scrollto active" href="#">
+                        <div class="icon-text-container">
+                            <i class="fas fa-bread-slice fa-2x"></i><br>
+                            <span>Gluten Free</span>
+                        </div>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link scrollto active" href="#"><i class="fas fa-newspaper"></i><br>News</a>
+                    <a class="nav-link scrollto active" href="#">
+                        <div class="icon-text-container">
+                            <i class="fas fa-newspaper fa-2x"></i><br>
+                            <span>News</span>
+                        </div>
+                    </a>
                 </li>
             </ul>
         </div>
