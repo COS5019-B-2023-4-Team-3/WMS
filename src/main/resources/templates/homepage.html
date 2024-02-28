@@ -1,21 +1,75 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rakusens</title>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-  <link href="/static/css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+  <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
 </head>
 <body th:fragment="body">
-<div th:replace="header :: header"></div>
+<div th:replace="site-header :: header"></div>
+<main id="site-content">
+  <div class="container" id="slick-carousel-container" sec:authorize="hasAuthority('EXTERNAL')">
+    <!-- Slick Carousel -->
+    <div class="slick-carousel">
+      <div>
+        <a href="/products" title="Slider_rakusens_04">
+          <img src="/img/Slider_rakusens_01.jpg" alt="Slider_rakusens_04" loading="lazy">
+        </a>
+      </div>
+      <div>
+        <a href="/products" title="Slider_rakusens_04">
+          <img src="/img/Slider_rakusens_02.jpg" alt="Slider_rakusens_04" loading="lazy">
+        </a>
+      </div>
+      <div>
+        <a href="/products" title="Slider_rakusens_04">
+          <img src="/img/Slider_rakusens_03.jpg" alt="Slider_rakusens_04" loading="lazy">
+        </a>
+      </div>
+      <div>
+        <a href="/products" title="Slider_rakusens_04">
+          <img src="/img/Slider_rakusens_04.jpg" alt="Slider_rakusens_04" loading="lazy">
+        </a>
+      </div>
+      <!-- Additional slides go here -->
+    </div>
+  </div>
+</main>
 
-
-
+<!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Slick Carousel -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script th:inline="javascript">
+  $(document).ready(function() {
+    $('.slick-carousel').slick({
+      // Slick Carousel options
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 2000,
+      prevArrow: '<button type="button" class="slick-prev"><i class="fas fa-chevron-left"></i></button>',
+      nextArrow: '<button type="button" class="slick-next"><i class="fas fa-chevron-right"></i></button>',
+      speed: 500
+    });
+  });
+</script>
+
+
+
+
 </body>
 </html>
