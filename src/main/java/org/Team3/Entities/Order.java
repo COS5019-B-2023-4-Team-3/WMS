@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 /**
- * represent the data model of the warehouse system
- * annotated with JPA annotations to define their mapping to database tables
+ The Order class represents an order and includes fields for id, orderItems, date, and status.
+ It has a one-to-many relationship with OrderItem objects, meaning an order can have multiple order items.
  */
 @Entity
 @Table(name = "orders")
@@ -16,21 +16,16 @@ public class Order {
     @Column(name="order_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
-
     @Column(name = "order_date")
     private LocalDate date;
 
     @Column(name = "order_status")
     private String status;
 
-    public Order() {}
+    @Column(name = "vendor_id")
+    private Long vendorId;
 
-    // Other properties like customer, etc. can be added as needed
-
-
+    // Other properties can be added as needed
 
     public Long getId() {
         return id;
@@ -40,12 +35,29 @@ public class Order {
         this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Long getVendorId() {
+        return vendorId;
+    }
+
+    public void setVendorId(Long vendorId) {
+        this.vendorId = vendorId;
+    }
+
 
 }
