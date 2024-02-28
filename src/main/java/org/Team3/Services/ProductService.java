@@ -28,9 +28,16 @@ public class ProductService {
     }
 
     public Product createProduct(ProductDto productDto) {
-        Product product = new Product(productDto.getName(), productDto.getSkuCode(),
-                productDto.getPrice(), productDto.getShelfLife(),
-                productDto.getStockLevel(), productDto.getMinStockLevel());
+        Product product = new Product();
+        product.setName(productDto.getName());
+        product.setSkuCode(product.getSkuCode());
+        product.setDescription(product.getDescription());
+        product.setExpiryDate(product.getExpiryDate());
+        product.setPrice(productDto.getPrice());
+        product.setCost(product.getCost());
+        product.setShelfLife(product.getShelfLife());
+        product.setCurrentStockLevel(productDto.getStockLevel());
+        product.setMinStockLevel(productDto.getMinStockLevel());
         return productRepository.save(product);
     }
 
