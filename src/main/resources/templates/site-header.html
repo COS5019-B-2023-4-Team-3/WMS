@@ -1,0 +1,121 @@
+<header xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <div class="row w-100">
+                <!-- Search bar -->
+                <div class="col-md-4 d-flex justify-content-end align-items-center">
+                    <form class="form-inline my-2 my-lg-0" th:action="@{/search}" method="get" id="searchForm">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+                    </form>
+                </div>
+
+                <!-- Logo -->
+                <div class="col-md-4 text-center">
+                    <a class="navbar-brand" href="#">
+                        <img class="logo-img" src="/img/logo.png" alt="Logo">
+                    </a>
+                </div>
+
+                <!-- Logout button -->
+                <div class="col-md-4 d-flex justify-content-start align-items-center">
+                    <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+                        <button class="btn btn-outline-danger my-2 my-sm-0 ml-15" style="margin-left: 55px;" type="submit">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Employee/Admin Inner header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" sec:authorize="hasAnyAuthority('EMPLOYEE', 'ADMIN')">
+        <div class="collapse navbar-collapse justify-content-center" id="innerEmployeeHeaderNav">
+            <ul class="navbar-nav">
+                <li class="nav-item" >
+                    <a class="nav-link scrollto active" href="/products"><i class="fas fa-box"></i><br>Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link scrollto active" href="/raw_ingredients"><i class="fas fa-cubes"></i><br>Raw Ingredients</a>
+                </li>
+                <!-- Display reports only for ADMIN role -->
+                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                    <a class="nav-link scrollto active" href="/reports"><i class="fas fa-chart-bar"></i><br>Reports</a>
+                </li>
+                <!-- Display orders only for EXTERNAL role -->
+                <li class="nav-item" sec:authorize="hasAuthority('EXTERNAL')">
+                    <a class="nav-link scrollto active" href="/external_orders"><i class="fas fa-shopping-cart"></i><br>Orders</a>
+                </li>
+                <!-- Display orders only for EMPLOYEE or ADMIN role -->
+                <li class="nav-item">
+                    <a class="nav-link scrollto active" href="/internal-orders"><i class="fas fa-shopping-basket"></i><br>Orders</a>
+                </li>
+                <!-- Display users only for ADMIN role -->
+                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                    <a class="nav-link scrollto active" href="/users-list"><i class="fas fa-users fa-lg"></i><br>Users</a>
+                </li>
+                <!-- Display vendors only for ADMIN role -->
+                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                    <a class="nav-link scrollto active" href="/vendors"><i class="fas fa-truck fa-lg"></i><br>Vendors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link scrollto active" href="/profile_settings"><i class="fas fa-user-cog"></i><br>Profile Settings</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="employeeNavbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-bell"></i><br>Notifications
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <!-- Dynamic content for notifications -->
+                        <a class="dropdown-item" th:each="notification : ${notifications}" th:href="${notification.link}" th:text="${notification.message}"></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- External-Vendor Inner header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" sec:authorize="hasAuthority('EXTERNAL')">
+        <div class="collapse navbar-collapse justify-content-center" id="innerVendorHeaderNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link scrollto active" href="#"><i class="fas fa-home"></i><br>Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link scrollto active" href="#"><i class="fas fa-utensils"></i><br>Our Range</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link scrollto active" href="#"><i class="fas fa-book"></i><br>Our Story</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link scrollto active" href="#"><i class="fas fa-store"></i><br>Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link scrollto active" href="#"><i class="fas fa-leaf"></i><br>Vegan</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link scrollto active" href="#"><i class="fas fa-carrot"></i><br>Vegetarian</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link scrollto active" href="#"><i class="fas fa-star-of-david"></i><br>Kosher</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link scrollto active" href="#"><i class="fas fa-bread-slice"></i><br>Gluten Free</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link scrollto active" href="#"><i class="fas fa-newspaper"></i><br>News</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+</header>
+<body>
+<script>
+    document.getElementById("searchInput").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevent form submission
+            document.getElementById("searchForm").submit(); // Manually submit the form
+        }
+    });
+</script>
+</body>
+
