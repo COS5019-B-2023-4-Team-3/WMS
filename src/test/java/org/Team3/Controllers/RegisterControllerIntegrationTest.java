@@ -80,6 +80,7 @@ public class RegisterControllerIntegrationTest {
                     break;
                 }
             }
+            assert user != null;
             userService.deleteUser(user.getId());
         }
     }

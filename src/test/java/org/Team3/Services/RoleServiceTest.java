@@ -29,7 +29,7 @@ class RoleServiceTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         externalRole.setId(1L);
         externalRole.setName("ROLE_EXTERNAL");
         employeeRole.setId(2L);
