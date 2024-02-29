@@ -25,16 +25,11 @@ public class CustomUserDetailsServiceTest {
 
     private User mockUser;
 
-    private Role mockEmployee;
-    private Role mockExternal;
     private Role mockAdmin;
     @BeforeEach
     public void setup(){
-        mockEmployee = new Role();
+        Role mockEmployee = new Role();
         mockEmployee.setName("ROLE_EMPLOYEE");
-
-        mockExternal = new Role();
-        mockExternal.setName("ROLE_EXTERNAL");
 
         mockAdmin = new Role();
         mockAdmin.setName("ROLE_ADMIN");

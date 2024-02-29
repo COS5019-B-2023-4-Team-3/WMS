@@ -22,7 +22,7 @@ public class RegisterControllerIntegrationTest {
     @Autowired
     private UserService userService;
 
-    private String email = "newuser@example.com";
+    private final String email = "newuser@example.com";
 
     @BeforeEach
     public void setup(){
@@ -35,6 +35,7 @@ public class RegisterControllerIntegrationTest {
                     break;
                 }
             }
+            assert user != null;
             userService.deleteUser(user.getId());
         }
     }

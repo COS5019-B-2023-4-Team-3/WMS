@@ -33,12 +33,12 @@ class UserServiceTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         testUser1 = new User();
-        testUser1.setId(1l);
+        testUser1.setId(1L);
         testUser1.setUsername("User1");
         testUser1.setPassword("password");
 
         testUser2 = new User();
-        testUser1.setId(2l);
+        testUser1.setId(2L);
         testUser1.setUsername("User2");
         testUser1.setPassword("password");
 

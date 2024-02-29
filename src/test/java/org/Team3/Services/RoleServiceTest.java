@@ -22,19 +22,19 @@ class RoleServiceTest {
 
     @InjectMocks
     private RoleService roleService;
-    private Role externalRole = new Role();
-    private Role employeeRole = new Role();
-    private Role adminRole = new Role();
+    private final Role externalRole = new Role();
+    private final Role employeeRole = new Role();
+    private final Role adminRole = new Role();
 
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        externalRole.setId(1l);
+        externalRole.setId(1L);
         externalRole.setName("ROLE_EXTERNAL");
-        employeeRole.setId(2l);
+        employeeRole.setId(2L);
         employeeRole.setName("ROLE_EMPLOYEE");
-        adminRole.setId(3l);
+        adminRole.setId(3L);
         adminRole.setName("ROLE_ADMIN");
     }
 
@@ -42,6 +42,7 @@ class RoleServiceTest {
     void testGetAllRoles() {
         // Mock data
         List<Role> roles = new ArrayList<>();
+        roles.add(externalRole);
         roles.add(employeeRole);
         roles.add(adminRole);
 
@@ -51,9 +52,10 @@ class RoleServiceTest {
         List<Role> result = roleService.getAllRoles();
 
         // Assertions
-        assertEquals(2, result.size());
-        assertEquals("ROLE_EMPLOYEE", result.get(0).getName());
-        assertEquals("ROLE_ADMIN", result.get(1).getName());
+        assertEquals(3, result.size());
+        assertEquals("ROLE_EXTERNAL", result.get(0).getName());
+        assertEquals("ROLE_EMPLOYEE", result.get(1).getName());
+        assertEquals("ROLE_ADMIN", result.get(2).getName());
     }
 
     @Test
