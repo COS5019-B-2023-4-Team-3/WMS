@@ -130,10 +130,10 @@ SET FOREIGN_KEY_CHECKS = 0;
 
 -- Drop or truncate dependent tables first
 DROP TABLE IF EXISTS `test`.`order_items`;
-DROP TABLE IF EXISTS `test`.`payment_data`;
 DROP TABLE IF EXISTS `test`.`order_fulfillment_data`;
 DROP TABLE IF EXISTS `test`.`reports_sales_data`;
 DROP TABLE IF EXISTS `test`.`sales_data`;
+DROP TABLE IF EXISTS `test`.`payment_data`;
 DROP TABLE IF EXISTS `test`.`users`;
 -- Drop other dependent tables here if needed
 
@@ -229,15 +229,6 @@ CREATE TABLE IF NOT EXISTS `test`.`reports` (
     file_path VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS `test`.`payment_data` (
-    payment_id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    payment_method VARCHAR(50),
-    transaction_amount DECIMAL(10, 2),
-    payment_status VARCHAR(50),
-    order_id BIGINT,
-    FOREIGN KEY (order_id) REFERENCES `test`.`orders`(order_id)
-);
-
 CREATE TABLE IF NOT EXISTS `test`.`sales_data` (
     sale_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     transaction_date DATE,
@@ -245,6 +236,16 @@ CREATE TABLE IF NOT EXISTS `test`.`sales_data` (
     order_volume INT,
     order_id BIGINT,
     FOREIGN KEY (order_id) REFERENCES `test`.`orders`(order_id)
+);
+
+-- Updated Payment Data Table
+CREATE TABLE IF NOT EXISTS `test`.`payment_data` (
+    payment_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    payment_method VARCHAR(50),
+    transaction_amount DECIMAL(10, 2),
+    payment_status VARCHAR(50),
+    sale_id BIGINT,
+    FOREIGN KEY (sale_id) REFERENCES `test`.`sales_data`(sale_id)
 );
 
 CREATE TABLE IF NOT EXISTS `test`.`reports_sales_data` (
@@ -645,38 +646,6 @@ BEGIN
     END WHILE;
 END//
 
--- Create the procedure for populating payment data
-CREATE PROCEDURE `test`.PopulatePaymentData()
-BEGIN
-    DECLARE i INT DEFAULT 0;
-    DECLARE max_records INT DEFAULT 1000;
-    DECLARE payment_method VARCHAR(50);
-    DECLARE transaction_amount DECIMAL(10, 2);
-    DECLARE payment_status VARCHAR(50);
-    DECLARE order_id_val BIGINT;
-
-    WHILE i < max_records DO
-        -- Generate random payment data
-        SET payment_method = CASE FLOOR(1 + RAND() * 3)
-                                WHEN 1 THEN 'Credit Card'
-                                WHEN 2 THEN 'PayPal'
-                                ELSE 'Bank Transfer'
-                            END;
-        SET transaction_amount = ROUND(10 + RAND() * 1000, 2);
-        SET payment_status = CASE FLOOR(1 + RAND() * 2)
-                                WHEN 1 THEN 'Success'
-                                ELSE 'Failed'
-                             END;
-        SET order_id_val = FLOOR(1 + RAND() * 1000); -- Assuming order_id exists in orders table
-
-        -- Insert into payment_data table
-        INSERT INTO `test`.`payment_data` (payment_method, transaction_amount, payment_status, order_id)
-        VALUES (payment_method, transaction_amount, payment_status, order_id_val);
-
-        SET i = i + 1;
-    END WHILE;
-END//
-
 -- Create the procedure for populating sales data
 CREATE PROCEDURE `test`.PopulateSalesData()
 BEGIN
@@ -695,6 +664,39 @@ BEGIN
         -- Insert into sales_data table
         INSERT INTO `test`.`sales_data` (transaction_date, revenue, order_volume)
         VALUES (transaction_date, revenue, order_volume);
+
+        SET i = i + 1;
+    END WHILE;
+END//
+
+-- Create the procedure for populating payment data with sale_id foreign key
+CREATE PROCEDURE `test`.PopulatePaymentData()
+BEGIN
+    DECLARE i INT DEFAULT 0;
+    DECLARE max_records INT DEFAULT 1000;
+    DECLARE payment_method VARCHAR(50);
+    DECLARE transaction_amount DECIMAL(10, 2);
+    DECLARE payment_status VARCHAR(50);
+    DECLARE sale_id_val BIGINT;
+
+    WHILE i < max_records DO
+        -- Generate random payment data
+        SET payment_method = CASE FLOOR(1 + RAND() * 3)
+                                WHEN 1 THEN 'Credit Card'
+                                WHEN 2 THEN 'PayPal'
+                                ELSE 'Bank Transfer'
+                            END;
+        SET transaction_amount = ROUND(10 + RAND() * 1000, 2);
+        SET payment_status = CASE FLOOR(1 + RAND() * 2)
+                                WHEN 1 THEN 'Success'
+                                ELSE 'Failed'
+                             END;
+        -- Fetch a random sale_id from existing sales_data
+        SELECT sale_id INTO sale_id_val FROM `test`.`sales_data` ORDER BY RAND() LIMIT 1;
+
+        -- Insert into payment_data table with sale_id foreign key
+        INSERT INTO `test`.`payment_data` (payment_method, transaction_amount, payment_status, sale_id)
+        VALUES (payment_method, transaction_amount, payment_status, sale_id_val);
 
         SET i = i + 1;
     END WHILE;
@@ -757,9 +759,9 @@ BEGIN
 
 	CALL `test`.PopulateOrderFulfillmentData();
 
-	CALL `test`.PopulatePaymentData();
-
 	CALL `test`.PopulateSalesData();
+
+    CALL `test`.PopulatePaymentData();
 
 	CALL `test`.PopulateReportsSalesData();
 
