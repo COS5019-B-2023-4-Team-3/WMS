@@ -41,7 +41,7 @@ public class ReportService {
                 headerRow.createCell(0).setCellValue(product.getId());
                 headerRow.createCell(1).setCellValue(product.getSkuCode());
                 headerRow.createCell(2).setCellValue(product.getName());
-                headerRow.createCell(3).setCellValue(product.getPrice());
+                headerRow.createCell(3).setCellValue(product.getSellingPrice());
                 headerRow.createCell(4).setCellValue(product.getShelfLife());
             }
 
