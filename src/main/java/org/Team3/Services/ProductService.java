@@ -33,8 +33,8 @@ public class ProductService {
         product.setSkuCode(product.getSkuCode());
         product.setDescription(product.getDescription());
         product.setExpiryDate(product.getExpiryDate());
-        product.setPrice(productDto.getPrice());
-        product.setCost(product.getCost());
+        product.setSellingPrice(productDto.getPrice());
+        product.setUnitCost(product.getUnitCost());
         product.setShelfLife(product.getShelfLife());
         product.setCurrentStockLevel(productDto.getStockLevel());
         product.setMinStockLevel(productDto.getMinStockLevel());
@@ -49,7 +49,7 @@ public class ProductService {
 
         existingProduct.setName(productDto.getName());
         existingProduct.setSkuCode(productDto.getSkuCode());
-        existingProduct.setPrice(productDto.getPrice());
+        existingProduct.setSellingPrice(productDto.getPrice());
         existingProduct.setShelfLife(productDto.getShelfLife());
         existingProduct.setCurrentStockLevel(productDto.getStockLevel());
         existingProduct.setMinStockLevel(productDto.getMinStockLevel());
@@ -69,7 +69,7 @@ public class ProductService {
     public List<Double> getAllProductPrices() {
         List<Double> prices = new ArrayList<>();
         for(Product product: getAllProducts()){
-            prices.add(product.getPrice());
+            prices.add(product.getSellingPrice());
         }
         return prices;
     }
