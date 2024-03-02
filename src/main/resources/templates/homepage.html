@@ -106,6 +106,16 @@
 </script>
 
 
+<!-- Sidebar toggle -->
+<script th:inline="javascript">
+  $(document).ready(function() {
+    $('.toggle-sidebar-btn').click(function() {
+      $('body').toggleClass('toggle-sidebar');
+    });
+  });
+</script>
+
+
 
 
 </body>
