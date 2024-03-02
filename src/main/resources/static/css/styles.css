@@ -118,6 +118,7 @@ h6 {
   padding-left: 20px;
   cursor: pointer;
   color: #012970;
+  margin-left: 80px;
 }
 
 .header-nav {
@@ -194,6 +195,7 @@ header-nav .nav-profile img {
 .logo-img {
     max-height: 100%; /* Ensure the logo doesn't exceed the navbar's height */
     max-width: 100%; /* Ensure the logo doesn't exceed its container's width */
+    margin-right: 80px;
 }
 
 /*--------------------------------------------------------------
