@@ -135,6 +135,7 @@ DROP TABLE IF EXISTS `test`.`reports_sales_data`;
 DROP TABLE IF EXISTS `test`.`sales_data`;
 DROP TABLE IF EXISTS `test`.`payment_data`;
 DROP TABLE IF EXISTS `test`.`users`;
+DROP TABLE IF EXISTS `test`.`recipes`;
 -- Drop other dependent tables here if needed
 
 -- Drop the notification_data table
