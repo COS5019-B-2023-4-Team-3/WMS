@@ -1532,6 +1532,9 @@ table.datatable-table:focus {
 #footer {
   font-size: 14px;
   background: #37517e;
+  text-align: center; /* Center align the content */
+  padding: 20px 0; /* Add padding for better spacing */
+  margin-left: 300px;
 }
 
 #footer .footer-newsletter {
@@ -1688,12 +1691,8 @@ table.datatable-table:focus {
   color: #fff;
 }
 
-#footer .copyright {
-  float: left;
-}
 
 #footer .credits {
-  float: right;
   font-size: 13px;
 }
 
@@ -1702,20 +1701,42 @@ table.datatable-table:focus {
 }
 
 @media (max-width: 768px) {
-  #footer .footer-bottom {
-    padding-top: 20px;
-    padding-bottom: 20px;
+  #footer {
+    padding-top: 10px; /* Adjust padding for smaller screens */
+    padding-bottom: 10px; /* Adjust padding for smaller screens */
   }
+}
 
-  #footer .copyright,
-  #footer .credits {
-    text-align: center;
-    float: none;
-  }
+#footer .copyright,
+#footer .credits {
+  display: block; /* Ensure each element occupies a separate line */
+  color: #fff; /* Set the text color */
+}
 
-  #footer .credits {
-    padding-top: 4px;
-  }
+#footer .credits {
+padding-top: 4px;
+}
+
+#footer .credits a:hover {
+  text-decoration: none; /* Remove underline on hover */
+}
+
+.footer {
+  padding: 20px 0;
+  font-size: 14px;
+  transition: all 0.3s;
+  border-top: 1px solid #cddfff;
+}
+
+.footer .copyright {
+  text-align: center;
+  color: #012970;
+}
+.footer .credits {
+  padding-top: 5px;
+  text-align: center;
+  font-size: 13px;
+  color: #012970;
 }
 
 /*--------------------------------------------------------------
@@ -1847,7 +1868,6 @@ left: -56px !important;
 }
 
 @media (min-width: 1200px) {
-
   #main,
   #footer {
     margin-left: 300px;
@@ -1861,7 +1881,6 @@ left: -56px !important;
 }
 
 @media (min-width: 1200px) {
-
   .toggle-sidebar #main,
   .toggle-sidebar #footer {
     margin-left: 0;

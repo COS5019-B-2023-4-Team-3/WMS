@@ -36,6 +36,9 @@
 
 </main>
 
+<footer th:replace="footer :: footer"></footer>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -115,6 +118,21 @@
   });
 </script>
 
+<!-- back to top button -->
+<script th:inline="javascript">
+  $(document).ready(function() {
+      let backtotop = $('.back-to-top');
+      const toggleBacktotop = () => {
+          if ($(window).scrollTop() > 100) {
+              backtotop.addClass('active');
+          } else {
+              backtotop.removeClass('active');
+          }
+      };
+      $(window).on('load', toggleBacktotop);
+      $(window).on('scroll', toggleBacktotop);
+  });
+</script>
 
 
 
