@@ -28,13 +28,16 @@
 <div sec:authorize="hasAuthority('EXTERNAL')" th:replace="header-vendor :: header"></div>
 <div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
 <div sec:authorize="hasAuthority('EMPLOYEE')" th:replace="sidebar-employee :: sidebar"></div>
-<div sec:authorize="hasAuthority('EXTERNAL')" th:replace="carousel-vendor :: carousel"></div>
+
 
 
 <main sec:authorize="hasAuthority('ADMIN')" th:replace="main-admin :: main" id="main-admin" class="main"></main>
-<main sec:authorize="hasAuthority('EMPLOYEE')" th:replace="main-employee" id="main-employee" class="main"></main>
+<main sec:authorize="hasAuthority('EMPLOYEE')" th:replace="main-employee :: main" id="main-employee" class="main"></main>
+<main sec:authorize="hasAuthority('EXTERNAL')" th:replace="main-vendor :: main" id="main-external" class="main"></main>
 
-<footer th:replace="footer :: footer"></footer>
+<footer sec:authorize="hasAuthority('ADMIN')" th:replace="footer-staff :: footer"></footer>
+<footer sec:authorize="hasAuthority('EMPLOYEE')" th:replace="footer-staff :: footer"></footer>
+<footer sec:authorize="hasAuthority('EXTERNAL')" th:replace="footer-vendor :: footer"></footer>
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- jQuery -->
@@ -53,23 +56,6 @@
 
 <!-- Bootstrap JS -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<!-- Slick Carousel -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-<script th:inline="javascript">
-  $(document).ready(function() {
-    $('.slick-carousel').slick({
-      // Slick Carousel options
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 2000,
-      prevArrow: '<button type="button" class="slick-prev"><i class="fas fa-chevron-left"></i></button>',
-      nextArrow: '<button type="button" class="slick-next"><i class="fas fa-chevron-right"></i></button>',
-      speed: 500
-    });
-  });
-</script>
 
 <!-- Dropdown toggle -->
 <script th:inline="javascript">
@@ -131,8 +117,6 @@
       $(window).on('scroll', toggleBacktotop);
   });
 </script>
-
-
 
 </body>
 </html>
