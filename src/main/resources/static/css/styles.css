@@ -194,9 +194,11 @@ header-nav .nav-profile img {
 
 .logo-img {
     max-height: 100%; /* Ensure the logo doesn't exceed the navbar's height */
-    max-width: 100%; /* Ensure the logo doesn't exceed its container's width */
     margin-right: 80px;
+    width: 200px;
 }
+
+
 
 /*--------------------------------------------------------------
 # Navigation Menu
@@ -499,67 +501,19 @@ header-nav .nav-profile img {
 }
 
 /*--------------------------------------------------------------
-# Slick Carousel Section
+# Carousel Section
 --------------------------------------------------------------*/
+    /* Adjust carousel size */
+    #CarouselIndicators {
+        width: 1040px; /* Set desired width */
+        height: 400px; /* Set desired height */
+    }
 
-/* Custom styles for centering the carousel */
-#slick-carousel-container {
-  display: flex;
-  justify-content: center;
-}
-
-.slick-carousel {
-  width: 80%; /* Adjust the width as needed */
-}
-
-.slick-carousel img {
-width: 100%;
-}
-
-.slick-slide img {
-max-width: 100%;
-max-height: 100%;
-}
-
-/* Custom styles for Font Awesome icons */
-  /* Hide slick arrows */
-  .slick-prev:before,
-  .slick-next:before {
-    content: none !important;
-  }
-
-  /* Style Font Awesome icons */
-  .slick-prev .fa-chevron-left,
-  .slick-next .fa-chevron-right {
-    font-size: 24px;
-    line-height: 1;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 9999;
-    cursor: pointer;
-    color: white; /* White color for the icons */
-    background-color: rgba(0, 0, 0, 0.5); /* Dark gray background with some transparency */
-    border: none;
-    padding: 10px;
-    border-radius: 50%;
-    transition: background-color 0.3s;
-  }
-
-  /* Ensure both arrows are displayed */
-  .slick-prev,
-  .slick-next {
-    display: block !important;
-    z-index: 9999;
-  }
-
-  /* Style Font Awesome icons for both prev and next */
-  .slick-prev .fa-chevron-left {
-    left: 10px;
-  }
-  .slick-next .fa-chevron-right {
-    right: 10px;
-  }
+    /* Adjust image size */
+    #CarouselIndicators .carousel-inner img {
+        max-width: 100%; /* Ensure images resize within carousel */
+        max-height: 100%; /* Ensure images resize within carousel */
+    }
 
 
 
@@ -1534,8 +1488,13 @@ table.datatable-table:focus {
   background: #37517e;
   text-align: center; /* Center align the content */
   padding: 20px 0; /* Add padding for better spacing */
+
+}
+
+.footer-staff {
   margin-left: 300px;
 }
+
 
 #footer .footer-newsletter {
   padding: 50px 0;
@@ -1869,7 +1828,7 @@ left: -56px !important;
 
 @media (min-width: 1200px) {
   #main,
-  #footer {
+  .footer {
     margin-left: 300px;
   }
 }
