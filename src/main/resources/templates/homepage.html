@@ -33,7 +33,7 @@
 
 <main sec:authorize="hasAuthority('ADMIN')" th:replace="main-admin :: main" id="main-admin" class="main"></main>
 <main sec:authorize="hasAuthority('EMPLOYEE')" th:replace="main-employee :: main" id="main-employee" class="main"></main>
-<main sec:authorize="hasAuthority('EXTERNAL')" th:replace="main-vendor :: main" id="main-external" class="main"></main>
+<main sec:authorize="hasAuthority('EXTERNAL')" th:replace="main-vendor :: main" id="main-vendor" class="main"></main>
 
 <footer sec:authorize="hasAuthority('ADMIN')" th:replace="footer-staff :: footer"></footer>
 <footer sec:authorize="hasAuthority('EMPLOYEE')" th:replace="footer-staff :: footer"></footer>
