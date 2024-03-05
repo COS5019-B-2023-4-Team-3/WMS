@@ -15,10 +15,15 @@ import java.io.IOException;
  * that triggers the generation of the product inventory report when accessed.
  */
 @Controller
-@RequestMapping("/reports")
+
 public class ReportController {
     @Autowired
     private ReportService reportService;
+
+    @GetMapping("/reports")
+    public String showPage(){
+        return "reports";
+    }
 
     @GetMapping("/product-inventory")
     public ResponseEntity<String> generateProductInventoryReport(){
