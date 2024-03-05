@@ -18,7 +18,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class SecurityConfigIntegrationTest {
+public class SecurityConfigTest {
 
     @Autowired
     private MockMvc mockMvc;

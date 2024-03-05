@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class HomeControllerIntegrationTest {
+public class HomeControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
