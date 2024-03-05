@@ -27,14 +27,12 @@
 <div sec:authorize="hasAuthority('EMPLOYEE')" th:replace="header-employee :: header"></div>
 <div sec:authorize="hasAuthority('EXTERNAL')" th:replace="header-vendor :: header"></div>
 <div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
+<div sec:authorize="hasAuthority('EMPLOYEE')" th:replace="sidebar-employee :: sidebar"></div>
 <div sec:authorize="hasAuthority('EXTERNAL')" th:replace="carousel-vendor :: carousel"></div>
 
 
-<main sec:authorize="hasAuthority('ADMIN')" th:replace="main-admin :: main" id="main" class="main">
-
-
-
-</main>
+<main sec:authorize="hasAuthority('ADMIN')" th:replace="main-admin :: main" id="main-admin" class="main"></main>
+<main sec:authorize="hasAuthority('EMPLOYEE')" th:replace="main-employee" id="main-employee" class="main"></main>
 
 <footer th:replace="footer :: footer"></footer>
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
