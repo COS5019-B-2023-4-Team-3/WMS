@@ -31,11 +31,11 @@ public class Product {
     @Column(name = "expiry_date")
     private LocalDate expiryDate;
 
-    @Column(name = "product_selling_price")
-    private double price;
+    @Column(name = "selling_price")
+    private double sellingPrice;
 
-    @Column(name = "product_unit_cost")
-    private double cost;
+    @Column(name = "unit_cost")
+    private double unitCost;
 
     @Column(name = "current_stock_level")
     private int currentStockLevel;
@@ -91,20 +91,20 @@ public class Product {
         this.expiryDate = expiryDate;
     }
 
-    public double getPrice() {
-        return price;
+    public double getSellingPrice() {
+        return sellingPrice;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setSellingPrice(double sellingPrice) {
+        this.sellingPrice = sellingPrice;
     }
 
-    public double getCost() {
-        return cost;
+    public double getUnitCost() {
+        return unitCost;
     }
 
-    public void setCost(double cost) {
-        this.cost = cost;
+    public void setUnitCost(double unitCost) {
+        this.unitCost = unitCost;
     }
 
     public int getCurrentStockLevel() {

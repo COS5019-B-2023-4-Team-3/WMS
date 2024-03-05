@@ -130,11 +130,12 @@ SET FOREIGN_KEY_CHECKS = 0;
 
 -- Drop or truncate dependent tables first
 DROP TABLE IF EXISTS `test`.`order_items`;
-DROP TABLE IF EXISTS `test`.`payment_data`;
 DROP TABLE IF EXISTS `test`.`order_fulfillment_data`;
 DROP TABLE IF EXISTS `test`.`reports_sales_data`;
 DROP TABLE IF EXISTS `test`.`sales_data`;
+DROP TABLE IF EXISTS `test`.`payment_data`;
 DROP TABLE IF EXISTS `test`.`users`;
+DROP TABLE IF EXISTS `test`.`recipes`;
 -- Drop other dependent tables here if needed
 
 -- Drop the notification_data table
@@ -193,13 +194,20 @@ CREATE TABLE IF NOT EXISTS `test`.`products` (
     unit_selling_price DECIMAL(10, 2)
 );
 
+CREATE TABLE IF NOT EXISTS `test`.`recipes` (
+    recipe_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    product_id BIGINT,
+    FOREIGN KEY (product_id) REFERENCES `test`.`products`(product_id)
+);
+
+
 CREATE TABLE IF NOT EXISTS `test`.`raw_ingredients` (
     raw_ingredient_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     raw_ingredient_name VARCHAR(255) NOT NULL,
     raw_ingredient_description TEXT,
     raw_ingredient_quantity INT,
-    product_id BIGINT,
-    FOREIGN KEY (product_id) REFERENCES `test`.`products`(product_id)
+    recipe_id BIGINT,
+    FOREIGN KEY (recipe_id) REFERENCES `test`.`recipes`(recipe_id)
 );
 
 CREATE TABLE IF NOT EXISTS `test`.`orders` (
@@ -229,15 +237,6 @@ CREATE TABLE IF NOT EXISTS `test`.`reports` (
     file_path VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS `test`.`payment_data` (
-    payment_id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    payment_method VARCHAR(50),
-    transaction_amount DECIMAL(10, 2),
-    payment_status VARCHAR(50),
-    order_id BIGINT,
-    FOREIGN KEY (order_id) REFERENCES `test`.`orders`(order_id)
-);
-
 CREATE TABLE IF NOT EXISTS `test`.`sales_data` (
     sale_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     transaction_date DATE,
@@ -245,6 +244,16 @@ CREATE TABLE IF NOT EXISTS `test`.`sales_data` (
     order_volume INT,
     order_id BIGINT,
     FOREIGN KEY (order_id) REFERENCES `test`.`orders`(order_id)
+);
+
+-- Updated Payment Data Table
+CREATE TABLE IF NOT EXISTS `test`.`payment_data` (
+    payment_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    payment_method VARCHAR(50),
+    transaction_amount DECIMAL(10, 2),
+    payment_status VARCHAR(50),
+    sale_id BIGINT,
+    FOREIGN KEY (sale_id) REFERENCES `test`.`sales_data`(sale_id)
 );
 
 CREATE TABLE IF NOT EXISTS `test`.`reports_sales_data` (
@@ -264,24 +273,25 @@ CREATE TABLE IF NOT EXISTS `test`.`order_fulfillment_data` (
     FOREIGN KEY (order_id) REFERENCES `test`.`orders`(order_id)
 );
 
+CREATE TABLE IF NOT EXISTS `test`.`alert_data` (
+    alert_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    alert_type VARCHAR(50),
+    alert_message TEXT,
+    alert_timestamp DATETIME,
+    product_id BIGINT,
+    FOREIGN KEY (product_id) REFERENCES `test`.`products`(product_id)
+);
+
 CREATE TABLE IF NOT EXISTS `test`.`notification_data` (
     notification_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     timestamp DATETIME,
     delivery_channel VARCHAR(50),
     message TEXT,
     recipient_information VARCHAR(50),
-    product_id BIGINT,
-    FOREIGN KEY (product_id) REFERENCES `test`.`products`(product_id)
+    alert_id BIGINT,
+    FOREIGN KEY (alert_id) REFERENCES `test`.`alert_data`(alert_id)
 );
 
-CREATE TABLE IF NOT EXISTS `test`.`alert_data` (
-    alert_id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    alert_type VARCHAR(50),
-    alert_message TEXT,
-    alert_timestamp DATETIME,
-    notification_id BIGINT,
-    FOREIGN KEY (notification_id) REFERENCES `test`.`notification_data`(notification_id)
-);
 
 -- Drop the existing procedures if they exist
 DROP PROCEDURE IF EXISTS `test`.PopulateProducts;
@@ -300,6 +310,7 @@ DROP PROCEDURE IF EXISTS `test`.PopulateSalesData;
 DROP PROCEDURE IF EXISTS `test`.PopulateOrderFulfillmentData;
 DROP PROCEDURE IF EXISTS `test`.PopulateReportsSalesData;
 DROP PROCEDURE IF EXISTS `test`.UpdateOrderItems;
+DROP PROCEDURE IF EXISTS `test`.`PopulateRecipes`;
 
 DELIMITER //
 
@@ -349,11 +360,11 @@ BEGIN
         SET @raw_ingredient_quantity = ROUND(10 + RAND() * 1000, 2);
 
         -- Select a random product_id from the products table
-        SELECT product_id INTO @product_id FROM `test`.`products` ORDER BY RAND() LIMIT 1;
+        SELECT recipe_id INTO @recipe_id FROM `test`.`recipes` ORDER BY RAND() LIMIT 1;
 
         -- Insert into table
-        INSERT INTO `test`.`raw_ingredients` (raw_ingredient_name, raw_ingredient_description, raw_ingredient_quantity, product_id)
-        VALUES (@raw_ingredient_name, @raw_ingredient_description, @raw_ingredient_quantity, @product_id);
+        INSERT INTO `test`.`raw_ingredients` (raw_ingredient_name, raw_ingredient_description, raw_ingredient_quantity, recipe_id)
+        VALUES (@raw_ingredient_name, @raw_ingredient_description, @raw_ingredient_quantity, @recipe_id);
 
         SET i = i + 1;
     END WHILE;
@@ -463,7 +474,7 @@ DELIMITER //
 CREATE PROCEDURE `test`.PopulateOrderItems()
 BEGIN
     DECLARE i INT DEFAULT 0;
-    DECLARE max_orders INT DEFAULT 100;
+    DECLARE max_orders INT DEFAULT 1000;
     DECLARE product_count INT;
     DECLARE order_id_val INT;
     DECLARE product_id_val INT;
@@ -541,8 +552,46 @@ END//
 
 
 
--- Create the PopulateNotificationData procedure
 CREATE PROCEDURE `test`.PopulateNotificationData()
+BEGIN
+    DECLARE i INT DEFAULT 0;
+    DECLARE max_records INT DEFAULT 1000;
+    DECLARE alert_count INT;
+    DECLARE alert_id_val INT;
+
+    -- Get count of alerts
+    SELECT COUNT(*) INTO alert_count FROM `test`.`alert_data`;
+
+    WHILE i < max_records DO
+        -- Randomly select an alert_id from the alert_data table
+        SET alert_id_val = FLOOR(1 + RAND() * alert_count);
+
+        -- Generate random timestamp
+        SET @timestamp = CURRENT_TIMESTAMP();
+
+        -- Generate random delivery_channel
+        SET @delivery_channel = CASE FLOOR(1 + RAND() * 3)
+                                    WHEN 1 THEN 'Email'
+                                    WHEN 2 THEN 'SMS'
+                                    ELSE 'App Notification'
+                                END;
+
+        -- Generate random message
+        SET @message = CONCAT('Notification message ', i);
+
+        -- Generate random recipient_information
+        SET @recipient_information = CONCAT('Recipient info ', i);
+
+        -- Insert into notification_data table
+        INSERT INTO `test`.`notification_data` (timestamp, delivery_channel, message, recipient_information, alert_id)
+        VALUES (@timestamp, @delivery_channel, @message, @recipient_information, alert_id_val);
+
+        SET i = i + 1;
+    END WHILE;
+END //
+
+-- Create the PopulateAlertData procedure
+CREATE PROCEDURE `test`.PopulateAlertData()
 BEGIN
     DECLARE i INT DEFAULT 0;
     DECLARE max_records INT DEFAULT 1000;
@@ -556,45 +605,6 @@ BEGIN
         -- Randomly select a product_id from the products table
         SET product_id_val = FLOOR(1 + RAND() * product_count);
 
-        -- Generate random timestamp
-        SET @timestamp = CURRENT_TIMESTAMP();
-
-        -- Generate random delivery_channel
-        SET @delivery_channel = CASE FLOOR(1 + RAND() * 3)
-                                    WHEN 1 THEN 'Email'
-                                    WHEN 2 THEN 'SMS'
-                                    ELSE 'App Notification'
-                                END;
-
-        -- Generate random message
-        SET @message = CONCAT('Notification message for product ', product_id_val);
-
-        -- Generate random recipient_information
-        SET @recipient_information = CONCAT('Recipient info for product ', product_id_val);
-
-        -- Insert into notification_data table
-        INSERT INTO `test`.`notification_data` (timestamp, delivery_channel, message, recipient_information, product_id)
-        VALUES (@timestamp, @delivery_channel, @message, @recipient_information, product_id_val);
-
-        SET i = i + 1;
-    END WHILE;
-END//
-
--- Create the PopulateAlertData procedure
-CREATE PROCEDURE `test`.PopulateAlertData()
-BEGIN
-    DECLARE i INT DEFAULT 0;
-    DECLARE max_records INT DEFAULT 1000;
-    DECLARE notification_count INT;
-    DECLARE notification_id_val INT;
-
-    -- Get count of notification_data
-    SELECT COUNT(*) INTO notification_count FROM `test`.`notification_data`;
-
-    WHILE i < max_records DO
-        -- Randomly select a notification_id from the notification_data table
-        SET notification_id_val = FLOOR(1 + RAND() * notification_count);
-
         -- Generate random alert_type
         SET @alert_type = CASE FLOOR(1 + RAND() * 3)
                                 WHEN 1 THEN 'Warning'
@@ -603,14 +613,14 @@ BEGIN
                             END;
 
         -- Generate random alert_message
-        SET @alert_message = CONCAT('Alert message for notification ', notification_id_val);
+        SET @alert_message = CONCAT('Alert message for product ', product_id_val);
 
         -- Generate random alert_timestamp
         SET @alert_timestamp = CURRENT_TIMESTAMP();
 
         -- Insert into alert_data table
-        INSERT INTO `test`.`alert_data` (alert_type, alert_message, alert_timestamp, notification_id)
-        VALUES (@alert_type, @alert_message, @alert_timestamp, notification_id_val);
+        INSERT INTO `test`.`alert_data` (alert_type, alert_message, alert_timestamp, product_id)
+        VALUES (@alert_type, @alert_message, @alert_timestamp, product_id_val);
 
         SET i = i + 1;
     END WHILE;
@@ -645,7 +655,70 @@ BEGIN
     END WHILE;
 END//
 
--- Create the procedure for populating payment data
+-- Create the procedure for populating sales data
+CREATE PROCEDURE `test`.PopulateSalesData()
+BEGIN
+    DECLARE i INT DEFAULT 0;
+    DECLARE max_records INT DEFAULT 1000;
+    DECLARE transaction_date DATE;
+    DECLARE revenue DECIMAL(10, 2);
+    DECLARE order_volume INT;
+    DECLARE order_id_val BIGINT;
+
+    WHILE i < max_records DO
+        -- Generate random sales data
+        SET transaction_date = NOW() - INTERVAL FLOOR(1 + RAND() * 365) DAY;
+
+        -- Randomly select an order_id from the orders table
+        SELECT order_id INTO order_id_val FROM `test`.`orders` ORDER BY RAND() LIMIT 1;
+
+        -- Initialize order_volume and revenue to 0 to enter the loop
+        SET order_volume = 0;
+        SET revenue = 0;
+
+        -- Calculate order_volume and revenue
+        SELECT SUM(item_profit), COUNT(*) INTO revenue, order_volume FROM `test`.`order_items` WHERE order_id = order_id_val;
+
+        -- Loop until a non-zero order_volume is obtained
+        WHILE order_volume = 0 DO
+            -- If order_volume is 0, select another random order_id
+            IF order_volume = 0 THEN
+                SELECT order_id INTO order_id_val FROM `test`.`orders` ORDER BY RAND() LIMIT 1;
+
+                -- Recalculate order_volume and revenue
+                SELECT SUM(item_profit), COUNT(*) INTO revenue, order_volume FROM `test`.`order_items` WHERE order_id = order_id_val;
+            END IF;
+        END WHILE;
+
+        -- Insert into sales_data table with order_id foreign key and calculated order_volume and revenue
+        INSERT INTO `test`.`sales_data` (transaction_date, revenue, order_volume, order_id)
+        VALUES (transaction_date, revenue, order_volume, order_id_val);
+
+        SET i = i + 1;
+    END WHILE;
+END//
+
+-- Create the procedure to populate recipes
+CREATE PROCEDURE `test`.PopulateRecipes()
+BEGIN
+    DECLARE i INT DEFAULT 0;
+    DECLARE max_records INT DEFAULT 100;
+    DECLARE product_id_val INT;
+
+    WHILE i < max_records DO
+        -- Generate random product_id
+        SET product_id_val = FLOOR(1 + RAND() * 100); -- Adjust the range as per your actual product_id range
+
+        -- Insert into recipes table with product_id foreign key
+        INSERT INTO `test`.`recipes` (product_id)
+        VALUES (product_id_val);
+
+        SET i = i + 1;
+    END WHILE;
+END//
+DELIMITER //
+
+-- Create the procedure for populating payment data with sale_id foreign key
 CREATE PROCEDURE `test`.PopulatePaymentData()
 BEGIN
     DECLARE i INT DEFAULT 0;
@@ -653,7 +726,7 @@ BEGIN
     DECLARE payment_method VARCHAR(50);
     DECLARE transaction_amount DECIMAL(10, 2);
     DECLARE payment_status VARCHAR(50);
-    DECLARE order_id_val BIGINT;
+    DECLARE sale_id_val BIGINT;
 
     WHILE i < max_records DO
         -- Generate random payment data
@@ -663,38 +736,17 @@ BEGIN
                                 ELSE 'Bank Transfer'
                             END;
         SET transaction_amount = ROUND(10 + RAND() * 1000, 2);
-        SET payment_status = CASE FLOOR(1 + RAND() * 2)
+        SET payment_status = CASE FLOOR(1 + RAND() * 3)
                                 WHEN 1 THEN 'Success'
+                                WHEN 2 THEN 'Pending'
                                 ELSE 'Failed'
                              END;
-        SET order_id_val = FLOOR(1 + RAND() * 1000); -- Assuming order_id exists in orders table
+        -- Fetch a random sale_id from existing sales_data
+        SELECT sale_id INTO sale_id_val FROM `test`.`sales_data` ORDER BY RAND() LIMIT 1;
 
-        -- Insert into payment_data table
-        INSERT INTO `test`.`payment_data` (payment_method, transaction_amount, payment_status, order_id)
-        VALUES (payment_method, transaction_amount, payment_status, order_id_val);
-
-        SET i = i + 1;
-    END WHILE;
-END//
-
--- Create the procedure for populating sales data
-CREATE PROCEDURE `test`.PopulateSalesData()
-BEGIN
-    DECLARE i INT DEFAULT 0;
-    DECLARE max_records INT DEFAULT 1000;
-    DECLARE transaction_date DATE;
-    DECLARE revenue DECIMAL(10, 2);
-    DECLARE order_volume INT;
-
-    WHILE i < max_records DO
-        -- Generate random sales data
-        SET transaction_date = NOW() - INTERVAL FLOOR(1 + RAND() * 365) DAY;
-        SET revenue = ROUND(1000 + RAND() * 5000, 2);
-        SET order_volume = FLOOR(10 + RAND() * 100);
-
-        -- Insert into sales_data table
-        INSERT INTO `test`.`sales_data` (transaction_date, revenue, order_volume)
-        VALUES (transaction_date, revenue, order_volume);
+        -- Insert into payment_data table with sale_id foreign key
+        INSERT INTO `test`.`payment_data` (payment_method, transaction_amount, payment_status, sale_id)
+        VALUES (payment_method, transaction_amount, payment_status, sale_id_val);
 
         SET i = i + 1;
     END WHILE;
@@ -727,6 +779,8 @@ BEGIN
     END WHILE;
 END//
 
+
+
 CREATE PROCEDURE `test`.PopulateTestTables()
 BEGIN
 
@@ -735,6 +789,8 @@ BEGIN
 
 	-- Call PopulateProducts
 	CALL `test`.PopulateProducts();
+
+    CALL `test`.PopulateRecipes();
 
 	-- Call PopulateRawMaterials
 	CALL `test`.PopulateRawIngredients();
@@ -751,15 +807,15 @@ BEGIN
 
 	CALL `test`.PopulateOrderItems();
 
-	CALL `test`.PopulateNotificationData();
+    CALL `test`.PopulateAlertData();
 
-	CALL `test`.PopulateAlertData();
+	CALL `test`.PopulateNotificationData();
 
 	CALL `test`.PopulateOrderFulfillmentData();
 
-	CALL `test`.PopulatePaymentData();
-
 	CALL `test`.PopulateSalesData();
+
+    CALL `test`.PopulatePaymentData();
 
 	CALL `test`.PopulateReportsSalesData();
 

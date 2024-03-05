@@ -2,6 +2,8 @@ package org.Team3.Controllers;
 
 import org.Team3.Entities.User;
 import org.Team3.Services.UserService;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -20,6 +22,24 @@ public class RegisterControllerIntegrationTest {
     @Autowired
     private UserService userService;
 
+    private final String email = "newuser@example.com";
+
+    @BeforeEach
+    public void setup(){
+        // Check if user exists and remove if found
+        if (userService.userExists(email)) {
+            User user = null;
+            for(User tmp: userService.getAllUsers()){
+                if(tmp.getUsername().equals(email)){
+                    user = tmp;
+                    break;
+                }
+            }
+            assert user != null;
+            userService.deleteUser(user.getId());
+        }
+    }
+
     @Test
     public void testShowSignupForm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/register"))
@@ -29,18 +49,7 @@ public class RegisterControllerIntegrationTest {
 
     @Test
     public void testRegisterUser_Success() throws Exception {
-        // Check if user exists and remove if found
-        String email = "newuser@example.com";
-        if (userService.userExists(email)) {
-            User user = null;
-            for(User tmp: userService.getAllUsers()){
-                if(tmp.getUsername().equals(email)){
-                    user = tmp;
-                    break;
-                }
-            }
-            userService.deleteUser(user.getId());
-        }
+
 
         // Register the new user
         mockMvc.perform(MockMvcRequestBuilders.post("/register")
@@ -58,5 +67,21 @@ public class RegisterControllerIntegrationTest {
                         .param("password", "test"))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/register?error=username_already_exists"));
+    }
+
+    @AfterEach
+    public void tearDown(){
+        //delete the user again
+        if (userService.userExists(email)) {
+            User user = null;
+            for(User tmp: userService.getAllUsers()){
+                if(tmp.getUsername().equals(email)){
+                    user = tmp;
+                    break;
+                }
+            }
+            assert user != null;
+            userService.deleteUser(user.getId());
+        }
     }
 }

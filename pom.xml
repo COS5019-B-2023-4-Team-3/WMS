@@ -146,6 +146,12 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Selenium WebDriver -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.1.0</version>
+        </dependency>
 
     </dependencies>
 
