@@ -57,66 +57,9 @@
 <!-- Bootstrap JS -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<!-- Dropdown toggle -->
-<script th:inline="javascript">
-  $(document).ready(function() {
-      // Hide dropdown menus by default
-      $('.dropdown-menu').hide();
-
-      // Delegated event handling for dropdown toggle
-      $(document).on('click', '.nav-link.nav-icon', function(e) {
-          e.preventDefault();
-          var dropdownMenuClass = $(this).attr('data-dropdown-menu-class');
-          // Hide all dropdown menus except the one that corresponds to the clicked icon
-          $('.dropdown-menu').not('.' + dropdownMenuClass).hide();
-          // Toggle visibility of the dropdown menu
-          $(this).closest('.dropdown').find('.dropdown-menu').toggle();
-      });
-
-      // Event handling for profile dropdown toggle
-      $(document).on('click', '.nav-link.nav-profile', function(e) {
-          e.preventDefault();
-          var dropdownMenuClass = $(this).attr('data-dropdown-menu-class');
-          // Hide all dropdown menus except the one that corresponds to the clicked icon
-          $('.dropdown-menu').not('.' + dropdownMenuClass).hide();
-          // Toggle visibility of the profile dropdown menu
-          $(this).closest('.dropdown').find('.dropdown-menu').toggle();
-      });
-
-      // Close dropdown when clicking outside of it
-      $(document).click(function(e) {
-          if (!$(e.target).closest('.dropdown').length) {
-              $('.dropdown-menu').hide();
-          }
-      });
-  });
-</script>
-
-
-<!-- Sidebar toggle -->
-<script th:inline="javascript">
-  $(document).ready(function() {
-    $('.toggle-sidebar-btn').click(function() {
-      $('body').toggleClass('toggle-sidebar');
-    });
-  });
-</script>
-
-<!-- back to top button -->
-<script th:inline="javascript">
-  $(document).ready(function() {
-      let backtotop = $('.back-to-top');
-      const toggleBacktotop = () => {
-          if ($(window).scrollTop() > 100) {
-              backtotop.addClass('active');
-          } else {
-              backtotop.removeClass('active');
-          }
-      };
-      $(window).on('load', toggleBacktotop);
-      $(window).on('scroll', toggleBacktotop);
-  });
-</script>
+<script src="/js/dropdown.js"></script>
+<script src="/js/sidebar_toggle.js"></script>
+<script src="/js/back_to_top.js"></script>
 
 </body>
 </html>
