@@ -543,7 +543,7 @@ BEGIN
 
     -- Insert into users table for employee
     INSERT INTO `test`.`users` (username, password, role_id)
-    VALUES ('test_employee_1', '420c23872305988507ab80a1213a23bb43ade60e9773de1d9a062c7f656132c3280a8b3d040ef380', 2);
+    VALUES ('test_employee', '420c23872305988507ab80a1213a23bb43ade60e9773de1d9a062c7f656132c3280a8b3d040ef380', 2);
 
     -- Insert into users table for admin
     INSERT INTO `test`.`users` (username, password, role_id)
