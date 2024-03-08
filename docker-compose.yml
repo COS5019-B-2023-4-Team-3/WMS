@@ -5,7 +5,7 @@ services:
     image: mysql:latest
     restart: always
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "true" # Set MYSQL_ALLOW_EMPTY_PASSWORD to true
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
       MYSQL_ROOT_PASSWORD: ""
       MYSQL_DATABASE: "test"
 
@@ -35,3 +35,32 @@ services:
     depends_on:
       - mysql
       - apache
+
+  selenium-hub:
+    image: selenium/hub:latest
+    container_name: selenium-hub
+    ports:
+      - "4444:4444"
+    environment:
+      - SE_EVENT_BUS_PUBLISH_PORT=5555
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=5556
+
+  selenium-node-firefox:
+    image: selenium/node-firefox:latest
+    container_name: selenium-node-firefox
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=5555
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=5556
+
+  selenium-node-chrome:
+    image: selenium/node-chrome:latest
+    container_name: selenium-node-chrome
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=5555
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=5556
