@@ -1,0 +1,66 @@
+# Use a base image with Ubuntu
+FROM ubuntu:latest
+
+# Set non-interactive mode
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install necessary dependencies
+RUN apt-get update && \
+    apt-get install -y \
+    openjdk-17-jdk \
+    maven \
+    wget \
+    unzip \
+    firefox \
+    chromium-browser \
+    xvfb \
+    xorg \
+    dbus \
+    dbus-x11 \
+    libdbus-glib-1-2 \
+    libxt6 \
+    libnss3 \
+    libglib2.0-0 \
+    libx11-xcb-dev \
+    libxcb1-dev \
+    libxcb-dri3-dev \
+    libx11-dev \
+    libgl1-mesa-glx \
+    libatk-bridge2.0-0 \
+    libatk1.0-0 \
+    libgdk-pixbuf2.0-0 \
+    libgtk-3-0 \
+    libgbm-dev \
+    libasound2
+
+# Set up Gecko WebDriver (Firefox)
+RUN wget -O geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz && \
+    tar -xvzf geckodriver.tar.gz && \
+    chmod +x geckodriver && \
+    mv geckodriver /usr/local/bin/
+
+# Set up Chrome WebDriver
+RUN wget -O chromedriver.zip https://chromedriver.storage.googleapis.com/98.0.4758.102/chromedriver_linux64.zip && \
+    unzip chromedriver.zip && \
+    chmod +x chromedriver && \
+    mv chromedriver /usr/local/bin/
+
+# Set up Edge WebDriver
+RUN wget -O edgedriver.zip https://msedgedriver.azureedge.net/98.0.1108.43/edgedriver_linux64.zip && \
+    unzip edgedriver.zip && \
+    chmod +x msedgedriver && \
+    mv msedgedriver /usr/local/bin/
+
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the Maven project files
+COPY pom.xml .
+COPY src ./src
+
+# Build the application with Maven
+RUN mvn clean package -DskipTests
+
+# Command to run the Selenium tests with SE_EVENT_BUS_HOST environment variable set
+CMD ["bash", "-c", "export SE_EVENT_BUS_HOST=selenium-hub && mvn test"]
