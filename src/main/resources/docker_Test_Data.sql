@@ -153,6 +153,7 @@ DROP TABLE IF EXISTS `test`.`reports`;
 DROP TABLE IF EXISTS `test`.`products`;
 DROP TABLE IF EXISTS `test`.`alert_data`;
 DROP TABLE IF EXISTS `test`.`roles`;
+DROP TABLE IF EXISTS `test`.`raw_materials`;
 
 -- Enable foreign key checks
 SET FOREIGN_KEY_CHECKS = 1;
