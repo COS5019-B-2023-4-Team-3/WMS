@@ -25,17 +25,6 @@ services:
     volumes:
       - ./apache-config/httpd.conf:/opt/lampp/apache2/conf/httpd.conf
 
-  spring-boot:
-    image: wms:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8081:8080"
-    depends_on:
-      - mysql
-      - apache
-
   selenium-hub:
     image: selenium/hub:latest
     container_name: selenium-hub
@@ -54,6 +43,7 @@ services:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=5555
       - SE_EVENT_BUS_SUBSCRIBE_PORT=5556
+    entrypoint: ["/bin/bash", "-c", "sleep 30 && /opt/bin/entry_point.sh"]
 
   selenium-node-chrome:
     image: selenium/node-chrome:latest
@@ -64,3 +54,18 @@ services:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=5555
       - SE_EVENT_BUS_SUBSCRIBE_PORT=5556
+    entrypoint: ["/bin/bash", "-c", "sleep 30 && /opt/bin/entry_point.sh"]
+
+  spring-boot:
+    image: wms:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    depends_on:
+      - mysql
+      - apache
+      - selenium-hub
+      - selenium-node-chrome
+      - selenium-node-firefox
