@@ -4,7 +4,7 @@ FROM ubuntu:latest
 # Set non-interactive mode
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install necessary dependencies
+# Install necessary dependencies for Selenium testing
 RUN apt-get update && \
     apt-get install -y \
     openjdk-17-jdk \
@@ -51,7 +51,6 @@ RUN wget -O edgedriver.zip https://msedgedriver.azureedge.net/98.0.1108.43/edged
     chmod +x msedgedriver && \
     mv msedgedriver /usr/local/bin/
 
-
 # Set the working directory in the container
 WORKDIR /app
 
@@ -59,7 +58,7 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 
-# Build the application with Maven
+# Build the application with Maven, skipping tests
 RUN mvn clean package -DskipTests
 
 # Command to run the Selenium tests with SE_EVENT_BUS_HOST environment variable set
