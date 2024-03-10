@@ -21,5 +21,11 @@ FROM openjdk:17-jdk-slim
 # Copy the built Spring Boot application JAR file from the builder stage to the container
 COPY --from=builder /app/target/E-Pro-1.0-SNAPSHOT.jar /app/E-Pro-1.0-SNAPSHOT.jar
 
-# Command to run the Spring Boot application
-CMD ["java", "-jar", "/app/E-Pro-1.0-SNAPSHOT.jar"]
+# Install dockerize
+RUN apt-get update && apt-get install -y wget && \
+    wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz && \
+    tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz && \
+    rm dockerize-linux-amd64-v0.6.1.tar.gz
+
+# Command to run the Spring Boot application after waiting for MySQL server
+CMD ["dockerize", "-wait", "tcp://mysql:3306", "-timeout", "60s", "java", "-jar", "/app/E-Pro-1.0-SNAPSHOT.jar"]
