@@ -8,6 +8,11 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
       MYSQL_ROOT_PASSWORD: ""
       MYSQL_DATABASE: "test"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -64,8 +69,12 @@ services:
     ports:
       - "8081:8080"
     depends_on:
-      - mysql
       - apache
       - selenium-hub
       - selenium-node-chrome
       - selenium-node-firefox
+    healthcheck:
+      test: ["CMD", "curl", "--silent", "--fail", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
