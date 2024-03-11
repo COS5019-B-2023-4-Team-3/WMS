@@ -33,6 +33,9 @@ services:
   selenium-hub:
     image: selenium/hub:latest
     container_name: selenium-hub
+    build:
+      context: .
+      dockerfile: /dockerfiles/Dockerfile.selenium
     ports:
       - "4444:4444"
     environment:
@@ -48,7 +51,12 @@ services:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=5555
       - SE_EVENT_BUS_SUBSCRIBE_PORT=5556
-    entrypoint: ["/bin/bash", "-c", "sleep 30 && /opt/bin/entry_point.sh"]
+    entrypoint: ["/opt/bin/entry_point.sh"]
+    healthcheck:
+      test: ["CMD", "nc", "-z", "selenium-hub", "4444"]
+      interval: 10s
+      retries: 3
+
 
   selenium-node-chrome:
     image: selenium/node-chrome:latest
@@ -59,7 +67,11 @@ services:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=5555
       - SE_EVENT_BUS_SUBSCRIBE_PORT=5556
-    entrypoint: ["/bin/bash", "-c", "sleep 30 && /opt/bin/entry_point.sh"]
+    entrypoint: ["/opt/bin/entry_point.sh"]
+    healthcheck:
+      test: ["CMD", "nc", "-z", "selenium-hub", "4444"]
+      interval: 10s
+      retries: 3
 
   spring-boot:
     image: wms:latest
