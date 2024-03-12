@@ -22,6 +22,13 @@ services:
     environment:
       PMA_HOST: mysql
       MYSQL_ROOT_PASSWORD: ""
+    depends_on:
+      - mysql
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:80"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   apache:
     image: httpd:latest
@@ -33,48 +40,19 @@ services:
   selenium-hub:
     image: selenium/hub:latest
     container_name: selenium-hub
-    build:
-      context: .
-      dockerfile: /dockerfiles/Dockerfile.selenium
     ports:
+      - "4442:4442"
+      - "4443:4443"
       - "4444:4444"
-    environment:
-      - SE_EVENT_BUS_PUBLISH_PORT=5555
-      - SE_EVENT_BUS_SUBSCRIBE_PORT=5556
-
-  selenium-node-firefox:
-    image: selenium/node-firefox:latest
-    container_name: selenium-node-firefox
-    depends_on:
-      - selenium-hub
-    environment:
-      - SE_EVENT_BUS_HOST=selenium-hub
-      - SE_EVENT_BUS_PUBLISH_PORT=5555
-      - SE_EVENT_BUS_SUBSCRIBE_PORT=5556
-    entrypoint: ["/opt/bin/entry_point.sh"]
     healthcheck:
-      test: ["CMD", "nc", "-z", "selenium-hub", "4444"]
+      test: ["CMD", "curl", "--silent", "--fail", "http://localhost:4444"]
       interval: 10s
-      retries: 3
-
-
-  selenium-node-chrome:
-    image: selenium/node-chrome:latest
-    container_name: selenium-node-chrome
-    depends_on:
-      - selenium-hub
-    environment:
-      - SE_EVENT_BUS_HOST=selenium-hub
-      - SE_EVENT_BUS_PUBLISH_PORT=5555
-      - SE_EVENT_BUS_SUBSCRIBE_PORT=5556
-    entrypoint: ["/opt/bin/entry_point.sh"]
-    healthcheck:
-      test: ["CMD", "nc", "-z", "selenium-hub", "4444"]
-      interval: 10s
+      timeout: 5s
       retries: 3
 
   spring-boot:
-    image: wms:latest
+    image: wms
+    container_name: wms-spring-boot
     build:
       context: .
       dockerfile: Dockerfile
@@ -82,11 +60,64 @@ services:
       - "8081:8080"
     depends_on:
       - apache
-      - selenium-hub
-      - selenium-node-chrome
-      - selenium-node-firefox
     healthcheck:
       test: ["CMD", "curl", "--silent", "--fail", "http://localhost:8080/actuator/health"]
       interval: 10s
       timeout: 5s
       retries: 3
+
+  selenium-node-chrome:
+    image: selenium/node-chrome:latest
+    container_name: selenium-node-chrome
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    ports:
+      - "7901:7900"
+    healthcheck:
+      test: [ "CMD", "curl", "--silent", "--fail", "http://localhost:7900" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  selenium-node-firefox:
+    image: selenium/node-firefox:latest
+    container_name: selenium-node-firefox
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    ports:
+      - "7902:7900"
+    healthcheck:
+      test: [ "CMD", "curl", "--silent", "--fail", "http://localhost:7900" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  selenium-node-edge:
+    image: selenium/node-edge:latest
+    container_name: selenium-node-edge
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    ports:
+      - "7903:7900"
+    healthcheck:
+      test: [ "CMD", "curl", "--silent", "--fail", "http://localhost:7900" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+
