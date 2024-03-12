@@ -12,11 +12,14 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 
-# Build the application with Maven
-RUN mvn clean package -X
+# Build a release artifact.
+RUN mvn clean package -DskipTests
 
 # Use a base image with OpenJDK 17 for the application runtime
 FROM openjdk:17-jdk-slim
+
+# Set the working directory in the container
+WORKDIR /app
 
 # Copy the built Spring Boot application JAR file from the builder stage to the container
 COPY --from=builder /app/target/E-Pro-1.0-SNAPSHOT.jar /app/E-Pro-1.0-SNAPSHOT.jar
