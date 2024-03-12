@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +12,9 @@
 <!-- Include any necessary JavaScript files here -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></div>
-<main sec:authorize="hasAuthority('ADMIN')" th:replace="main-admin :: main" id="main-admin" class="main"></main>
+<div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
+<!--<main sec:authorize="hasAuthority('ADMIN')" th:replace="main-admin :: main" id="main-admin" class="main"></main>-->
 <footer sec:authorize="hasAuthority('ADMIN')" th:replace="footer-staff :: footer"></footer>
+<script th:inline="javascript"></script>
 </body>
 </html>
