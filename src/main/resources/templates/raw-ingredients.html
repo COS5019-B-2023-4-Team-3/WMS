@@ -10,5 +10,9 @@
 <body>
 <h1>Raw Materials</h1>
 <!-- Include any necessary JavaScript files here -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<div sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></div>
+<main sec:authorize="hasAuthority('ADMIN')" th:replace="main-admin :: main" id="main-admin" class="main"></main>
+<footer sec:authorize="hasAuthority('ADMIN')" th:replace="footer-staff :: footer"></footer>
 </body>
 </html>
