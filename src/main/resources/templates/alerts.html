@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Alerts</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<div sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></div>
+<div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
+
+<main th:replace="main-alerts :: main"></main>
+
+<footer sec:authorize="hasAuthority('ADMIN')" th:replace="footer-staff :: footer"></footer>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="/js/dropdown.js"></script>
+<script src="/js/sidebar_toggle.js"></script>
+<script src="/js/back_to_top.js"></script>
+</body>
+</html>
