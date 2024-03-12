@@ -1,0 +1,36 @@
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 5 columns in the grid */
+    gap: 20px; /* Gap between grid items */
+}
+
+.product-box {
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+.product-box .product {
+    text-align: center;
+}
+
+.product-box img {
+    max-width: 100%;
+    height: auto;
+}
+
+.product-box h3 {
+    margin-top: 10px;
+}
+
+.product-box button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.product-box button:hover {
+    background-color: #0056b3;
+}
