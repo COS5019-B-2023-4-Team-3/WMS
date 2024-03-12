@@ -1,6 +1,8 @@
 package org.Team3.Controllers;
 
-import org.Team3.Services.ReportService;
+import
+
+        org.Team3.Services.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +17,15 @@ import java.io.IOException;
  * that triggers the generation of the product inventory report when accessed.
  */
 @Controller
-@RequestMapping("/reports")
+
 public class ReportController {
     @Autowired
     private ReportService reportService;
+
+    @GetMapping("/reports")
+    public String showPage(){
+        return "reports";
+    }
 
     @GetMapping("/product-inventory")
     public ResponseEntity<String> generateProductInventoryReport(){
