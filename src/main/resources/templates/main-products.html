@@ -34,7 +34,26 @@
                     <img src="/static/img/product-4.jpg" alt="Product 1">
                     <h3>Product 1</h3>
                     <p>Description of Product 1</p>
-                    <button class="view-btn">View Product</button>
+<!--                    <button class="view-btn">View Product</button>-->
+                    <!-- Button to open the modal for Product 1 -->
+                    <button class="view-product-btn" data-modal="productModal1">View Product</button>
+                    <!-- Modal for Product 1 -->
+                    <div id="productModal1" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <div class="product-details">
+                                <img src="/static/img/product-4.jpg" alt="Product 1">
+                                <div class="text-details">
+                                    <h2>Product 1</h2>
+                                    <p>Product Description</p>
+                                    <div class="action-buttons">
+                                        <button class="edit-product-btn">Edit Product</button>
+                                        <button class="delete-product-btn">Delete Product</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="product-box">
@@ -97,5 +116,35 @@
         </div>
     </div>
 </main>
+<script>
+    // Get all elements with class "view-product-btn"
+var buttons = document.querySelectorAll(".view-product-btn");
+
+// Loop through each button and add a click event listener
+buttons.forEach(function(button) {
+  button.addEventListener("click", function() {
+    // Get the modal ID from the "data-modal" attribute of the clicked button
+    var modalId = button.getAttribute("data-modal");
+    // Get the modal element using its ID
+    var modal = document.getElementById(modalId);
+    // Display the modal
+    modal.style.display = "block";
+  });
+});
+
+// Get all elements with class "close"
+var closeButtons = document.querySelectorAll(".close");
+
+// Loop through each close button and add a click event listener
+closeButtons.forEach(function(closeButton) {
+  closeButton.addEventListener("click", function() {
+    // Get the parent modal element
+    var modal = closeButton.closest(".modal");
+    // Close the modal
+    modal.style.display = "none";
+  });
+});
+
+</script>
 </body>
 </html>
