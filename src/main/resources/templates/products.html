@@ -21,24 +21,16 @@
     <link href=" https://cdn.jsdelivr.net/npm/tinymce@6.8.3/skins/ui/oxide/content.min.css " rel="stylesheet">
 
     <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
+
 </head>
 <body th:fragment="body">
 
 <div sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></div>
-<div sec:authorize="hasAuthority('EMPLOYEE')" th:replace="header-employee :: header"></div>
-<div sec:authorize="hasAuthority('EXTERNAL')" th:replace="header-vendor :: header"></div>
 <div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
-<div sec:authorize="hasAuthority('EMPLOYEE')" th:replace="sidebar-employee :: sidebar"></div>
-
-
 
 <main sec:authorize="hasAuthority('ADMIN')" th:replace="main-products :: main" id="main-products" class="main"></main>
-<main sec:authorize="hasAuthority('EMPLOYEE')" th:replace="main-employee :: main" id="main-employee" class="main"></main>
-<main sec:authorize="hasAuthority('EXTERNAL')" th:replace="main-vendor :: main" id="main-vendor" class="main"></main>
 
 <footer sec:authorize="hasAuthority('ADMIN')" th:replace="footer-staff :: footer"></footer>
-<footer sec:authorize="hasAuthority('EMPLOYEE')" th:replace="footer-staff :: footer"></footer>
-<footer sec:authorize="hasAuthority('EXTERNAL')" th:replace="footer-vendor :: footer"></footer>
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- jQuery -->
@@ -61,6 +53,37 @@
 <script src="/js/dropdown.js"></script>
 <script src="/js/sidebar_toggle.js"></script>
 <script src="/js/back_to_top.js"></script>
+
+<script>
+    // Get all elements with class "view-product-btn"
+var buttons = document.querySelectorAll(".view-product-btn");
+
+// Loop through each button and add a click event listener
+buttons.forEach(function(button) {
+  button.addEventListener("click", function() {
+    // Get the modal ID from the "data-modal" attribute of the clicked button
+    var modalId = button.getAttribute("data-modal");
+    // Get the modal element using its ID
+    var modal = document.getElementById(modalId);
+    // Display the modal
+    modal.style.display = "block";
+  });
+});
+
+// Get all elements with class "close"
+var closeButtons = document.querySelectorAll(".close");
+
+// Loop through each close button and add a click event listener
+closeButtons.forEach(function(closeButton) {
+  closeButton.addEventListener("click", function() {
+    // Get the parent modal element
+    var modal = closeButton.closest(".modal");
+    // Close the modal
+    modal.style.display = "none";
+  });
+});
+
+</script>
 
 </body>
 </html>
