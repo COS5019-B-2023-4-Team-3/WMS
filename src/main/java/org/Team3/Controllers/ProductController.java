@@ -16,10 +16,14 @@ import java.util.List;
  * defines endpoints to handle CRUD operations
  */
 @Controller
-@RequestMapping("/products")
 public class ProductController {
     @Autowired
     private ProductService productService;
+
+    @GetMapping("/products")
+    public String showPage(){
+        return "products";
+    }
 
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
