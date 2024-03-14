@@ -3,42 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vendor Registration</title>
+  <title>Login</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="/static/css/styles.css" rel="stylesheet">
+  <style>
+    .register {
+      width: 100%;
+      background-image: url("/img/bakery-products-frame-with-copy-space.jpg");
+      background-size: cover;
+      position: relative;
+    }
+  </style>
 </head>
-<body>
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">
-          <h2 class="text-center">Vendor Registration</h2>
-        </div>
-        <div class="card-body">
-          <form action="/register" method="post">
-            <div class="form-group">
-              <label for="business">Business:</label>
-              <input type="text" id="business" name="business" class="form-control" required>
-            </div>
-            <div class="form-group">
-              <label for="email">Email:</label>
-              <input type="text" id="email" name="email" class="form-control" required>
-            </div>
-            <div class="form-group">
-              <label for="password">Password:</label>
-              <input type="password" id="password" name="password" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
-          </form>
-        </div>
-        <div class="card-footer text-center">
-          <p>Already have an account? <a th:href="@{/login}">Login</a></p>
-        </div>
+<body class="register">
+<div class="login-container">
+  <div class="login-card">
+    <h2>Register</h2>
+    <form action="/register" method="post">
+      <div class="form-group">
+        <label class="label">Business:</label>
+        <input type="text" id="business" name="business" class="form-control" required>
       </div>
-    </div>
+      <div class="form-group">
+        <label class="label" for="username">Email:</label>
+        <input type="text" id="username" name="username" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label class="label" for="password">Password:</label>
+        <input type="password" id="password" name="password" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Register</button>
+    </form>
+    <p class="label">Already have an account? <a href="/login">Login</a></p>
   </div>
 </div>
+
 
 <!-- Toast message -->
 <div th:if="${param.error}" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px;">
