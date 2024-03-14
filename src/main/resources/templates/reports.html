@@ -1,14 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reports</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link href=" https://cdn.jsdelivr.net/npm/apexcharts@3.46.0/dist/apexcharts.min.css " rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-<h1>Reports</h1>
+<div sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></div>
+<div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
+<main sec:authorize="hasAuthority('ADMIN')" th:replace="main-reports :: main"></main>
+<footer sec:authorize="hasAuthority('ADMIN')" th:replace="footer-staff :: footer"></footer>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 <!-- Include any necessary JavaScript files here -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src=" https://cdn.jsdelivr.net/npm/apexcharts@3.46.0/dist/apexcharts.min.js "></script>
+<script src=" https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js "></script>
+<script src=" https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js "></script>
+<script th:inline="javascript"></script>
+<script src="/js/dropdown.js"></script>
+<script src="/js/sidebar_toggle.js"></script>
+<script src="/js/back_to_top.js"></script>
+<main th:fragment="main" id="main" class="main">
+</main>
 </body>
 </html>
