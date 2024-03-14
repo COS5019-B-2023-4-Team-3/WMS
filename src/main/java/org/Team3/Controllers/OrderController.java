@@ -18,12 +18,16 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping
+    public String showPage(){
+        return "orders";
+    }
+    @GetMapping("/{id}")
     public ResponseEntity<List<Order>> getAllOrders() {
         List<Order> orders = orderService.getAllOrders();
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id2}")
     public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
         Order order = orderService.getOrderById(id);
         if (order == null) {
