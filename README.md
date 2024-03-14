@@ -5,28 +5,19 @@ This guide provides step-by-step instructions on how to set up and run WMS using
 
 Before proceeding, ensure you have the following prerequisites installed:
 <p>
-Docker: <a href="https://docs.docker.com/get-docker/"> Install Docker</a>
-</p>
-<p>
 Git: <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">Install Git</a>
 </p>
+<p>    
+Docker Hub: Navigate to <a href="https://hub.docker.com/">Docker Hub</a> and sign up for an account if you haven't already.
+</p>
 
-<h2>Setting up Docker</h2>
-<h3>Installing Docker</h3>
+<h3>Linux:</h3>
+<h4>Installing Docker:</h4>
+    Follow the instructions provided <a href="https://docs.docker.com/engine/install/ubuntu/">here</a> to install Docker on your Linux machine.
 
-<h4>Linux:</h4>
-    Follow the instructions provided <a href="https://docs.docker.com/engine/install/">here</a> to install Docker on your Linux machine.
+<h4>Signing into Docker CLI:</h4>
 
-Windows:
-    Download and install Docker Desktop for Windows from <a href="https://docs.docker.com/desktop/install/windows-install/">here</a>.
-
-<h4>Signing Up to Docker Hub</h4>
-
-Navigate to <a href="https://hub.docker.com/">Docker Hub</a> and sign up for an account if you haven't already.
-
-<h4>Signing into Docker CLI (or Desktop)</h4>
-
-Open your terminal (Linux) or Docker Desktop (Windows).
+Open your terminal (Linux).
 Run the following command and enter your Docker Hub credentials:
 
     docker login
@@ -34,11 +25,7 @@ Run the following command and enter your Docker Hub credentials:
 <h2>Running WMS with Docker Compose</h2>
 <p>
 <strong>Note:</strong>
-The following is implemented through linux CLI. Your directory/file paths may be different.
-
-<strong>Note:</strong> If you are using Windows CLI or desktop the steps and 
-commands may be different!</p>
-
+The following is implemented through linux Terminal. Your directory/file paths may be different.
 
 Clone the WMS repository:
 
@@ -47,6 +34,10 @@ Clone the WMS repository:
 Navigate to the project directory:
 
     cd ~/IdeaProjects/WMS
+
+Run the Docker Compose command to build and start the containers:
+
+    docker compose up -d
 
 Import the test_Data.sql file into MySQL:
 
@@ -66,7 +57,7 @@ Exit the SQL bash
 
 Run the Docker Compose command to build and start the containers:
 
-    docker-compose up -d
+    docker compose up -d
 
 Connect to the MySQL container again:
 
@@ -93,5 +84,4 @@ Stopping and Cleaning Up
 
 To stop and remove the containers, run the following command in the project directory:
 
-    docker-compose down
-
+    docker compose down
