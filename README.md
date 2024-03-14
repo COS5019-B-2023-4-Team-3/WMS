@@ -18,7 +18,7 @@ Git: <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">Ins
     Follow the instructions provided <a href="https://docs.docker.com/engine/install/">here</a> to install Docker on your Linux machine.
 
 Windows:
-    Download and install Docker Desktop for Windows from <a href="https://docs.docker.com/desktop/install/">here</a>.
+    Download and install Docker Desktop for Windows from <a href="https://docs.docker.com/desktop/install/windows-install/">here</a>.
 
 <h4>Signing Up to Docker Hub</h4>
 
