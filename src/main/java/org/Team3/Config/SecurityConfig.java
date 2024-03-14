@@ -39,6 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/static/**").permitAll()
+                .antMatchers("/img/**").permitAll()
+                .antMatchers("/css/**").permitAll()
                 .antMatchers("/register").permitAll() // Allow access to the custom registration page
                 .antMatchers("/vendor-register").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
