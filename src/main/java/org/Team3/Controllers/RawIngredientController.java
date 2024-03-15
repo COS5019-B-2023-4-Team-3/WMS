@@ -21,13 +21,13 @@ public class RawIngredientController {
         return "raw-ingredients";
     }
 
-    @PostMapping
+    @PostMapping("/raw-ingredients-create")
     public ResponseEntity<RawIngredient> createRawMaterial(@RequestBody RawMaterialDto rawMaterialDto) {
         RawIngredient createdRawIngredient = rawIngredientService.createRawMaterial(rawMaterialDto);
         return new ResponseEntity<>(createdRawIngredient, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/raw-ingredients-update-{id}")
     public ResponseEntity<RawIngredient> updateRawMaterial(@PathVariable Long id, @RequestBody RawMaterialDto rawMaterialDto) {
         RawIngredient updatedRawIngredient = rawIngredientService.updateRawMaterial(id, rawMaterialDto);
         if (updatedRawIngredient == null) {
@@ -36,7 +36,7 @@ public class RawIngredientController {
         return new ResponseEntity<>(updatedRawIngredient, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/raw-ingredients-delete-{id}")
     public ResponseEntity<Void> deleteRawMaterial(@PathVariable Long id) {
         boolean deleted = rawIngredientService.deleteRawMaterial(id);
         if (!deleted) {

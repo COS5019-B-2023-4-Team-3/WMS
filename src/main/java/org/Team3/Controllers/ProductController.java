@@ -25,13 +25,13 @@ public class ProductController {
         return "products";
     }
 
-    @GetMapping
+    @GetMapping("/products-all")
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = productService.getAllProducts();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/product-get-{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         Product product = productService.getProductById(id);
         if (product == null) {
@@ -40,13 +40,13 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/product-create")
     public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDto productDto) {
         Product createdProduct = productService.createProduct(productDto);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/product-update-{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
         Product updatedProduct = productService.updateProduct(id, productDto);
         if (updatedProduct == null) {
@@ -55,7 +55,7 @@ public class ProductController {
         return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/product-delete-{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         boolean deleted = productService.deleteProduct(id);
         if (!deleted) {
