@@ -1,34 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Listing</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <title>products</title>
+
+    <!-- Vendor CSS Files -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- ApexCharts CSS -->
+    <link href=" https://cdn.jsdelivr.net/npm/apexcharts@3.46.0/dist/apexcharts.min.css " rel="stylesheet">
+    <!-- Quill CSS -->
+    <link href=" https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.min.css " rel="stylesheet">
+    <!-- Simple Datatables CSS -->
+    <link href=" https://cdn.jsdelivr.net/npm/simple-datatables@9.0.0/dist/style.min.css " rel="stylesheet">
+    <!-- TinyMCE CSS -->
+    <link href=" https://cdn.jsdelivr.net/npm/tinymce@6.8.3/skins/ui/oxide/content.min.css " rel="stylesheet">
+
+    <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
+
 </head>
-<body>
+<body th:fragment="body">
 
-<div class="container">
-    <h1>Product Listing</h1>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="product">
-                <h2>Product 1</h2>
-                <p>Description of Product 1</p>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="product">
-                <h2>Product 2</h2>
-                <p>Description of Product 2</p>
-            </div>
-        </div>
-    </div>
-</div>
+<div sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></div>
+<div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<main sec:authorize="hasAuthority('ADMIN')" th:replace="main-products :: main" id="main-products" class="main"></main>
+
+<footer sec:authorize="hasAuthority('ADMIN')" th:replace="footer-staff :: footer"></footer>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src=" https://cdn.jsdelivr.net/npm/apexcharts@3.46.0/dist/apexcharts.min.js "></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.min.js"></script>
+<script src=" https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js "></script>
+<script src=" https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js "></script>
+<script src=" https://cdn.jsdelivr.net/npm/quill@1.3.7/quill.min.js "></script>
+<script src=" https://cdn.jsdelivr.net/npm/simple-datatables@9.0.0/dist/umd/simple-datatables.min.js "></script>
+<script src=" https://cdn.jsdelivr.net/npm/tinymce@6.8.3/tinymce.min.js "></script>
+
+<!-- Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="/js/dropdown.js"></script>
+<script src="/js/sidebar_toggle.js"></script>
+<script src="/js/back_to_top.js"></script>
+
+<script>
+    // Get all elements with class "view-product-btn"
+var buttons = document.querySelectorAll(".view-product-btn");
+
+// Loop through each button and add a click event listener
+buttons.forEach(function(button) {
+  button.addEventListener("click", function() {
+    // Get the modal ID from the "data-modal" attribute of the clicked button
+    var modalId = button.getAttribute("data-modal");
+    // Get the modal element using its ID
+    var modal = document.getElementById(modalId);
+    // Display the modal
+    modal.style.display = "block";
+  });
+});
+
+// Get all elements with class "close"
+var closeButtons = document.querySelectorAll(".close");
+
+// Loop through each close button and add a click event listener
+closeButtons.forEach(function(closeButton) {
+  closeButton.addEventListener("click", function() {
+    // Get the parent modal element
+    var modal = closeButton.closest(".modal");
+    // Close the modal
+    modal.style.display = "none";
+  });
+});
+
+</script>
+
 </body>
 </html>
