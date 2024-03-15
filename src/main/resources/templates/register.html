@@ -3,66 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up</title>
+  <title>Login</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/css/styles.css" rel="stylesheet">
+  <style>
+    .register {
+      width: 100%;
+      background-image: url("/img/bakery-products-frame-with-copy-space.jpg");
+      background-size: cover;
+      position: relative;
+    }
+  </style>
 </head>
-<body>
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">
-          <h2 class="text-center">Register</h2>
-        </div>
-        <div class="card-body">
-          <form action="/register" method="post">
-            <div class="form-group">
-              <label for="email">Email:</label>
-              <input type="text" id="email" name="email" class="form-control" required>
-            </div>
-            <div class="form-group">
-              <label for="password">Password:</label>
-              <input type="password" id="password" name="password" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
-          </form>
-        </div>
-        <div class="card-footer text-center">
-          <p>Already have an account? <a th:href="@{/login}">Login</a></p>
-          <p>Want to register as a vendor? <a th:href="@{/vendor-register}">Click here</a></p>
-        </div>
+<body class="register">
+<div class="login-container">
+  <div class="login-card">
+    <h2>Register</h2>
+    <form action="/login" method="post">
+      <div class="form-group">
+        <label class="label" for="username">Email:</label>
+        <input type="text" id="username" name="username" class="form-control" required>
       </div>
+      <div class="form-group">
+        <label class="label" for="password">Password:</label>
+        <input type="password" id="password" name="password" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Register</button>
+    </form>
+    <p class="label">Already have an account? <a href="/login">Login</a></p>
+    <p class="label">Want to register as a vendor? <a href="/vendor-register">Click here</a></p>
+  </div>
+</div>
+
+
+  <!-- Toast message -->
+  <div th:if="${param.error}" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px;">
+    <div class="toast-header">
+      <strong class="mr-auto">Error</strong>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
+    <div class="toast-body" th:text="${error}"></div>
   </div>
-</div>
 
-<!-- Toast message -->
-<div th:if="${param.error}" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px;">
-  <div class="toast-header">
-    <strong class="mr-auto">Error</strong>
-    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="toast-body" th:text="${error}"></div>
-</div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<!-- JavaScript code for displaying the toast -->
-<script th:inline="javascript">
-  /*<![CDATA[*/
-      $(document).ready(function () {
-       var urlParams = new URLSearchParams(window.location.search);
-       var error = urlParams.get('error');
-          if (error) {
-              $('.toast-body').text(error);
-              $('.toast').toast({ autohide: false, delay: 5000 }).toast('show');
-          }
-      });
-  /*]]>*/
-</script>
+  <!-- JavaScript code for displaying the toast -->
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+        $(document).ready(function () {
+         var urlParams = new URLSearchParams(window.location.search);
+         var error = urlParams.get('error');
+            if (error) {
+                $('.toast-body').text(error);
+                $('.toast').toast({ autohide: false, delay: 5000 }).toast('show');
+            }
+        });
+    /*]]>*/
+  </script>
 </body>
 </html>
