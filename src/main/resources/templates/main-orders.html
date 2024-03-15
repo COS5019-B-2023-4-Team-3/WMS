@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rakusens</title>
+</head>
+<body>
+<!-- ======= Main ======= -->
+<main th:fragment="main" id="main" class="main">
+    <div style="margin-top: 60px;">
+        <div>
+            <button type="button">Search Orders</button>
+            <input id="orderSearch" type="text">
+            <button type="button">Create Order</button>
+            <button type="button">Edit Order</button>
+            <button type="button">Remove Order</button>
+            <button type="button">Update Orders</button>
+        </div>
+        <div>
+            <table class="table table-borderless datatable">
+                <thead>
+                <tr>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Order Date</th>
+                    <th scope="col">Order Status</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td>637</td>
+                    <td>02:02:24</td>
+                    <td>Shipped</td>
+                </tr>
+                <tr>
+                    <td>247</td>
+                    <td>28.01.24</td>
+                    <td>Pending</td>
+                </tr>
+                <tr>
+                    <td>012</td>
+                    <td>12.01.24</td>
+                    <td>Fulfilled</td>
+                </tr>
+                <tr>
+                    <td>172</td>
+                    <td>18:01:24</td>
+                    <td>Shipped</td>
+                </tr>
+                <tr>
+                    <td>399</td>
+                    <td>31.01.24</td>
+                    <td>Fulfilled</td>
+                </tr>
+                <tr>
+                    <td>831</td>
+                    <td>29.02.24</td>
+                    <td>Shipped</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</main><!-- End Main -->
+</body>
+</html>
