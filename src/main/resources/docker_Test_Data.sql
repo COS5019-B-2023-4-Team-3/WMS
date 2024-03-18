@@ -153,6 +153,7 @@ DROP TABLE IF EXISTS `test`.`reports`;
 DROP TABLE IF EXISTS `test`.`products`;
 DROP TABLE IF EXISTS `test`.`alert_data`;
 DROP TABLE IF EXISTS `test`.`roles`;
+DROP TABLE IF EXISTS `test`.`raw_materials`;
 
 -- Enable foreign key checks
 SET FOREIGN_KEY_CHECKS = 1;
@@ -456,6 +457,7 @@ END//
 
 DELIMITER //
 
+
 CREATE PROCEDURE `test`.UpdateOrderItems()
 BEGIN
     -- Update item_cost and item_selling_price
@@ -463,10 +465,10 @@ BEGIN
     JOIN `test`.`products` p ON oi.product_id = p.product_id
     SET oi.item_cost = oi.quantity * p.unit_cost,
         oi.item_selling_price = oi.quantity * p.unit_selling_price;
-
     -- Update item_profit
-    UPDATE `test`.`order_items`
-    SET item_profit = item_selling_price - item_cost;
+    UPDATE `test`.`order_items` oi
+    SET oi.item_profit = oi.item_selling_price - oi.item_cost;
+
 END//
 
 DELIMITER //
@@ -820,9 +822,5 @@ BEGIN
 	CALL `test`.PopulateReportsSalesData();
 
 END//
-
--- Populate the products table
-CALL `test`.PopulateProducts();
-
 
 DELIMITER ;

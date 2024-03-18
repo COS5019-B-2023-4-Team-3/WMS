@@ -2,18 +2,18 @@ package org.Team3.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "raw_materials")
+@Table(name = "raw_ingredients")
 public class RawIngredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "raw_material_id")
+    @Column(name = "raw_ingredient_id")
     private Long id;
 
-    @Column(name = "raw_material_name")
+    @Column(name = "raw_ingredient_name")
     private String name;
 
-    @Column(name = "raw_material_quantity")
+    @Column(name = "raw_ingredient_quantity")
     private int quantity;
 
     public RawIngredient(){}

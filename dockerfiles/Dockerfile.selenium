@@ -1,0 +1,15 @@
+# Use a base image with Maven and OpenJDK 17 for building and running the tests
+FROM maven:3.8.4-openjdk-17-slim AS builder
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the Maven project files
+COPY pom.xml .
+COPY src ./src
+
+# Build a release artifact without running the tests
+RUN mvn clean package -DskipTests
+
+# Run tests
+RUN mvn test -Pselenium-tests
