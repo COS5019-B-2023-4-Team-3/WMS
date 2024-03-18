@@ -44,10 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/img/**").permitAll()
                 .antMatchers("/register").permitAll() // Allow access to the custom registration page
                 .antMatchers("/vendor-register").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/employee/**").hasRole("EMPLOYEE")
-                .antMatchers("/vendor/**").hasRole("EXTERNAL")
                 .antMatchers("/error").permitAll() // Permit access to the error page
+                .antMatchers("/homepage").authenticated() // Require authentication for accessing the homepage
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -56,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successForwardUrl("/homepage") // Redirect to the homepage after successful login
                 .permitAll() // Allow access to the custom login page
                 .and()
-                .logout()
+                .logout().permitAll()
                 .logoutUrl("/logout") // Configure the logout URL
                 .logoutSuccessUrl("/login?logout") // Redirect to login page after logout
                 .invalidateHttpSession(true)
