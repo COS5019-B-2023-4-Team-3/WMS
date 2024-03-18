@@ -28,10 +28,20 @@
   </style>
 </head>
 <body th:fragment="body">
+<!-- Headers -->
 <div sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></div>
+<div sec:authorize="hasAuthority('EMPLOYEE')" th:replace="header-employee :: header"></div>
+
+<!-- Sidebars -->
 <div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
-<footer sec:authorize="hasAuthority('ADMIN')" th:replace="footer-staff :: footer"></footer>
-<!--<main sec:authorize="hasAuthority('ADMIN')" th:replace="main-admin :: main" id="main-admin" class="main"></main>-->
+<div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-employee :: sidebar"></div>
+
+<!-- Mains -->
+<main sec:authorize="hasAuthority('ADMIN')" th:replace="main-ingredients :: main" id="main-admin" class="main"></main>
+
+<!-- Footer -->
+<footer sec:authorize="hasAuthority('ADMIN') or hasAuthority('EMPLOYEE')" th:replace="footer-staff :: footer"></footer>
+
 <!-- Include any necessary JavaScript files here -->
 <!-- jQuery -->
 <script src="/js/dropdown.js"></script>
@@ -55,8 +65,8 @@
 <body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<main sec:authorize="hasAuthority('ADMIN')" th:replace="main-ingredients :: main" id="main-admin" class="main"></main>
-<script th:inline="javascript"></script>
+
+
 <script src="/js/dropdown.js"></script>
 <script src="/js/sidebar_toggle.js"></script>
 <script src="/js/back_to_top.js"></script>

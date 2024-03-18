@@ -23,20 +23,25 @@
 
 </head>
 <body>
+<!-- Headers -->
 <div sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></div>
 <div sec:authorize="hasAuthority('EMPLOYEE')" th:replace="header-employee :: header"></div>
 <div sec:authorize="hasAuthority('EXTERNAL')" th:replace="header-vendor :: header"></div>
-<div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
-<div sec:authorize="hasAuthority('EMPLOYEE')" th:replace="sidebar-employee :: sidebar"></div>
 
+<!-- Sidebars -->
+<div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
+<div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-employee :: sidebar"></div>
+
+<!-- Mains -->
 <main th:replace="main-orders :: main" id="main" class="main"></main>
 
-<!-- Include any necessary JavaScript files here -->
-<footer sec:authorize="hasAuthority('ADMIN')" th:replace="footer-staff :: footer"></footer>
-<footer sec:authorize="hasAuthority('EMPLOYEE')" th:replace="footer-staff :: footer"></footer>
+
+<!-- Footer -->
+<footer sec:authorize="hasAuthority('ADMIN') or hasAuthority('EMPLOYEE')" th:replace="footer-staff :: footer"></footer>
 <footer sec:authorize="hasAuthority('EXTERNAL')" th:replace="footer-vendor :: footer"></footer>
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+<!-- Include any necessary JavaScript files here -->
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 

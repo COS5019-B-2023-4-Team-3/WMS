@@ -25,12 +25,20 @@
 </head>
 <body th:fragment="body">
 
+<!-- Headers -->
 <div sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></div>
-<div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
+<div sec:authorize="hasAuthority('EMPLOYEE')" th:replace="header-employee :: header"></div>
 
+<!-- Sidebars -->
+<div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
+<div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-employee :: sidebar"></div>
+
+<!-- Mains -->
 <main sec:authorize="hasAuthority('ADMIN')" th:replace="main-products :: main" id="main-products" class="main"></main>
 
-<footer sec:authorize="hasAuthority('ADMIN')" th:replace="footer-staff :: footer"></footer>
+<!-- Footer -->
+<footer sec:authorize="hasAuthority('ADMIN') or hasAuthority('EMPLOYEE')" th:replace="footer-staff :: footer"></footer>
+
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- jQuery -->
