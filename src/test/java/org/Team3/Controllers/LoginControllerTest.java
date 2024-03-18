@@ -1,5 +1,6 @@
 package org.Team3.Controllers;
 
+import org.Team3.Entities.User;
 import org.Team3.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -73,6 +74,17 @@ public class LoginControllerTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testLoginUserWithInvalidCredentials() throws Exception {
+
+        User user = null;
+        for(User u: userService.getAllUsers()){
+            if(userService.userExists("testUser")){
+                user = u;
+            }
+        }
+        if(user != null){
+            userService.deleteUser(user.getId());
+        }
+
         String username = "testUser";
         String password = "testPassword";
 

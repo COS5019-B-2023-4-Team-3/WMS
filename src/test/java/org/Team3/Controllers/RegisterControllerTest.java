@@ -1,5 +1,6 @@
 package org.Team3.Controllers;
 
+import org.Team3.Entities.User;
 import org.Team3.Services.UserService;
 import org.hamcrest.Matchers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -66,7 +68,8 @@ public class RegisterControllerTest extends AbstractTestNGSpringContextTests {
 
 
     @Test
-    public void testLoginUserWithValidCredentials() throws Exception {
+    public void testRegisterUserWithValidCredentials() throws Exception {
+
         String email = "testUser";
         String password = "testPassword";
 
@@ -78,5 +81,20 @@ public class RegisterControllerTest extends AbstractTestNGSpringContextTests {
                         .param("password", password))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/login"));
+
+        User user = null;
+        for(User u: userService.getAllUsers()){
+            if(userService.userExists("testUser")){
+                user = u;
+            }
+        }
+        if(user != null){
+            userService.deleteUser(user.getId());
+        }
+    }
+
+    @AfterTest
+    public void tearDown(){
+
     }
 }
