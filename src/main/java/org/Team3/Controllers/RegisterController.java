@@ -2,8 +2,6 @@ package org.Team3.Controllers;
 
 import org.Team3.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RegisterController {
     @Autowired
     private UserService userService;
-    private PasswordEncoder passwordEncoder = new Pbkdf2PasswordEncoder();
+
 
     @GetMapping("/register")
     public String showSignupForm() {
