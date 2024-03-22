@@ -6,13 +6,35 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
+    <style>
+        body {
+            margin: 0;
+            padding-top: 20px;
+        }
+        footer {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            margin-top: 20px;
+        }
+        main {
+            padding: 0 20px;
+        }
+        h1 {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 
-<div sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></div>
-<div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
+<header sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></header>
+<header sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></header>
 
-<main th:replace="main-alerts :: main"></main>
+<main>
+    <h1>Notifications</h1> <!-- Added heading for Notifications -->
+    <div th:replace="main-alerts :: main"></div> <!-- Included main content -->
+</main>
 
 <footer sec:authorize="hasAuthority('ADMIN')" th:replace="footer-staff :: footer"></footer>
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

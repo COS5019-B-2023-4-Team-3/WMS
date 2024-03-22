@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Raw Materials</title>
+  <title>Ingredients</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <!--  <link rel="stylesheet" href="styles.css">-->
   <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
@@ -34,7 +34,7 @@
 
 <!-- Sidebars -->
 <div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
-<div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-employee :: sidebar"></div>
+<div sec:authorize="hasAuthority('EMPLOYEE')" th:replace="sidebar-employee :: sidebar"></div>
 
 <!-- Mains -->
 <main sec:authorize="hasAuthority('ADMIN')" th:replace="main-ingredients :: main" id="main-admin" class="main"></main>

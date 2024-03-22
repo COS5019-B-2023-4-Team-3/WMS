@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>products</title>
+    <title>Products</title>
 
     <!-- Vendor CSS Files -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
 
 <!-- Sidebars -->
 <div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
-<div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-employee :: sidebar"></div>
+<div sec:authorize="hasAuthority('EMPLOYEE')" th:replace="sidebar-employee :: sidebar"></div>
 
 <!-- Mains -->
 <main sec:authorize="hasAuthority('ADMIN')" th:replace="main-products :: main" id="main-products" class="main"></main>
