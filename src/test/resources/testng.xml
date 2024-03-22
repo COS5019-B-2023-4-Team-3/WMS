@@ -1,22 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="DockerComposeTest_Suite">
+    <test name="EntityTests">
+        <classes>
+            <class name="org.Team3.Entities.OrderItemTest"/>
+            <class name="org.Team3.Entities.OrderTest"/>
+            <class name="org.Team3.Entities.ProductTest"/>
+            <class name="org.Team3.Entities.RawIngredientTest"/>
+            <class name="org.Team3.Entities.RoleTest"/>
+            <class name="org.Team3.Entities.UserTest"/>
+
+        </classes>
+    </test>
     <test name="ChromeTest">
         <parameter name="browser" value="chrome"/>
         <classes>
+            <class name="org.Team3.Controllers.HomeControllerTest"/>
             <class name="org.Team3.Controllers.LoginControllerTest"/>
+            <class name="org.Team3.Controllers.RegisterControllerTest"/>
         </classes>
     </test>
     <test name="FirefoxTest">
         <parameter name="browser" value="firefox"/>
         <classes>
+            <class name="org.Team3.Controllers.HomeControllerTest"/>
             <class name="org.Team3.Controllers.LoginControllerTest"/>
+            <class name="org.Team3.Controllers.RegisterControllerTest"/>
         </classes>
     </test>
     <test name="EdgeTest">
         <parameter name="browser" value="edge"/>
         <classes>
+            <class name="org.Team3.Controllers.HomeControllerTest"/>
             <class name="org.Team3.Controllers.LoginControllerTest"/>
+            <class name="org.Team3.Controllers.RegisterControllerTest"/>
         </classes>
     </test>
 </suite>
