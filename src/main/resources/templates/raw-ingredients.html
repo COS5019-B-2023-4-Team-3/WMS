@@ -34,7 +34,7 @@
 
 <!-- Sidebars -->
 <div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
-<div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-employee :: sidebar"></div>
+<div sec:authorize="hasAuthority('EMPLOYEE')" th:replace="sidebar-employee :: sidebar"></div>
 
 <!-- Mains -->
 <main sec:authorize="hasAuthority('ADMIN')" th:replace="main-ingredients :: main" id="main-admin" class="main"></main>
