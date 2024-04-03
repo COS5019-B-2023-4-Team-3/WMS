@@ -8,13 +8,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * LoginController class handles requests related to user authentication and login.
+ *
+ * This controller provides methods to display the login form, process login requests,
+ * and handle authentication errors.
+ */
 @Controller
 public class LoginController {
 
     @Autowired
     private UserService userService;
 
-
+    /**
+     * Displays the login form and handles authentication errors, if any.
+     *
+     * @param model Model object to add attributes for rendering the view.
+     * @param error String representing the error message (if any).
+     * @return String representing the logical view name of the login form.
+     */
     @GetMapping("/login")
     public String showLoginForm(Model model, @RequestParam(name = "error", required = false) String error) {
         if (error != null) {
@@ -29,6 +41,15 @@ public class LoginController {
         return "login";
     }
 
+    /**
+     * Processes login requests and redirects users based on authentication status.
+     *
+     * @param error String representing the error message (if any).
+     * @param username String representing the username provided by the user.
+     * @param password String representing the password provided by the user.
+     * @param model Model object to add attributes for rendering the view.
+     * @return String representing the redirection URL based on the authentication status.
+     */
     @PostMapping("/login")
     public String loginUser(@RequestParam(name = "error", required = false) String error,
                             @RequestParam String username, @RequestParam String password, Model model) {
@@ -38,6 +59,4 @@ public class LoginController {
         }
         return "redirect:/homepage";
     }
-
-
 }
