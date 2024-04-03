@@ -2,14 +2,16 @@ package org.Team3.Entities;
 import javax.persistence.*;
 
 /**
- * Role class represents a role entity in the application.
+ * The Role class represents a role in the system, such as "ADMIN", "EMPLOYEE", etc.
  *
- * This entity is mapped to the "roles" table in the database.
- * It includes fields for the role ID and role name.
+ * It includes fields for the role's ID and name.
+ *
+ * The class is annotated with JPA annotations to define its mapping to the database table named "roles".
  */
 @Entity
 @Table(name = "roles")
 public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="role_id")
@@ -21,20 +23,19 @@ public class Role {
     /**
      * Default constructor for Role class.
      */
-    public Role() {
-    }
+    public Role() {}
 
     /**
-     * Parameterized constructor for Role class.
+     * Constructor for Role class with parameter.
      *
-     * @param roleName String representing the name of the role.
+     * @param roleName The name of the role.
      */
     public Role(String roleName) {
         this.name = roleName;
     }
 
     /**
-     * Retrieves the ID of the role.
+     * Gets the ID of the role.
      *
      * @return Long representing the ID of the role.
      */
@@ -52,7 +53,7 @@ public class Role {
     }
 
     /**
-     * Retrieves the name of the role.
+     * Gets the name of the role.
      *
      * @return String representing the name of the role.
      */
@@ -72,7 +73,7 @@ public class Role {
     /**
      * Returns a string representation of the Role object.
      *
-     * @return String representing the Role object.
+     * @return String containing the ID and name of the role.
      */
     @Override
     public String toString() {
