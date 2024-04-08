@@ -23,9 +23,6 @@ public class RawIngredient {
     @Column(name = "raw_ingredient_quantity")
     private int quantity;
 
-    /**
-     * Default constructor for RawIngredient class.
-     */
     public RawIngredient(){}
 
     /**
@@ -39,56 +36,26 @@ public class RawIngredient {
         this.quantity = quantity;
     }
 
-    /**
-     * Gets the ID of the raw ingredient.
-     *
-     * @return Long representing the ID of the raw ingredient.
-     */
     public Long getId() {
         return id;
     }
 
-    /**
-     * Sets the ID of the raw ingredient.
-     *
-     * @param id Long representing the ID of the raw ingredient.
-     */
     public void setId(Long id) {
         this.id = id;
     }
 
-    /**
-     * Gets the name of the raw ingredient.
-     *
-     * @return String representing the name of the raw ingredient.
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * Sets the name of the raw ingredient.
-     *
-     * @param name String representing the name of the raw ingredient.
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * Gets the quantity of the raw ingredient.
-     *
-     * @return int representing the quantity of the raw ingredient.
-     */
     public int getQuantity() {
         return quantity;
     }
 
-    /**
-     * Sets the quantity of the raw ingredient.
-     *
-     * @param quantity int representing the quantity of the raw ingredient.
-     */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }

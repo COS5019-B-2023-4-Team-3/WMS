@@ -31,7 +31,7 @@ public class ProductController {
      * @return String representing the view name for the products page.
      */
     @GetMapping("/products")
-    public String showPage() {
+    public String showPage(){
         return "products";
     }
 

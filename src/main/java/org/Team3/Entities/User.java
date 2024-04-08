@@ -34,64 +34,52 @@ public class User implements UserDetails {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    /**
-     * Default constructor for User class.
-     */
+    @Column(name = "vendor_id")
+    private Long vendorID;
+
     public User() {
     }
 
-    /**
-     * Retrieves the ID of the user.
-     *
-     * @return Long representing the ID of the user.
-     */
+    // Other properties like full name, etc. can be added as needed
+
     public Long getId() {
         return id;
     }
 
-    /**
-     * Sets the ID of the user.
-     *
-     * @param id Long representing the ID of the user.
-     */
     public void setId(Long id) {
         this.id = id;
     }
 
-    /**
-     * Retrieves the username of the user.
-     *
-     * @return String representing the username of the user.
-     */
     public String getUsername() {
         return username;
     }
 
-    /**
-     * Retrieves the password of the user.
-     *
-     * @return String representing the password of the user.
-     */
     public String getPassword() {
         return password;
     }
 
-    /**
-     * Sets the password of the user.
-     *
-     * @param password String representing the password of the user.
-     */
     public void setPassword(String password) {
         this.password = password;
     }
 
-    /**
-     * Sets the username of the user.
-     *
-     * @param username String representing the username of the user.
-     */
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Long getVendorID() {
+        return vendorID;
+    }
+
+    public void setVendorID(Long vendorID) {
+        this.vendorID = vendorID;
     }
 
     /**
@@ -101,7 +89,7 @@ public class User implements UserDetails {
      */
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return false; // Implementation based on application logic
     }
 
     /**
@@ -111,7 +99,7 @@ public class User implements UserDetails {
      */
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return false; // Implementation based on application logic
     }
 
     /**
@@ -121,7 +109,7 @@ public class User implements UserDetails {
      */
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return false; // Implementation based on application logic
     }
 
     /**
@@ -131,7 +119,7 @@ public class User implements UserDetails {
      */
     @Override
     public boolean isEnabled() {
-        return false;
+        return false; // Implementation based on application logic
     }
 
     /**
@@ -142,25 +130,7 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName())); // Assigning role-based authorities
         return authorities;
-    }
-
-    /**
-     * Retrieves the role of the user.
-     *
-     * @return Role object representing the role of the user.
-     */
-    public Role getRole() {
-        return role;
-    }
-
-    /**
-     * Sets the role of the user.
-     *
-     * @param role Role object representing the role of the user.
-     */
-    public void setRole(Role role) {
-        this.role = role;
     }
 }
