@@ -191,7 +191,8 @@ CREATE TABLE IF NOT EXISTS `test`.`products` (
     current_stock_level INT,
     min_acceptable_stock_level INT,
     unit_cost DECIMAL(10, 2),
-    unit_selling_price DECIMAL(10, 2)
+    unit_selling_price DECIMAL(10, 2),
+    image_url VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS `test`.`recipes` (
