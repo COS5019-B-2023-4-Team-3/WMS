@@ -36,7 +36,6 @@ public class ProductDto {
     @NotNull
     private Double unitSellPrice;
 
-    @NotBlank
     private String imageURL;
 
 

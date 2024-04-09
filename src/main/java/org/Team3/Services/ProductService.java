@@ -72,10 +72,14 @@ public class ProductService {
         // Update product details
         existingProduct.setName(productDto.getName());
         existingProduct.setSkuCode(productDto.getSkuCode());
-        existingProduct.setSellingPrice(productDto.getUnitCost());
+        existingProduct.setDescription(productDto.getDescription());
         existingProduct.setShelfLife(productDto.getShelfLife());
+        existingProduct.setExpiryDate(productDto.getExpiryDate());
         existingProduct.setCurrentStockLevel(productDto.getCurrentStockLevel());
         existingProduct.setMinStockLevel(productDto.getMinStockLevel());
+        existingProduct.setSellingPrice(productDto.getUnitSellPrice());
+        existingProduct.setUnitCost(productDto.getUnitCost());
+        existingProduct.setImageURL(productDto.getImageURL());
         return productRepository.save(existingProduct);
     }
 
