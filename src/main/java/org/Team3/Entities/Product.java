@@ -35,7 +35,7 @@ public class Product {
     @Column(name = "expiry_date")
     private LocalDate expiryDate;
 
-    @Column(name = "selling_price")
+    @Column(name = "unit_selling_price")
     private double sellingPrice;
 
     @Column(name = "unit_cost")

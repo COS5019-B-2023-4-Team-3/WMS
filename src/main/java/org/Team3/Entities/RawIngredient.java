@@ -3,9 +3,7 @@ import javax.persistence.*;
 
 /**
  * The RawIngredient class represents a raw ingredient in the warehouse system.
- *
  * It includes fields for the raw ingredient's ID, name, and quantity.
- *
  * The class is annotated with JPA annotations to define its mapping to the database table named "raw_ingredients".
  */
 @Entity
