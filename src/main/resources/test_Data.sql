@@ -320,6 +320,15 @@ CREATE PROCEDURE `test`.PopulateProducts()
 BEGIN
     DECLARE i INT DEFAULT 0;
     DECLARE max_records INT DEFAULT 1000;
+    DECLARE url_index INT DEFAULT 1;
+    DECLARE image_urls VARCHAR(4096); -- Increased buffer size to handle longer URLs
+    DECLARE num_urls INT;
+
+    -- Initialize the list of image URLs
+    SET image_urls = 'products/crackers-orange.jpg,products/matzo-crackers-small-red.jpg,products/100713_RAK_MATZOS_TEA_RED_150G_ART01_AG1.jpg,products/100713_RAK_SNACKERS_CHOCOLATE_90G_ART03_SM1.jpg,products/3275527-1.jpg,products/farina-potato-flour-.jpg,products/fine_matzo_meal.jpg,products/gluten-free-crackers-front.jpg,products/GLUTENFREE_175G.jpg,products/HI_BAKED_150G-500px.jpg,products/MATZO_CRACKER_150g.jpg,products/MATZOS_BIGBLUE_300G.jpg,products/RAK_BISUITS_DIGESTIVE_AD01_AG.jpg,products/RAK_CHOC_DIGESTIVE_AD01_AG.jpg,products/RAK_CHOC_OATIE_BISCUITS_AD01_AG.png,products/RAK_GF300_AD01_AG.png,products/RAK_GINGER2_BISCUIT_AG01.png,products/RAK_OATIE_CRUNCH_BISCUIT_AG01.png,products/RAK_Pass_300_AD01_AG.png,products/RAK_PASS_MED_MEAL_AD01_AG.png,products/RAK_VEGAN_CRACKERS_AD01_AG.png,products/Raksuens-HerbAndOnion-500px.jpg,products/Rakusens-Fine-Matzo-Meal.jpg,products/Rakusens-gluten-free-snackers.jpg,products/Rakusens-Medium-Matzo-Meal.jpg,products/Rakusens_Baked_Beans.jpg,products/Rakusens_CarrotAndLentil.jpg,products/Rakusens_ThickPea.jpg,products/Rakusens_TomatoAndBasil.jpg,products/Snacker_Visuals_PLAIN_AG01.jpg,products/TEA_MATZOS_PINK_150G.jpg,products/Tomor-sunflower-margarine.jpg,products/Tomor-vegetarian-margarine.jpg';
+
+    -- Split the image URLs into an array
+    SET num_urls = (LENGTH(image_urls) - LENGTH(REPLACE(image_urls, ',', '')) + 1);
 
     WHILE i < max_records DO
         -- Generate random product_name, sku_code, product_description
@@ -338,12 +347,19 @@ BEGIN
         SET @unit_selling_price = ROUND(@unit_cost * (1 + RAND()), 2);
 
         -- Insert into products table
-        INSERT INTO `test`.`products` (product_name, sku_code, product_description, shelf_life_in_days, expiry_date, current_stock_level, min_acceptable_stock_level, unit_cost, unit_selling_price)
-        VALUES (@product_name, @sku_code, @product_description, @shelf_life_in_days, @expiry_date, @current_stock_level, @min_acceptable_stock_level, @unit_cost, @unit_selling_price);
+        INSERT INTO `test`.`products` (product_name, sku_code, product_description, shelf_life_in_days, expiry_date, current_stock_level, min_acceptable_stock_level, unit_cost, unit_selling_price, image_url)
+        VALUES (@product_name, @sku_code, @product_description, @shelf_life_in_days, @expiry_date, @current_stock_level, @min_acceptable_stock_level, @unit_cost, @unit_selling_price, TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(image_urls, ',', url_index), ',', -1)));
 
         SET i = i + 1;
+        SET url_index = url_index + 1;
+
+        -- Reset url_index if it exceeds the number of URLs
+        IF url_index > num_urls THEN
+            SET url_index = 1;
+        END IF;
     END WHILE;
 END//
+
 
 
 -- Create the PopulateRawMaterials procedure
