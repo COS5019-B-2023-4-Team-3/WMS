@@ -29,23 +29,22 @@
             </select>
         </div>
         <div class="product-grid">
-            <div class="product-box">
+            <div th:each="product : ${products}" class="product-box">
                 <div class="product">
-                    <img src="/img/product-4.jpg" alt="Product 1">
-                    <h3>Product 1</h3>
-                    <p>Description of Product 1</p>
-<!--                    <button class="view-btn">View Product</button>-->
-                    <!-- Button to open the modal for Product 1 -->
-                    <button class="view-product-btn" data-modal="productModal1">View Product</button>
-                    <!-- Modal for Product 1 -->
-                    <div id="productModal1" class="modal">
+                    <img th:if="${product.imageURL != null and product.imageURL != ''}" th:src="@{/img/{imageName}(imageName=${product.imageURL})}" alt="Product Image">
+                    <img th:if="${product.imageURL == ''} or ${product.imageURL == null}" th:src="@{/img/placeholder.jpg}" alt="Placeholder Image">
+                    <h3 th:text="${product.name}">Product Name</h3>
+                    <p th:text="${product.description}">Product Description</p>
+                    <button class="view-product-btn" th:data-modal="'productModal' + ${product.id}">View Product</button>
+                    <div th:id="'productModal' + ${product.id}" class="modal">
                         <div class="modal-content">
                             <span class="close">&times;</span>
                             <div class="product-details">
-                                <img src="/img/product-4.jpg" alt="Product 1">
+                                <img th:if="${product.imageURL != null and product.imageURL != ''}" th:src="@{/img/{imageName}(imageName=${product.imageURL})}" alt="Product Image">
+                                <img th:if="${product.imageURL == ''} or ${product.imageURL == null}" th:src="@{/img/placeholder.jpg}" alt="Placeholder Image">
                                 <div class="text-details">
-                                    <h2>Product 1</h2>
-                                    <p>Product Description</p>
+                                    <h2 th:text="${product.name}">Product Name</h2>
+                                    <p th:text="${product.description}">Product Description</p>
                                     <div class="action-buttons">
                                         <button class="edit-product-btn">Edit Product</button>
                                         <button class="delete-product-btn">Delete Product</button>
@@ -56,189 +55,6 @@
                     </div>
                 </div>
             </div>
-            <div class="product-box">
-                <div class="product">
-                    <img src="/img/product-2.jpg" alt="Product 2">
-                    <h3>Product 2</h3>
-                    <p>Description of Product 2</p>
-                    <!-- Button to open the modal for Product 2 -->
-                    <button class="view-product-btn" data-modal="productModal2">View Product</button>
-                    <!-- Modal for Product 2 -->
-                    <div id="productModal2" class="modal">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <div class="product-details">
-                                <img src="/img/product-2.jpg" alt="Product 2">
-                                <div class="text-details">
-                                    <h2>Product 2</h2>
-                                    <p>Product Description</p>
-                                    <div class="action-buttons">
-                                        <button class="edit-product-btn">Edit Product</button>
-                                        <button class="delete-product-btn">Delete Product</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="product-box">
-                <div class="product">
-                    <img src="/img/product-3.jpg" alt="Product 3">
-                    <h3>Product 3</h3>
-                    <p>Description of Product 3</p>
-                    <!-- Button to open the modal for Product 3 -->
-                    <button class="view-product-btn" data-modal="productModal3">View Product</button>
-                    <!-- Modal for Product 3 -->
-                    <div id="productModal3" class="modal">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <div class="product-details">
-                                <img src="/img/product-3.jpg" alt="Product 3">
-                                <div class="text-details">
-                                    <h2>Product 3</h2>
-                                    <p>Product Description</p>
-                                    <div class="action-buttons">
-                                        <button class="edit-product-btn">Edit Product</button>
-                                        <button class="delete-product-btn">Delete Product</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="product-box">
-                <div class="product">
-                    <img src="/img/product-4.jpg" alt="Product 4">
-                    <h3>Product 4</h3>
-                    <p>Description of Product 4</p>
-                    <!-- Button to open the modal for Product 4 -->
-                    <button class="view-product-btn" data-modal="productModal4">View Product</button>
-                    <!-- Modal for Product 4 -->
-                    <div id="productModal4" class="modal">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <div class="product-details">
-                                <img src="/img/product-4.jpg" alt="Product 4">
-                                <div class="text-details">
-                                    <h2>Product 4</h2>
-                                    <p>Product Description</p>
-                                    <div class="action-buttons">
-                                        <button class="edit-product-btn">Edit Product</button>
-                                        <button class="delete-product-btn">Delete Product</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="product-box">
-                <div class="product">
-                    <img src="/img/product-5.jpg" alt="Product 5">
-                    <h3>Product 5</h3>
-                    <p>Description of Product 5</p>
-                    <!-- Button to open the modal for Product 5 -->
-                    <button class="view-product-btn" data-modal="productModal5">View Product</button>
-                    <!-- Modal for Product 5 -->
-                    <div id="productModal5" class="modal">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <div class="product-details">
-                                <img src="/img/product-5.jpg" alt="Product 5">
-                                <div class="text-details">
-                                    <h2>Product 5</h2>
-                                    <p>Product Description</p>
-                                    <div class="action-buttons">
-                                        <button class="edit-product-btn">Edit Product</button>
-                                        <button class="delete-product-btn">Delete Product</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="product-box">
-                <div class="product">
-                    <img src="/img/product-2.jpg" alt="Product 6">
-                    <h3>Product 6</h3>
-                    <p>Description of Product 6</p>
-                    <!-- Button to open the modal for Product 6 -->
-                    <button class="view-product-btn" data-modal="productModal6">View Product</button>
-                    <!-- Modal for Product 6 -->
-                    <div id="productModal6" class="modal">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <div class="product-details">
-                                <img src="/img/product-2.jpg" alt="Product 6">
-                                <div class="text-details">
-                                    <h2>Product 6</h2>
-                                    <p>Product Description</p>
-                                    <div class="action-buttons">
-                                        <button class="edit-product-btn">Edit Product</button>
-                                        <button class="delete-product-btn">Delete Product</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="product-box">
-                <div class="product">
-                    <img src="/img/product-3.jpg" alt="Product 7">
-                    <h3>Product 7</h3>
-                    <p>Description of Product 7</p>
-                    <!-- Button to open the modal for Product 7 -->
-                    <button class="view-product-btn" data-modal="productModal7">View Product</button>
-                    <!-- Modal for Product 7 -->
-                    <div id="productModal7" class="modal">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <div class="product-details">
-                                <img src="/img/product-3.jpg" alt="Product 7">
-                                <div class="text-details">
-                                    <h2>Product 7</h2>
-                                    <p>Product Description</p>
-                                    <div class="action-buttons">
-                                        <button class="edit-product-btn">Edit Product</button>
-                                        <button class="delete-product-btn">Delete Product</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="product-box">
-                <div class="product">
-                    <img src="/img/product-4.jpg" alt="Product 8">
-                    <h3>Product 8</h3>
-                    <p>Description of Product 8</p>
-                    <!-- Button to open the modal for Product 8 -->
-                    <button class="view-product-btn" data-modal="productModal8">View Product</button>
-                    <!-- Modal for Product 8 -->
-                    <div id="productModal8" class="modal">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <div class="product-details">
-                                <img src="/img/product-5.jpg" alt="Product 8">
-                                <div class="text-details">
-                                    <h2>Product 1</h2>
-                                    <p>Product Description</p>
-                                    <div class="action-buttons">
-                                        <button class="edit-product-btn">Edit Product</button>
-                                        <button class="delete-product-btn">Delete Product</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--product-box structure for each product -->
         </div>
     </div>
 </main>
