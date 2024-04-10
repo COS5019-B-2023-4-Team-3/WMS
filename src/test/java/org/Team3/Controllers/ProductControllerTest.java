@@ -43,6 +43,3 @@ public class ProductControllerTest extends AbstractTestNGSpringContextTests {
                 .andExpect(content().contentType("text/html;charset=UTF-8"));
     }
 }
-//
-//    public class ProductControllerTest {
-//}
