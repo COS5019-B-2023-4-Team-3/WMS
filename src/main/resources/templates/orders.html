@@ -28,17 +28,17 @@
 <div sec:authorize="hasAuthority('EMPLOYEE')" th:replace="header-employee :: header"></div>
 <div sec:authorize="hasAuthority('EXTERNAL')" th:replace="header-vendor :: header"></div>
 
-<!-- Sidebars -->
-<div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
-<div sec:authorize="hasAuthority('EMPLOYEE')" th:replace="sidebar-employee :: sidebar"></div>
+<!-- Sidebar -->
+<div th:replace="sidebar :: sidebar"></div>
+
 
 <!-- Mains -->
 <main th:replace="main-orders :: main" id="main" class="main"></main>
 
 
 <!-- Footer -->
-<footer sec:authorize="hasAuthority('ADMIN') or hasAuthority('EMPLOYEE')" th:replace="footer-staff :: footer"></footer>
-<footer sec:authorize="hasAuthority('EXTERNAL')" th:replace="footer-vendor :: footer"></footer>
+<footer th:replace="footer :: footer"></footer>
+
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- Include any necessary JavaScript files here -->

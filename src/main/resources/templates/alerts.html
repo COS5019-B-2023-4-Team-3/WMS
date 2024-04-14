@@ -30,14 +30,14 @@
 <body>
 
 <header sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></header>
-<header sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></header>
+<header th:replace="sidebar :: sidebar"></header>
 
 <main>
     <h1>Notifications</h1> <!-- Added heading for Notifications -->
     <div th:replace="main-alerts :: main"></div> <!-- Included main content -->
 </main>
 
-<footer sec:authorize="hasAuthority('ADMIN')" th:replace="footer-staff :: footer"></footer>
+<footer th:replace="footer :: footer"></footer>
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- jQuery -->

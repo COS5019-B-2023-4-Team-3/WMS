@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -36,13 +36,13 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/under-construction}">
+            <a class="nav-link" sec:authorize="hasAuthority('ADMIN')" th:href="@{/under-construction}">
                 <i class="fas fa-truck"></i>
-                <span>Fulfillments</span>
+                <span>Fulfillment</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/under-construction}">
+            <a class="nav-link" sec:authorize="hasAuthority('ADMIN')" th:href="@{/under-construction}">
                 <i class="fas fa-money-bill-wave"></i>
                 <span>Payments</span>
             </a>
@@ -54,37 +54,37 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/raw-ingredients}">
+            <a class="nav-link" sec:authorize="hasAuthority('ADMIN') or hasAuthority('EMPLOYEE')"  th:href="@{/raw-ingredients}">
                 <i class="fas fa-birthday-cake"></i>
                 <span>Ingredients</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/reports}">
+            <a class="nav-link" sec:authorize="hasAuthority('ADMIN')" th:href="@{/reports}">
                 <i class="fas fa-chart-bar"></i>
                 <span>Reports</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/under-construction}">
+            <a class="nav-link" sec:authorize="hasAuthority('ADMIN')" th:href="@{/under-construction}">
                 <i class="fas fa-pound-sign"></i>
                 <span>Sales</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/users}">
+            <a class="nav-link" sec:authorize="hasAuthority('ADMIN')" th:href="@{/users}">
                 <i class="fas fa-users"></i>
                 <span>Users</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/under-construction}">
+            <a class="nav-link" sec:authorize="hasAuthority('ADMIN')" th:href="@{/under-construction}">
                 <i class="fas fa-store"></i>
                 <span>Vendors</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/alerts}">
+            <a class="nav-link" sec:authorize="hasAuthority('ADMIN')" th:href="@{/alerts}">
                 <i class=" fas fa-solid fa-bell"></i>
                 <span>Alerts</span>
             </a>
