@@ -28,6 +28,7 @@
 <!-- Headers -->
 <div sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></div>
 <div sec:authorize="hasAuthority('EMPLOYEE')" th:replace="header-employee :: header"></div>
+<div sec:authorize="hasAuthority('EXTERNAL')" th:replace="header-vendor :: header"></div>
 
 <!-- Sidebar -->
 <div th:replace="sidebar :: sidebar"></div>
