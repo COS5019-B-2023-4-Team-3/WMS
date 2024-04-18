@@ -46,6 +46,13 @@
                                 <div class="text-details">
                                     <h2 th:text="${product.name}">Product Name</h2>
                                     <p th:text="${product.description}">Product Description</p>
+                                    <p th:text="'SKU code: ' + ${product.SkuCode}">Product SKU Code</p>
+                                    <p th:text="'Product Description: ' + ${product.description}">Product Description</p>
+                                    <p th:text="'Product Shelf Life: ' + ${product.ShelfLife}">Product Shelf Life</p>
+                                    <p th:text="'Product Expiry Date: ' + ${product.ExpiryDate}">Product Expiry Date</p>
+                                    <p th:text="'Current Stock Level: ' + ${product.CurrentStockLevel}">Current Stock Level</p>
+                                    <p th:text="'Selling Price: ' + ${product.SellingPrice}">Selling Price</p>
+                                    <p th:text="'Unit Cost: ' + ${product.UnitCost}">Unit Cost</p>
                                     <div class="action-buttons">
                                         <button class="edit-product-btn">Edit Product</button>
                                         <button class="delete-product-btn">Delete Product</button>
