@@ -36,7 +36,6 @@ public class LoginController {
                 default -> "An unknown error occurred.";
             };
             model.addAttribute("error", errorMessage);
-            System.out.println(errorMessage);
         }
         return "login";
     }

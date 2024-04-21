@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,23 +29,14 @@ public class ProductController {
     /**
      * Displays the products page.
      *
+     * @param model The model to add attributes for rendering the view.
      * @return String representing the view name for the products page.
      */
     @GetMapping("/products")
-    public String showPage() {
-        return "products";
-    }
-
-    /**
-     * Retrieves all products from the database.
-     *
-     * @return ResponseEntity containing a List of Product objects representing all products.
-     *         Returns HTTP status code OK (200) on success.
-     */
-    @GetMapping("/products-all")
-    public ResponseEntity<List<Product>> getAllProducts() {
+    public String showProductsPage(Model model) {
         List<Product> products = productService.getAllProducts();
-        return new ResponseEntity<>(products, HttpStatus.OK);
+        model.addAttribute("products", products);
+        return "products";
     }
 
     /**
