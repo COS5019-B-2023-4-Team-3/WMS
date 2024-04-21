@@ -45,7 +45,6 @@
                                 <img th:if="${product.imageURL == ''} or ${product.imageURL == null}" th:src="@{/img/placeholder.jpg}" alt="Placeholder Image">
                                 <div class="text-details">
                                     <h2 th:text="${product.name}">Product Name</h2>
-                                    <p th:text="${product.description}">Product Description</p>
                                     <p th:text="'SKU code: ' + ${product.SkuCode}">Product SKU Code</p>
                                     <p th:text="'Product Description: ' + ${product.description}">Product Description</p>
                                     <p th:text="'Product Shelf Life: ' + ${product.ShelfLife}">Product Shelf Life</p>
@@ -54,9 +53,19 @@
                                     <p th:text="'Selling Price: ' + ${product.SellingPrice}">Selling Price</p>
                                     <p th:text="'Unit Cost: ' + ${product.UnitCost}">Unit Cost</p>
                                     <div class="action-buttons">
-                                        <button class="edit-product-btn">Edit Product</button>
+                                        <button class="edit-product-btn" onclick="toggleForm()">Edit Product</button>
                                         <button class="delete-product-btn">Delete Product</button>
                                     </div>
+                                    <!-- Hidden edit form -->
+                                    <form id="editForm" style="display: none;">
+                                        <!-- Input fields for updating product details -->
+                                        <input type="text" id="newName" placeholder="New Product Name">
+                                        <input type="text" id="newDescription" placeholder="New Product Description">
+                                        <!-- Add inputs for other details as needed -->
+
+                                        <!-- Submit button -->
+                                        <button type="button" onclick="submitForm()">Submit</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -95,6 +104,10 @@ closeButtons.forEach(function(closeButton) {
   });
 });
 
+function toggleForm() {
+    var form = document.getElementById("editForm");
+    form.style.display = (form.style.display === "none") ? "block" : "none";
+}
 </script>
 </body>
 </html>

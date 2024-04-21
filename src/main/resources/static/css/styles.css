@@ -2212,7 +2212,9 @@ dashboard .info-card h6 {
 }
 
 .text-details {
-    flex: 1; /* Take up remaining space */
+    align-items: left;
+    margin-left: 20px;
+    text-align: left;
 }
 
 .action-buttons button {
