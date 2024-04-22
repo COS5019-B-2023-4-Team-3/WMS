@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface SaleRepository extends JpaRepository<Sale, Long> {
-    @Query(value = "SELECT * FROM sales_data s WHERE s.transaction_date = :currentDate", nativeQuery = true)
+    @Query(value = "SELECT * FROM sales_data s WHERE s.transaction_date = '2024-04-17'", nativeQuery = true)
     List<Sale> findSalesAmount(LocalDate currentDate);
 
 }
