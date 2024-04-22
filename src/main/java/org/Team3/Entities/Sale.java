@@ -8,17 +8,14 @@ import java.time.LocalDate;
 public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sales_id")
+    @Column(name = "sale_id")
     private Long id;
 
     @Column(name = "transaction_date")
     private LocalDate date;
 
     @Column(name = "revenue")
-    private Long income;
-
-    @Column(name = "order_volume")
-    private Long volume;
+    private Long revenue;
 
     @Column(name = "order_id")
     private Long oid;
@@ -40,19 +37,11 @@ public class Sale {
     }
 
     public Long getIncome() {
-        return income;
+        return revenue;
     }
 
     public void setIncome(Long income) {
-        this.income = income;
-    }
-
-    public Long getVolume() {
-        return volume;
-    }
-
-    public void setVolume(Long volume) {
-        this.volume = volume;
+        this.revenue = income;
     }
 
     public Long getOid() {
