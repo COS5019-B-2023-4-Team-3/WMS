@@ -52,5 +52,14 @@ public class Sale {
         this.oid = oid;
     }
 
+    @Override
+    public String toString() {
+        return "Sale{" +
+                "id=" + id +
+                ", date=" + date +
+                ", revenue=" + revenue +
+                ", oid=" + oid +
+                '}';
+    }
 }
 
