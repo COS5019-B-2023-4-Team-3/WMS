@@ -26,12 +26,13 @@
             </div>
 
             <div class="card-body">
-                <h5 class="card-title">Reports <span>/Today</span></h5>
+                <h5 class="card-title">Reports <span>/Week</span></h5>
 
                 <!-- Line Chart -->
                 <div id="reportsChart" style="min-height: 365px;"></div>
 
                 <script>
+<!--&lt;!&ndash;            for line on graph-->
                     document.addEventListener("DOMContentLoaded", () => {
                       new ApexCharts(document.querySelector("#reportsChart"), {
                         series: [{
@@ -44,6 +45,7 @@
                           name: 'Customers',
                           data: [15, 11, 32, 18, 9, 24, 11]
                         }],
+<!--                        for line graph body-->
                         chart: {
                           height: 350,
                           type: 'area',
@@ -73,11 +75,11 @@
                         },
                         xaxis: {
                           type: 'datetime',
-                          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                          categories: ["2023-04-23Z", "2023-04-24Z", "2023-04-25Z", "2023-04-26Z", "2023-04-27Z", "2023-04-28Z", "2023-04-29Z"]
                         },
                         tooltip: {
                           x: {
-                            format: 'dd/MM/yy HH:mm'
+                            format: 'dd/MM/yy'
                           },
                         }
                       }).render();
