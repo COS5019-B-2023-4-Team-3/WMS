@@ -33,8 +33,7 @@
 <div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-employee :: sidebar"></div>
 
 <!-- Mains -->
-<main th:replace="main-orders :: main" id="main" class="main"></main>
-
+<main th:replace="main-orders :: main"></main>
 
 <!-- Footer -->
 <footer sec:authorize="hasAuthority('ADMIN') or hasAuthority('EMPLOYEE')" th:replace="footer-staff :: footer"></footer>
