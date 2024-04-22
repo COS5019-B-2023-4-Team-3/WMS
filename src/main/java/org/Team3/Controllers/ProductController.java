@@ -78,14 +78,16 @@ public class ProductController {
      *         Returns HTTP status code OK (200) if the product is updated successfully.
      *         Returns HTTP status code NOT_FOUND (404) if the product with the given ID is not found.
      */
-    @PutMapping("/product-update-{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
-        Product updatedProduct = productService.updateProduct(id, productDto);
-        if (updatedProduct == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
-    }
+
+
+//    @PutMapping("/product-update-{id}")
+//    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
+//        Product updatedProduct = productService.updateProduct(id, productDto);
+//        if (updatedProduct == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+//    }
 
     /**
      * Deletes a product from the database.
@@ -95,12 +97,18 @@ public class ProductController {
      *         Returns HTTP status code NO_CONTENT (204) if the product is deleted successfully.
      *         Returns HTTP status code NOT_FOUND (404) if the product with the given ID is not found.
      */
-    @DeleteMapping("/product-delete-{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-        boolean deleted = productService.deleteProduct(id);
-        if (!deleted) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @GetMapping("/products/{id}")
+    public String deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
+        return "redirect:/products";
     }
+
+//    @DeleteMapping("/product-delete-{id}")
+//    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+//        boolean deleted = productService.deleteProduct(id);
+//        if (!deleted) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 }

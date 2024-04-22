@@ -54,6 +54,7 @@
                                     <p th:text="'Unit Cost: ' + ${product.UnitCost}">Unit Cost</p>
                                     <div class="action-buttons">
                                         <button class="edit-product-btn" onclick="toggleForm()">Edit Product</button>
+                                        <a th:href = "@{/products/{id}(id=${product.id})}" class="btn btn-danger btn-sm delete">Delete</a>
                                         <button class="delete-product-btn">Delete Product</button>
                                     </div>
                                     <!-- Hidden edit form -->
