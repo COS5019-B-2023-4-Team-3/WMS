@@ -63,11 +63,21 @@ public class ProductController {
      * @return ResponseEntity containing a Product object representing the newly created product.
      *         Returns HTTP status code CREATED (201) on success.
      */
-    @PostMapping("/product-create")
-    public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDto productDto) {
-        Product createdProduct = productService.createProduct(productDto);
-        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+
+    @PostMapping("/api/products")
+    public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDto productDto) {
+        try {
+            Product product = productService.createProduct(productDto);
+            return ResponseEntity.ok(product);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add product");
+        }
     }
+//    @PostMapping("/product-create")
+//    public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDto productDto) {
+//        Product createdProduct = productService.createProduct(productDto);
+//        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+//    }
 
     /**
      * Updates an existing product in the database.
@@ -80,14 +90,14 @@ public class ProductController {
      */
 
 
-//    @PutMapping("/product-update-{id}")
-//    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
-//        Product updatedProduct = productService.updateProduct(id, productDto);
-//        if (updatedProduct == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
-//    }
+    @PutMapping("/product-update-{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
+        Product updatedProduct = productService.updateProduct(id, productDto);
+        if (updatedProduct == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+    }
 
     /**
      * Deletes a product from the database.
