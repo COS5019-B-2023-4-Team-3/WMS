@@ -2222,3 +2222,23 @@ dashboard .info-card h6 {
     margin-top: 5px; /* Add margin above the buttons */
     margin-bottom: 5px; /* Add margin below the buttons */
 }
+/* Apply styles only to elements within the product form */
+#productForm label {
+    display: block;
+}
+
+#productForm input[type="text"],
+#productForm input[type="number"],
+#productForm textarea {
+    width: 400px;
+    padding: 4px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+
+#productForm .form-group {
+    margin-bottom: 2px; /* Adjust */
+}

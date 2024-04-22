@@ -17,8 +17,27 @@
 <main th:fragment="main" id="main" class="main">
     <div class="container" style="margin-top: 60px;">
         <div class="title">
-            <h2>Products</h2>
+            <h1>Products</h1>
             <button id="createProductBtn">Create New Product</button>
+            <!--            <h1>Add New Product</h1>-->
+            <form id="productForm" style="display: none;">
+                <div class="form-group">
+                    <input type="text" id="productName" name="productName" placeholder="Product Name" required><br><br>
+                </div>
+
+                <input type="text" id="skuCode" name="skuCode" placeholder="SKU Code" required><br><br>
+                <textarea id="description" name="description" placeholder="Description"></textarea><br><br>
+                <input type="number" id="shelfLife" name="shelfLife" min="0" placeholder="Shelf Life (in days)" required><br><br>
+                <label for="expiryDate">Expiry Date:</label>
+                <input type="date" id="expiryDate" name="expiryDate" required><br><br>
+                <input type="number" id="currentStockLevel" name="currentStockLevel" min="0" placeholder="Current Stock Level" required><br><br>
+                <input type="number" id="minStockLevel" name="minStockLevel" min="0" placeholder="Minimum Stock Level" required><br><br>
+                <input type="number" id="unitSellPrice" name="unitSellPrice" min="0" step="0.01" placeholder="Unit Selling Price" required><br><br>
+                <input type="number" id="unitCost" name="unitCost" min="0" step="0.01" placeholder="Unit Cost" required><br><br>
+                <input type="text" id="imageURL" name="imageURL" placeholder="Image URL"><br><br>
+
+                <button type="submit">Add Product</button>
+            </form>
         </div>
         <div class="col-12" style="margin-top: 40px;"></div>
         <div class="sort-by">
@@ -109,6 +128,32 @@ function toggleForm() {
     var form = document.getElementById("editForm");
     form.style.display = (form.style.display === "none") ? "block" : "none";
 }
+
+document.getElementById('createProductBtn').addEventListener('click', function(event) {
+            event.preventDefault();
+            const productForm = document.getElementById('productForm');
+            if (productForm.style.display === 'none') {
+                productForm.style.display = 'block';
+            } else {
+                productForm.style.display = 'none';
+            }
+        });
+
+        document.getElementById('productForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const response = await fetch('/api/products', {
+                method: 'POST',
+                body: formData
+            });
+            if (response.ok) {
+                alert('Product added successfully!');
+                window.location.reload(); // Refresh the page or redirect to product list
+            } else {
+                alert('Failed to add product');
+            }
+        });
+
 </script>
 </body>
 </html>

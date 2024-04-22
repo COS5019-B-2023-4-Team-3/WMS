@@ -92,6 +92,31 @@ function toggleForm() {
     var form = document.getElementById("editForm");
     form.style.display = (form.style.display === "none") ? "block" : "none";
 }
+document.getElementById('createProductBtn').addEventListener('click', function(event) {
+            event.preventDefault();
+            const productForm = document.getElementById('productForm');
+            if (productForm.style.display === 'none') {
+                productForm.style.display = 'block';
+            } else {
+                productForm.style.display = 'none';
+            }
+        });
+
+        document.getElementById('productForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const response = await fetch('/api/products', {
+                method: 'POST',
+                body: formData
+            });
+            if (response.ok) {
+                alert('Product added successfully!');
+                window.location.reload(); // Refresh the page or redirect to product list
+            } else {
+                alert('Failed to add product');
+            }
+        });
+
 </script>
 
 </body>
