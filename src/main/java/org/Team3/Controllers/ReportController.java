@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -31,15 +32,16 @@ public class ReportController {
      * @return The name of the reports page template
      */
     @GetMapping("/reports")
-    public String showPage() {
+    public String showPage(Model model) {
+        //get specified range of sales
+        //add as a model attribute
+        //use model to access data in html
+        List<Sale> salesInRange = saleService.getAllSales();
+        Model salesData = model.addAttribute("weekSaleData");
         return "reports";
     }
 
-    @RequestMapping("/reports")
-    public String getALlSales() {
-        List<Sale> salesInRange = saleService.getAllSales();
-        return "reports";
-    }
+
 }
 /**
      * Endpoint for generating the product inventory report.
