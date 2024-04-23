@@ -32,10 +32,7 @@
 <header sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></header>
 <header th:replace="sidebar :: sidebar"></header>
 
-<main>
-    <h1>Notifications</h1> <!-- Added heading for Notifications -->
-    <div th:replace="main-alerts :: main"></div> <!-- Included main content -->
-</main>
+<main th:replace="main-alerts :: main"></main>
 
 <footer th:replace="footer :: footer"></footer>
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -46,8 +43,6 @@
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="/js/dropdown.js"></script>
-<script src="/js/sidebar_toggle.js"></script>
-<script src="/js/back_to_top.js"></script>
+<script src="/js/main.js"></script>
 </body>
 </html>
