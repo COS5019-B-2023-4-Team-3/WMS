@@ -60,4 +60,19 @@ public class UserController {
         return "redirect:/users";
     }
 
+    @GetMapping("/users/edit/{id}")
+    public String editUserForm(@PathVariable Long id, Model model) {
+        model.addAttribute("users", userService.getUserById(id));
+        return "edit_user";
+    }
+    @PostMapping("/users/{id}")
+    public String updateUser(@PathVariable Long id, @ModelAttribute("user") User user, Model model) {
+        User existingUser = userService.getUserById(id);
+        existingUser.setId(id);
+        existingUser.setUsername(user.getUsername());
+        existingUser.setRole(user.getRole());
+
+        userService.updateUser(existingUser);
+        return "redirect:/users";
+    }
 }
