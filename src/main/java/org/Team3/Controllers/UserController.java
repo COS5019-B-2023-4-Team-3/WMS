@@ -1,6 +1,7 @@
 package org.Team3.Controllers;
 import org.Team3.Entities.User;
 import org.Team3.Services.UserService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,15 +17,9 @@ import java.util.List;
  * defines endpoints to handle CRUD operations
  */
 @Controller
-@RequestMapping("/users")
 public class UserController {
     @Autowired
     private UserService userService;
-
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
@@ -36,9 +31,12 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String showpage(){
+    public String showPage(Model model){
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("users", users);
         return "users";
     }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -56,9 +54,5 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        boolean deleted = userService.deleteUser(id);
-        return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
-    }
+
 }
