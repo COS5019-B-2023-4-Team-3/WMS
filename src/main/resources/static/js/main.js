@@ -1,4 +1,17 @@
-$(document).ready(function() {
+window.onload = function() {
+    // back_to_top.js
+    let backtotop = $('.back-to-top');
+    const toggleBacktotop = () => {
+        if ($(window).scrollTop() > 100) {
+            backtotop.addClass('active');
+        } else {
+            backtotop.removeClass('active');
+        }
+    };
+    $(window).on('load', toggleBacktotop);
+    $(window).on('scroll', toggleBacktotop);
+
+    // dropdown.js
     // Hide dropdown menus by default
     $('.dropdown-menu').hide();
 
@@ -28,4 +41,19 @@ $(document).ready(function() {
             $('.dropdown-menu').hide();
         }
     });
-});
+
+    // sidebar_toggle.js
+    $('.toggle-sidebar-btn').click(function() {
+        $('body').toggleClass('toggle-sidebar');
+    });
+
+    // pageshow.js
+    // checks if the pageshow event was fired due to a page coming out of
+    // the browser's page cache (also known as back-forward cache, or bfcache).
+    // If it was, it forces a page reload.
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    });
+};
