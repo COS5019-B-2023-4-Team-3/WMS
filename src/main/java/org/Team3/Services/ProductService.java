@@ -53,7 +53,7 @@ public class ProductService {
         product.setMinStockLevel(productDto.getMinStockLevel());
         product.setSellingPrice(productDto.getUnitSellPrice());
         product.setUnitCost(productDto.getUnitCost());
-        product.setImageURL(productDto.getImageURL());
+//        product.setImageURL(productDto.getImageURL());
 
         return productRepository.save(product);
     }

@@ -65,14 +65,22 @@ public class ProductController {
      */
 
     @PostMapping("/api/products")
-    public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDto productDto) {
-        try {
-            Product product = productService.createProduct(productDto);
-            return ResponseEntity.ok(product);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add product");
-        }
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDto productDto) throws Exception {
+        Product product = productService.createProduct(productDto);
+        return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
+
+
+
+//    @PostMapping("/api/products")
+//    public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDto productDto) {
+//        try {
+//            Product product = productService.createProduct(productDto);
+//            return ResponseEntity.ok(product);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add product");
+//        }
+//    }
 //    @PostMapping("/product-create")
 //    public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDto productDto) {
 //        Product createdProduct = productService.createProduct(productDto);

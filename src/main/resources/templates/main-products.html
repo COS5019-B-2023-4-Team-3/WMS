@@ -19,8 +19,8 @@
         <div class="title">
             <h1>Products</h1>
             <button id="createProductBtn">Create New Product</button>
-            <form id="productForm" action="/api/products" method="post" style="display: none;">
-                <h3>Add New Product:</h3>
+            <form id="productForm" action="/api/products" method="post" enctype="application/json" style="display: none;">
+            <h3>Add New Product:</h3>
                 <input type="text" id="productName" name="name" placeholder="Product Name" required><br><br>
                 <input type="text" id="skuCode" name="skuCode" placeholder="SKU Code" required><br><br>
                 <textarea id="description" name="description" placeholder="Description"></textarea><br><br>
@@ -124,6 +124,14 @@ function toggleForm() {
     var form = document.getElementById("editForm");
     form.style.display = (form.style.display === "none") ? "block" : "none";
 }
+
+  const createProductBtn = document.getElementById('createProductBtn');
+  const productForm = document.getElementById('productForm');
+
+  createProductBtn.addEventListener('click', () => {
+    productForm.style.display = productForm.style.display === 'none' ? 'block' : 'none';
+  });
+
 </script>
 </body>
 </html>
