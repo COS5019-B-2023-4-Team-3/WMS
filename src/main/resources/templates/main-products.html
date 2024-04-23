@@ -18,29 +18,16 @@
     <div class="container" style="margin-top: 60px;">
         <div class="title">
             <h1>Products</h1>
-            <button id="createProductBtn">Create New Product</button>
-            <form id="productForm" action="/api/products" method="post" enctype="application/json" style="display: none;">
-            <h3>Add New Product:</h3>
-                <input type="text" id="productName" name="name" placeholder="Product Name" required><br><br>
-                <input type="text" id="skuCode" name="skuCode" placeholder="SKU Code" required><br><br>
-                <textarea id="description" name="description" placeholder="Description"></textarea><br><br>
-                <input type="number" id="shelfLife" name="shelfLife" min="0" placeholder="Shelf Life (in days)" required><br><br>
-                <label for="expiryDate">Expiry Date:</label>
-                <input type="date" id="expiryDate" name="expiryDate" required><br><br>
-                <input type="number" id="currentStockLevel" name="currentStockLevel" min="0" placeholder="Current Stock Level" required><br><br>
-                <input type="number" id="minStockLevel" name="minStockLevel" min="0" placeholder="Minimum Stock Level" required><br><br>
-                <input type="number" id="unitSellPrice" name="sellingPrice" min="0" step="0.01" placeholder="Unit Selling Price" required><br><br>
-                <input type="number" id="unitCost" name="unitCost" min="0" step="0.01" placeholder="Unit Cost" required><br><br>
+<!--            <button id="createProductBtn">Create New Product</button>-->
+            <a th:href = "@{/products/create}" class="btn btn-warning btn-sm edit">Create New Product</a>
 
-                <button type="submit">Add Product</button>
-            </form>
         </div>
         <div class="col-12" style="margin-top: 40px;"></div>
         <div class="sort-by">
             <label for="sortBy">Sort By:</label>
             <select id="sortBy">
                 <option value="name">Name</option>
-                <option value="price">Price</option>
+                <option value="expiry date">Expiry Date</option>
                 <!-- sorting options -->
             </select>
         </div>
@@ -91,6 +78,7 @@
         </div>
     </div>
 </main>
+<script src="/js/main.js"></script>
 <script>
     // Get all elements with class "view-product-btn"
 var buttons = document.querySelectorAll(".view-product-btn");
