@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.IOException;
 
 /**
- * contains an endpoint /reports/product-inventory
- * that triggers the generation of the product inventory report when accessed.
+ * The ReportController class contains endpoints for generating reports.
  */
 @Controller
 
@@ -22,17 +21,26 @@ public class ReportController {
     @Autowired
     private ReportService reportService;
 
+    /**
+     * Displays the reports page.
+     * @return The name of the reports page template
+     */
     @GetMapping("/reports")
-    public String showPage(){
+    public String showPage() {
         return "reports";
     }
 
+    /**
+     * Endpoint for generating the product inventory report.
+     * @return ResponseEntity with a success message and HTTP status OK if the report is generated successfully,
+     *         or an error message and HTTP status INTERNAL_SERVER_ERROR if there's an error during report generation
+     */
     @GetMapping("/product-inventory")
-    public ResponseEntity<String> generateProductInventoryReport(){
-        try{
+    public ResponseEntity<String> generateProductInventoryReport() {
+        try {
             reportService.generateProductInventoryReport("product-inventory.xlsx");
             return new ResponseEntity<>("Product inventory report generated successfully", HttpStatus.OK);
-        }catch (IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
             return new ResponseEntity<>("Failed to generate product inventory report", HttpStatus.INTERNAL_SERVER_ERROR);
         }

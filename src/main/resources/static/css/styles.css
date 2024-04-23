@@ -2126,7 +2126,7 @@ dashboard .info-card h6 {
 
 .product-box img {
     max-width: 100%;
-    height: auto;
+    height: 200px;
 }
 
 .product-box h3 {
@@ -2167,7 +2167,6 @@ dashboard .info-card h6 {
   z-index: 1;
   left: 0;
   top: 0;
-  width: 100%;
   height: 100%;
   overflow: auto;
   background-color: rgba(0,0,0,0.4);
@@ -2179,8 +2178,8 @@ dashboard .info-card h6 {
   margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 50%; /* Adjust the width */
-  max-width: 400px; /* Set a maximum width */
+  width: 100%; /* Adjust the width */
+  max-width: 800px; /* Set a maximum width */
 }
 
 /* Close button */
@@ -2208,8 +2207,8 @@ dashboard .info-card h6 {
 }
 
 .product-details img {
-    max-width: 50%; /* Set maximum width for the image */
-    margin-right: 20px; /* Add some space between the image and text */
+    max-width: 100%; /* Set maximum width for the image */
+    margin-right: 40px; /* Add some space between the image and text */
 }
 
 .text-details {
