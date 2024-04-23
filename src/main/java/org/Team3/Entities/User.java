@@ -34,6 +34,10 @@ public class User implements UserDetails {
     @JoinColumn(name = "role_id")
     private Role role;
 
+    @Column(name ="vendor_id")
+    private Long vendorID;
+
+
     /**
      * Default constructor for User class.
      */
@@ -162,5 +166,13 @@ public class User implements UserDetails {
      */
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Long getVendorID() {
+        return vendorID;
+    }
+
+    public void setVendorID(Long vendorID) {
+        this.vendorID = vendorID;
     }
 }
