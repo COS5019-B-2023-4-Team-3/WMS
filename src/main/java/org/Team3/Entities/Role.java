@@ -20,8 +20,10 @@ public class Role {
     @Column(name = "role_name")
     private String name;
 
-    public Role() {
-    }
+    /**
+     * Default constructor for Role class.
+     */
+    public Role() {}
 
     /**
      * Constructor for Role class with parameter.
@@ -32,18 +34,38 @@ public class Role {
         this.name = roleName;
     }
 
+    /**
+     * Gets the ID of the role.
+     *
+     * @return Long representing the ID of the role.
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Sets the ID of the role.
+     *
+     * @param id Long representing the ID of the role.
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Gets the name of the role.
+     *
+     * @return String representing the name of the role.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name of the role.
+     *
+     * @param name String representing the name of the role.
+     */
     public void setName(String name) {
         this.name = name;
     }
