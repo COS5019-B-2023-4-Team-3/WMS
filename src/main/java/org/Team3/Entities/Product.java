@@ -4,8 +4,12 @@ import java.time.LocalDate;
 
 
 /**
- * represent the data model of the warehouse system
- * annotated with JPA annotations to define their mapping to database tables
+ * The Product class represents a product in the warehouse system.
+ *
+ * It includes fields for the product's ID, name, SKU code, description, shelf life, expiry date,
+ * selling price, unit cost, current stock level, and minimum acceptable stock level.
+ *
+ * The class is annotated with JPA annotations to define its mapping to the database table named "products".
  */
 @Entity
 @Table(name = "products")
@@ -31,7 +35,7 @@ public class Product {
     @Column(name = "expiry_date")
     private LocalDate expiryDate;
 
-    @Column(name = "selling_price")
+    @Column(name = "unit_selling_price")
     private double sellingPrice;
 
     @Column(name = "unit_cost")
@@ -42,6 +46,9 @@ public class Product {
 
     @Column(name = "min_acceptable_stock_level")
     private int minStockLevel;
+
+    @Column(name = "image_url")
+    private String imageURL;
 
     public Long getId() {
         return id;
@@ -121,6 +128,14 @@ public class Product {
 
     public void setMinStockLevel(int minStockLevel) {
         this.minStockLevel = minStockLevel;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
 }

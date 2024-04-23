@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="/static/css/styles.css" rel="stylesheet" type="text/css">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,100 +12,33 @@
 <main th:fragment="main">
     <div class="table-responsive" style="margin-left: 300px; margin-top: 60px;">
         <h1>Ingredients</h1>
+    </div>
+    <div style="overflow-y:auto;">
         <table class="table-hover">
-            <thead>
-            <tr>
-                <th> Product Name </th>
-                <th> SKU code </th>
-                <th> Shelf life </th>
-                <th> Expiry date </th>
-                <th> Current stock levels</th>
-                <th> Minimum stock level </th>
-            </thead>
-            <tbody>
-            </tr>
-            <tr>
-                <td>Product 0</td>
-                <td>SKU0</td>
-                <td>146</td>
-                <td>2024-07-22</td>
-                <td>70</td>
-                <td>14</td>
-            </tr>
-            <tr>
-                <td>Product 1</td>
-                <td>SKU1</td>
-                <td>92</td>
-                <td>2024-05-29</td>
-                <td>46</td>
-                <td>9</td>
-            </tr>
-            <tr>
-                <td>Product 2</td>
-                <td>SKU2</td>
-                <td>103</td>
-                <td>2024-06-09</td>
-                <td>82</td>
-                <td>16</td>
-            </tr>
-            <tr>
-                <td>Product 3</td>
-                <td>SKU3</td>
-                <td>270</td>
-                <td>2024-11-23</td>
-                <td>98</td>
-                <td>19</td>
-            </tr>
-            <tr>
-                <td>Product 4</td>
-                <td>SKU4</td>
-                <td>152</td>
-                <td>2024-07-28</td>
-                <td>8</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td>Product 5</td>
-                <td>SKU5</td>
-                <td>118</td>
-                <td>2024-06-24</td>
-                <td>29</td>
-                <td>5</td>
-            </tr>
-            <tr>
-                <td>Product 6</td>
-                <td>SKU6</td>
-                <td>182</td>
-                <td>2024-08-27</td>
-                <td>7</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td>Product 7</td>
-                <td>SKU7</td>
-                <td>28</td>
-                <td>2024-03-26</td>
-                <td>81</td>
-                <td>16</td>
-            </tr>
-            <tr>
-                <td>Product 8</td>
-                <td>SKU8</td>
-                <td>202</td>
-                <td>2024-09-16</td>
-                <td>39</td>
-                <td>7</td>
-            </tr>
-            <tr>
-                <td>Product 9</td>
-                <td>SKU9</td>
-                <td>61</td>
-                <td>2024-04-28</td>
-                <td>4</td>
-                <td>0</td>
-            </tr>
+<!--            <thead>-->
+
+<!--                <th> Product Name </th>-->
+<!--                <th> SKU code </th>-->
+<!--                <th> Shelf life </th>-->
+<!--                <th> Expiry date </th>-->
+<!--                <th> Current stock levels</th>-->
+<!--                <th> Minimum stock level </th>-->
+
+<!--            </thead>
+            </tr>/*-->
+
+            <tbody class="rawIngredients-grid">
+                <div th:each="rawIngredient : ${rawIngredients}" class="rawIngredients-box">
+                    <div class="rawIngredients">
+                        <h3 th:text="'Product ID: '+${rawIngredient.id}">ID</h3>
+                        <p th:text="${rawIngredient.name}">Name</p>
+                        <p th:text="${rawIngredient.description}">description</p>
+                        <p th:text="${rawIngredient.quantity}">Quantity</p>
+                    </div>
+                </div>
             </tbody>
         </table>
+    </div>
         <button type="button" class="btn btn-warning" >Expiring soon!</button>
     </div>
 </main>

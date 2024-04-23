@@ -13,9 +13,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 
+/**
+ * HomeController class handles requests related to the application's home page.
+ *
+ * This controller provides methods to display the homepage, handle POST requests
+ * related to the homepage, and handle user logout.
+ */
 @Controller
 public class HomeController {
 
+    /**
+     * Displays the homepage and adds the user's role to the model.
+     *
+     * @param model Model object to add attributes for rendering the view.
+     * @param principal Principal object representing the currently authenticated user.
+     * @return String representing the logical view name of the homepage.
+     */
     @GetMapping("/homepage")
     public String showHomepage(Model model, Principal principal) {
         String role = getRoleForUser(principal);
@@ -23,16 +36,26 @@ public class HomeController {
         return "homepage";
     }
 
+    /**
+     * Handles POST requests related to the homepage.
+     *
+     * @return String representing the redirection URL to the homepage.
+     */
     @PostMapping("/homepage")
     public String handlePostRequest() {
         return "redirect:/homepage";
     }
 
+    /**
+     * Retrieves the role of the authenticated user.
+     *
+     * @param principal Principal object representing the currently authenticated user.
+     * @return String representing the role of the user.
+     */
     private String getRoleForUser(Principal principal) {
         if (principal instanceof Authentication authentication) {
             for (GrantedAuthority authority : authentication.getAuthorities()) {
                 String role = authority.getAuthority();
-                System.out.println(role);
                 if ("ROLE_ADMIN".equals(role)) {
                     return "ADMIN";
                 } else if ("ROLE_EMPLOYEE".equals(role)) {
@@ -46,6 +69,14 @@ public class HomeController {
         return "UNKNOWN";
     }
 
+    /**
+     * Handles user logout by invalidating the authentication session.
+     *
+     * @param request HttpServletRequest object representing the HTTP request.
+     * @param response HttpServletResponse object representing the HTTP response.
+     * @param model Model object to add attributes for rendering the view.
+     * @return String representing the redirection URL to the login page with a logout parameter.
+     */
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
