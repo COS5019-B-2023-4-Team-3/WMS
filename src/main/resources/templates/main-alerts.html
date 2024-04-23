@@ -8,29 +8,27 @@
 
 <main th:fragment="main" class="main" id="main">
     <div class="alert-grid">
-        <div th:each="alert: ${alerts}" class="alert-box" >
-            <div th:each="alert : ${alerts}">
-                <h1>Notifications</h1>
-                <hr><hr>
+        <h1>Notifications</h1>
+        <hr>
+        <h4 style="color: #29318C;">Product Details</h4>
+        <div>
                 <div class="notification">
                     <div class="card-body">
-                        <h3 class="card-title">Product Details </h3>
-
                         <table class="table table-borderless datatable">
                             <thead>
-                            <tr>
+                            <tr style="border-bottom: 1px solid #dee2e6;">
                                 <th scope="col">Alert ID</th>
                                 <th scope="col">Alert Type</th>
                                 <th scope="col">Alert Message</th>
                                 <th scope="col">Alert Timestamp</th>
                                 <th scope="col">Product ID</th>
                                 <th scope="col">#</th>
-
                             </tr>
                             </thead>
+                            <div th:each="alert: ${alerts}" class="alert-box" >
                             <tbody>
-                            <tr th:each="alert : ${alerts}">
-                                <td th:text="${alert.id}">Alert ID</td>
+                            <tr style="border-bottom: 1px solid #dee2e6;">
+                                <td th:text="${alert.id}"></td>
                                 <td th:text="${alert.type}" style="color: red;">Alert Type</td>
                                 <td th:text="${alert.message}">Alert Message</td>
                                 <td th:text="${alert.timestamp}">Alert Timestamp</td>
@@ -40,7 +38,12 @@
                             </tbody>
                         </table>
 
-</div>
+
+
+
+                </div>
+                </div>
+          </div>
         </div>
     </div>
 </main>
