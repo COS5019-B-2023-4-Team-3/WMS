@@ -31,10 +31,8 @@ public class ReportController {
     }
 
     @RequestMapping("/main-reports")
-    public String getSalesInRange() {
-        List<Sale> salesInRange = ReportService
-    }
-    /**
+    public String getALlSales() {
+        List<Sale> salesInRange =     /**
      * Endpoint for generating the product inventory report.
      * @return ResponseEntity with a success message and HTTP status OK if the report is generated successfully,
      *         or an error message and HTTP status INTERNAL_SERVER_ERROR if there's an error during report generation
