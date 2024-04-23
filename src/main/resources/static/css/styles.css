@@ -2220,3 +2220,21 @@ dashboard .info-card h6 {
     margin-top: 5px; /* Add margin above the buttons */
     margin-bottom: 5px; /* Add margin below the buttons */
 }
+--------------------------------------------------------------
+# rawIngredients
+--------------------------------------------------------------*/
+.rawIngredients-grid  {
+    display: grid;
+    width: 100%
+    style="overflow-y:auto;
+
+}
+.rawIngredients-box {
+    border: 1px solid #ccc;
+    padding: 0px;
+}
+.rawIngredients-box .rawIngredients {
+    text-align: center;
+}
+
+}
