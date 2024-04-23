@@ -2,6 +2,7 @@ package org.Team3.Entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.sql.*;
 
 @Entity
 @Table(name = "sales_data")
@@ -16,9 +17,6 @@ public class Sale {
 
     @Column(name = "revenue")
     private Long revenue;
-
-    @Column(name = "order_id")
-    private Long oid;
 
     public Long getId() {
         return id;
@@ -44,21 +42,12 @@ public class Sale {
         this.revenue = income;
     }
 
-    public Long getOid() {
-        return oid;
-    }
-
-    public void setOid(Long oid) {
-        this.oid = oid;
-    }
-
     @Override
     public String toString() {
         return "Sale{" +
                 "id=" + id +
                 ", date=" + date +
                 ", revenue=" + revenue +
-                ", oid=" + oid +
                 '}';
     }
 }

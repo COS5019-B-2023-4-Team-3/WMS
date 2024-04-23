@@ -3,6 +3,8 @@ package org.Team3.Controllers;
 import org.Team3.Entities.Sale;
 import org.Team3.Services.ReportService;
 import org.Team3.Services.SaleService;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.entity.JFreeChartEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,8 +38,8 @@ public class ReportController {
         //get specified range of sales
         //add as a model attribute
         //use model to access data in html
-        List<Sale> salesInRange = saleService.getAllSales();
-        Model salesData = model.addAttribute("weekSaleData");
+        List<Sale> salesInRange = saleService.getWeekSales();
+        Model salesData = model.addAttribute("weekSaleData", salesInRange);
         return "reports";
     }
 
