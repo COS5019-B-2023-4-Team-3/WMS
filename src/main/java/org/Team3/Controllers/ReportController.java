@@ -1,8 +1,7 @@
 package org.Team3.Controllers;
 
-import
-
-        org.Team3.Services.ReportService;
+import org.Team3.Entities.Sale;
+import org.Team3.Services.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * The ReportController class contains endpoints for generating reports.
@@ -30,6 +30,10 @@ public class ReportController {
         return "reports";
     }
 
+    @RequestMapping("/main-reports")
+    public String getSalesInRange() {
+        List<Sale> salesInRange = ReportService
+    }
     /**
      * Endpoint for generating the product inventory report.
      * @return ResponseEntity with a success message and HTTP status OK if the report is generated successfully,
