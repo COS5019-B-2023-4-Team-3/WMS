@@ -22,8 +22,7 @@ public class CustomUserDetailsServiceTest {
     @BeforeEach
     public void setUp() {
         userRepository = Mockito.mock(UserRepository.class);
-        customUserDetailsService = new CustomUserDetailsService();
-        ReflectionTestUtils.setField(customUserDetailsService, "userRepository", userRepository);
+        customUserDetailsService = new CustomUserDetailsService(userRepository);
     }
 
     @Test
