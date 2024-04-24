@@ -11,8 +11,12 @@ import java.util.List;
  */
 @Service
 public class OrderService {
-    @Autowired
-    private OrderRepository orderRepository;
+
+    private final OrderRepository orderRepository;
+
+    public OrderService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     /**
      * Retrieves all orders from the repository.
