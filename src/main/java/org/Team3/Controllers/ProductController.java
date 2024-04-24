@@ -60,6 +60,12 @@ public class ProductController {
     public String createProductsForm() {
         return "products-create";
     }
+    @GetMapping("/products/edit/{id}")
+    public String editProductsForm(@PathVariable Long id, Model model) {
+        model.addAttribute("products", productService.getProductById(id));
+        return "products-edit";
+    }
+
     /**
      * Creates a new product in the database.
      *
@@ -68,9 +74,10 @@ public class ProductController {
      *         Returns HTTP status code CREATED (201) on success.
      */
 
-    @PostMapping("product-create")
+    @PostMapping("/products/create")
     public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDto productDto){
         Product product = productService.createProduct(productDto);
+
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 

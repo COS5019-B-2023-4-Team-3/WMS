@@ -55,20 +55,13 @@
                                     <p th:text="'Selling Price: ' + ${product.SellingPrice}">Selling Price</p>
                                     <p th:text="'Unit Cost: ' + ${product.UnitCost}">Unit Cost</p>
                                     <div class="action-buttons">
-                                        <button class="edit-product-btn" onclick="toggleForm()">Edit Product</button>
+                                        <a th:href = "@{/products/edit/{id}(id=${product.id})}" class="btn btn-warning btn-sm edit">Edit Product</a>
+<!--                                        <button class="edit-product-btn" onclick="toggleForm()">Edit Product</button>-->
                                         <a th:href = "@{/products/{id}(id=${product.id})}" class="btn btn-danger btn-sm delete">Delete</a>
-                                        <button class="delete-product-btn">Delete Product</button>
+<!--                                        <button class="delete-product-btn">Delete Product</button>-->
                                     </div>
                                     <!-- Hidden edit form -->
-                                    <form id="editForm" style="display: none;">
-                                        <!-- Input fields for updating product details -->
-                                        <input type="text" id="newName" placeholder="New Product Name">
-                                        <input type="text" id="newDescription" placeholder="New Product Description">
-                                        <!-- Add inputs for other details as needed -->
 
-                                        <!-- Submit button -->
-                                        <button type="button" onclick="submitForm()">Submit</button>
-                                    </form>
                                 </div>
                             </div>
                         </div>
