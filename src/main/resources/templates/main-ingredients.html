@@ -6,35 +6,31 @@
 <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
 </head>
 <body>
 <main th:fragment="main">
-    <div class="table-responsive" style="margin-left: 300px; margin-top: 60px;">
         <h1>Ingredients</h1>
-    </div>
-    <div style="overflow-y:auto;">
-        <table class="table-hover">
-<!--            <thead>-->
-
-<!--                <th> Product Name </th>-->
-<!--                <th> SKU code </th>-->
-<!--                <th> Shelf life </th>-->
-<!--                <th> Expiry date </th>-->
-<!--                <th> Current stock levels</th>-->
-<!--                <th> Minimum stock level </th>-->
-
-<!--            </thead>
-            </tr>/*-->
-
-            <tbody class="rawIngredients-grid">
-                <div th:each="rawIngredient : ${rawIngredients}" class="rawIngredients-box">
-                    <div class="rawIngredients">
-                        <h3 th:text="'Product ID: '+${rawIngredient.id}">ID</h3>
-                        <p th:text="${rawIngredient.name}">Name</p>
-                        <p th:text="${rawIngredient.description}">description</p>
-                        <p th:text="${rawIngredient.quantity}">Quantity</p>
-                    </div>
+    <div>
+        <a th:href="@{/raw-ingredients/create}" class="btn btn-primary"> Create </a>
+        <a th:href="@{/raw-ingredients/update}" class="btn btn-primary"> Update </a>
+        <a th:href="@{/raw-ingredients/delete}" class="btn btn-primary"> Delete </a>
+        <table class="RawIngredients-table">
+            <tr>
+                <th>Product ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>ID</th>
+            </tr>
+            <tbody>
+            <div class="rawIngredients">
+                    <tr th:each="rawIngredient : ${rawIngredients}">
+                        <td th:text="'Product ID: '+${rawIngredient.id}">Product ID</td>
+                        <td th:text="${rawIngredient.name}">Name</td>
+                        <td th:text="${rawIngredient.description}">Description</td>
+                        <td th:text="${rawIngredient.quantity}">Quantity</td>
+                    </tr>
                 </div>
             </tbody>
         </table>
