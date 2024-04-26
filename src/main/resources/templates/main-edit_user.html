@@ -9,10 +9,17 @@
 <body>
 <main th:fragment="main" id="main" class="main">
     <div class="col-12" style="margin-top: 100px;"></div>
+    <div class ="text-center">
+        <h1 class="display-5 mb-5"><strong>USER EDIT PAGE</strong></h1>
+    </div>
     <form th:action="@{/users/{id} (id=${user.id})}" th:object = "${user}" method="POST" id="user-form" class="row justify-content-center mb-4" autocomplete="off">
         <div class="col-8 col-md-8 mb-3">
             <label>Username</label>
             <input class="form-control" type="text" placeholder="Enter Username" th:field = "*{username}">
+        </div>
+        <div class="col-8 col-md-8 mb-3">
+            <label>Role</label>
+            <input class="form-control" type="text" placeholder="Enter Role" th:field = "*{role.name}">
         </div>
         <div class ="col-8 col-md-8">
             <input class="btn btn-success add-btn" type="submit" value="Submit">

@@ -16,9 +16,9 @@
 <body th:fragment="body">
 
 <div sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></div>
-<div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
+<div th:replace="sidebar :: sidebar"></div>
 <main style="margin-top: 50px;" sec:authorize="hasAuthority('ADMIN')" th:replace="main-users :: main" id="main-users" class="main"></main>
-<footer sec:authorize="hasAuthority('ADMIN')" th:replace="footer-staff :: footer"></footer>
+<footer th:replace="footer :: footer"></footer>
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -38,9 +38,7 @@
 <!-- Bootstrap JS -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js"></script>
 
-<script src="/js/dropdown.js"></script>
-<script src="/js/sidebar_toggle.js"></script>
-<script src="/js/back_to_top.js"></script>
+<script src="/js/main.js"></script>
 
 </body>
 </html>

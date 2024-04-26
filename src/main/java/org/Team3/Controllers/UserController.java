@@ -45,15 +45,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
-    /*@PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @Valid @RequestBody User user) {
-        User updatedUser = userService.updateUser(id, user);
-        if (updatedUser == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(updatedUser);
-    }*/
-
     @GetMapping("/users/{id}")
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
@@ -61,8 +52,9 @@ public class UserController {
     }
 
     @GetMapping("/users/edit/{id}")
-    public String editUserForm(@PathVariable Long id, Model model) {
-        model.addAttribute("users", userService.getUserById(id));
+    public String editUserForm(@PathVariable ("id") Long id, Model model) {
+        User user = userService.getUserById(id);
+        model.addAttribute("user", user);
         return "edit_user";
     }
     @PostMapping("/users/{id}")
