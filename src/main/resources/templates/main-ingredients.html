@@ -11,7 +11,6 @@
 </head>
 <body>
 <main th:fragment="main">
-    <div class="container" style="margin-top: 60px">
         <h1>Ingredients</h1>
     <div>
         <a th:href="@{/raw-ingredients/create}" class="btn btn-primary"> Create </a>
@@ -19,15 +18,15 @@
         <a th:href="@{/raw-ingredients/delete}" class="btn btn-primary"> Delete </a>
         <table class="RawIngredients-table">
             <tr>
-                <th>Ingredient ID</th>
+                <th>Product ID</th>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Quantity</th>
+                <th>ID</th>
             </tr>
             <tbody>
             <div class="rawIngredients">
                     <tr th:each="rawIngredient : ${rawIngredients}">
-                        <td th:text="'ID: '+${rawIngredient.id}">Ingredient ID</td>
+                        <td th:text="'Product ID: '+${rawIngredient.id}">Product ID</td>
                         <td th:text="${rawIngredient.name}">Name</td>
                         <td th:text="${rawIngredient.description}">Description</td>
                         <td th:text="${rawIngredient.quantity}">Quantity</td>
@@ -37,7 +36,6 @@
         </table>
     </div>
         <button type="button" class="btn btn-warning" >Expiring soon!</button>
-    </div>
     </div>
 </main>
 </body>
