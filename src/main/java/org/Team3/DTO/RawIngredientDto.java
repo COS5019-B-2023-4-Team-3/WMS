@@ -30,7 +30,9 @@ public class RawIngredientDto {
         this.quantity = quantity;
     }
 
-    public String getDescription(String description) { this.description = description;}
+    public String getDescription() { this.description = description;
+        return description;
+    }
 
     public void setDescription(String description) { this.description = description;}
 }
