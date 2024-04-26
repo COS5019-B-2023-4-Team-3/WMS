@@ -115,6 +115,9 @@ public String updateProduct(@PathVariable Long id, @ModelAttribute("product") Pr
     Product existingProduct = productService.getProductById(id);
     existingProduct.setId(id);
     existingProduct.setName(product.getName());
+    existingProduct.setSkuCode(product.getSkuCode());
+    existingProduct.setDescription(product.getDescription());
+    existingProduct.setShelfLife(product.getShelfLife());
     /*existingUser.setRole(user.getRole());*/
 
     productService.updateProduct(existingProduct);
