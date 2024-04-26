@@ -14,15 +14,31 @@
 <body>
 <main th:fragment="main" id="main" class="main">
     <div class="container" style="margin-top: 60px;">
-        <form id="editForm">
-            <!-- Input fields for updating product details -->
-            <input type="text" id="newName" placeholder="New Product Name">
-            <input type="text" id="newDescription" placeholder="New Product Description">
-            <!-- Add inputs for other details as needed -->
+            <form th:action="@{/products/{id} (id=${product.id})}" th:object = "${product}" method="POST" id="productForm" class="row justify-content-center mb-4" autocomplete="off">
+                <h3>Edit Product:</h3>
+                <label>Product Name</label>
+                <input type="text" id="productName" name="name" placeholder=" New Product Name" required th:field="*{name}"><br><br>
+<!--            <input type="text" id="skuCode" name="skuCode" placeholder=" New SKU Code" required><br><br>-->
+<!--            <textarea id="description" name="description" placeholder=" New Description"></textarea><br><br>-->
+<!--            <input type="number" id="shelfLife" name="shelfLife" min="0" placeholder="Shelf Life (in days)" required><br><br>-->
+<!--            <label for="expiryDate">Expiry Date:</label>-->
+<!--            <input type="date" id="expiryDate" name="expiryDate" required><br><br>-->
+<!--            <input type="number" id="currentStockLevel" name="currentStockLevel" min="0" placeholder="Current Stock Level" required><br><br>-->
+<!--            <input type="number" id="minStockLevel" name="minStockLevel" min="0" placeholder="Minimum Stock Level" required><br><br>-->
+<!--            <input type="number" id="unitSellPrice" name="sellingPrice" min="0" step="0.01" placeholder="Unit Selling Price" required><br><br>-->
+<!--            <input type="number" id="unitCost" name="unitCost" min="0" step="0.01" placeholder="Unit Cost" required><br><br>-->
 
-            <!-- Submit button -->
-            <button type="button" onclick="submitForm()">Submit</button>
+            <button type="submit" value="Submit">Edit Product</button>
         </form>
+<!--        <form id="editForm">-->
+<!--            &lt;!&ndash; Input fields for updating product details &ndash;&gt;-->
+<!--            <input type="text" id="newName" placeholder="New Product Name">-->
+<!--            <input type="text" id="newDescription" placeholder="New Product Description">-->
+<!--            &lt;!&ndash; Add inputs for other details as needed &ndash;&gt;-->
+
+<!--            &lt;!&ndash; Submit button &ndash;&gt;-->
+<!--            <button type="button" onclick="submitForm()">Submit</button>-->
+<!--        </form>-->
     </div>
 </main>
 <script src="/js/main.js"></script>

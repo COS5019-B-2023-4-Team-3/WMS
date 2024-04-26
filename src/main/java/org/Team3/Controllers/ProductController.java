@@ -60,9 +60,11 @@ public class ProductController {
     public String createProductsForm() {
         return "products-create";
     }
+
     @GetMapping("/products/edit/{id}")
-    public String editProductsForm(@PathVariable Long id, Model model) {
-        model.addAttribute("products", productService.getProductById(id));
+    public String editProductsForm(@PathVariable ("id") Long id, Model model) {
+        Product product = productService.getProductById(id);
+        model.addAttribute("product", product);
         return "products-edit";
     }
 
@@ -108,15 +110,25 @@ public class ProductController {
      *         Returns HTTP status code NOT_FOUND (404) if the product with the given ID is not found.
      */
 
+@PostMapping("/products/{id}")
+public String updateProduct(@PathVariable Long id, @ModelAttribute("product") Product product, Model model) {
+    Product existingProduct = productService.getProductById(id);
+    existingProduct.setId(id);
+    existingProduct.setName(product.getName());
+    /*existingUser.setRole(user.getRole());*/
 
-    @PutMapping("/product-update-{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
-        Product updatedProduct = productService.updateProduct(id, productDto);
-        if (updatedProduct == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
-    }
+    productService.updateProduct(existingProduct);
+    return "redirect:/products";
+}
+
+//    @PutMapping("/product-update-{id}")
+//    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
+//        Product updatedProduct = productService.updateProduct(id, productDto);
+//        if (updatedProduct == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+//    }
 
     /**
      * Deletes a product from the database.
