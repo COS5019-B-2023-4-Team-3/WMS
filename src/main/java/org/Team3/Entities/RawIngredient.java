@@ -31,9 +31,10 @@ public class RawIngredient {
      * @param name     The name of the raw ingredient.
      * @param quantity The quantity of the raw ingredient.
      */
-    public RawIngredient(String name, int quantity) {
+    public RawIngredient(String name, int quantity, String description) {
         this.name = name;
         this.quantity = quantity;
+        this.description = description;
     }
 
     public Long getId() {
