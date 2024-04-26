@@ -85,18 +85,4 @@ public class RawIngredientController {
         model.addAttribute("rawIngredients", ingredients);
         return "raw-ingredients";
     }
-
-    @GetMapping("/raw-ingredients/create")
-    public String rawIngredientsCreate() {
-        return "raw-ingredients-create";
-    }
-    @GetMapping("/raw-ingredients/update")
-    public String rawIngredientsUpdate() {
-        return "raw-ingredients-update";
-    }
-    @GetMapping("/raw-ingredients/delete")
-    public String rawIngredientsDelete() {
-        return "raw-ingredients-delete";
-    }
-
 }
