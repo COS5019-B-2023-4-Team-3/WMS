@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <!--TODO: separate main display through authorization based on requirements for each actor-->
@@ -31,64 +31,36 @@
                 <!-- Line Chart -->
                 <div id="reportsChart" style="min-height: 365px;"></div>
 
-                <script>
-<!--            for line on graph-->
-                    document.addEventListener("DOMContentLoaded", () => {
-                      new ApexCharts(document.querySelector("#reportsChart"), {
-                        series: [{
-                          name: 'Sales',
-                          data: [31, 40, 28, 51, 42, 82, 56],
-                        }, {
-                          name: 'Revenue',
-                          data: [11, 32, 45, 32, 34, 52, 41]
-                        }, {
-                          name: 'Customers',
-                          data: [15, 11, 32, 18, 9, 24, 11]
-                        }],
-<!--                        for line graph body-->
-                        chart: {
-                          height: 350,
-                          type: 'area',
-                          toolbar: {
-                            show: false
-                          },
-                        },
-                        markers: {
-                          size: 4
-                        },
-                        colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                        fill: {
-                          type: "gradient",
-                          gradient: {
-                            shadeIntensity: 1,
-                            opacityFrom: 0.3,
-                            opacityTo: 0.4,
-                            stops: [0, 90, 100]
-                          }
-                        },
-                        dataLabels: {
-                          enabled: false
-                        },
-                        stroke: {
-                          curve: 'smooth',
-                          width: 2
-                        },
-                        xaxis: {
-                          type: 'date',
-                          categories: ["2023-04-23Z", "2023-04-24Z", "2023-04-25Z", "2023-04-26Z", "2023-04-27Z", "2023-04-28Z", "2023-04-29Z"]
-                        },
-                        tooltip: {
-                          x: {
-                            format: 'dd/MM/yy'
-                          },
+                <script th:inline="javascript">
+                /*<![CDATA[*/
+                 document.addEventListener("DOMContentLoaded", () => {
+                 let salesData = /*[[${salesData}]]*/ [];
+
+                 let seriesData = salesData.map(sale => ({x: sale.date, y: sale.income}));
+
+                 new ApexCharts(document.querySelector("#reportsChart"), {
+                    series: [{
+                        name: 'sales',
+                        data: seriesData,
+                    }],
+                    chart: {
+                        height: 350,
+                        type: 'line',
+                        zoom: {
+                            enabled: false
                         }
-                      }).render();
-                    });
+                    },
+
+                    // rest of the code
+
+                    }).render();
+                });
+                /*]]>*/
                 </script>
             </div>
         </div>
     </div>
-                <!-- End Line Chart -->
+    <!-- End Line Chart -->
     <!-- Recent Sales -->
     <div class="col-12">
         <div class="card recent-sales overflow-auto">
@@ -159,5 +131,6 @@
         </div>
     </div><!-- End Recent Sales -->
 </main>
+
 </body>
 </html>
