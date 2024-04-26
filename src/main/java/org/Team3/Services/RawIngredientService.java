@@ -14,8 +14,12 @@ import java.util.List;
  */
 @Service
 public class RawIngredientService {
-    @Autowired
-    private RawIngredientRepository rawIngredientRepository;
+
+    private final RawIngredientRepository rawIngredientRepository;
+
+    public RawIngredientService(RawIngredientRepository rawIngredientRepository) {
+        this.rawIngredientRepository = rawIngredientRepository;
+    }
 
     /**
      * Retrieves all raw materials from the repository.

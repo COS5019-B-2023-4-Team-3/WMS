@@ -20,8 +20,11 @@ import java.util.List;
 @RequestMapping("/roles")
 public class RoleController {
 
-    @Autowired
-    private RoleService roleService;
+    private final RoleService roleService;
+
+    public RoleController(RoleService roleService) {
+        this.roleService = roleService;
+    }
 
     /**
      * Retrieves all roles from the database.
