@@ -118,6 +118,11 @@ public String updateProduct(@PathVariable Long id, @ModelAttribute("product") Pr
     existingProduct.setSkuCode(product.getSkuCode());
     existingProduct.setDescription(product.getDescription());
     existingProduct.setShelfLife(product.getShelfLife());
+    existingProduct.setExpiryDate(product.getExpiryDate());
+    existingProduct.setCurrentStockLevel(product.getCurrentStockLevel());
+    existingProduct.setMinStockLevel(product.getMinStockLevel());
+    existingProduct.setSellingPrice(product.getSellingPrice());
+    existingProduct.setUnitCost(product.getUnitCost());
     /*existingUser.setRole(user.getRole());*/
 
     productService.updateProduct(existingProduct);
