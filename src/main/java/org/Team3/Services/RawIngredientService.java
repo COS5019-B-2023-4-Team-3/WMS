@@ -44,7 +44,7 @@ public class RawIngredientService {
      * @return The newly created raw ingredient
      */
     public RawIngredient createRawMaterial(RawIngredientDto rawIngredientDto) {
-        RawIngredient rawIngredient = new RawIngredient(rawIngredientDto.getName(), rawIngredientDto.getQuantity());
+        RawIngredient rawIngredient = new RawIngredient(rawIngredientDto.getName(), rawIngredientDto.getQuantity(), rawIngredientDto.getDescription());
         return rawIngredientRepository.save(rawIngredient);
     }
 
