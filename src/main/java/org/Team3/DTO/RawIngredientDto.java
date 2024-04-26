@@ -12,7 +12,6 @@ public class RawIngredientDto {
     private String name;
     @NotNull
     private int quantity;
-    private String description;
 
     public String getName() {
         return name;
@@ -30,7 +29,4 @@ public class RawIngredientDto {
         this.quantity = quantity;
     }
 
-    public String getDescription(String description) { this.description = description;}
-
-    public void setDescription(String description) { this.description = description;}
 }
