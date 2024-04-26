@@ -58,6 +58,7 @@ public class RawIngredientService {
         // Update raw material details
         existingRawIngredient.setName(rawIngredientDto.getName());
         existingRawIngredient.setQuantity(rawIngredientDto.getQuantity());
+        existingRawIngredient.setDescription(rawIngredientDto.getDescription());
         return rawIngredientRepository.save(existingRawIngredient);
     }
 
