@@ -2,6 +2,8 @@ package org.Team3.Controllers;
 
 import org.Team3.Entities.User;
 import org.Team3.Services.UserService;
+import org.Team3.Entities.Product;
+import org.Team3.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,7 +30,7 @@ public class ProductControllerTest extends AbstractTestNGSpringContextTests {
     private WebApplicationContext webApplicationContext;
 
     @Autowired
-    private UserService userService;
+    private ProductService productService;
 
     private MockMvc mockMvc;
 
@@ -42,4 +44,19 @@ public class ProductControllerTest extends AbstractTestNGSpringContextTests {
         mockMvc.perform(get("/products")).andExpect(status().isOk())
                 .andExpect(content().contentType("text/html;charset=UTF-8"));
     }
+
+    @Test
+    public void testShowCreateProductForm() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/products/create"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("products-create"));
+    }
+
+    @Test
+    public void testShowEditProductForm() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/products/edit/{id}"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("products-edit"));
+    }
+
 }
