@@ -1,7 +1,6 @@
 package org.Team3.Controllers;
 
 import org.Team3.DTO.RawIngredientDto;
-import org.Team3.Entities.Product;
 import org.Team3.Entities.RawIngredient;
 import org.Team3.Services.RawIngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * RawIngredientController class defines endpoints to handle CRUD (Create, Read, Update, Delete) operations related to raw ingredients.
- *
+ * RawIngredientController class defines endpoints to handle CRUD (Create, Read, Update, Delete) operations related to raw ingredients.*
  * This controller is responsible for processing HTTP requests and returning appropriate responses for operations
  * on raw ingredients such as creating a new raw ingredient, updating an existing raw ingredient, and deleting a raw ingredient.
  */
@@ -26,10 +24,10 @@ public class RawIngredientController {
     @Autowired
     private RawIngredientService rawIngredientService;
 
-    /**
-     * Displays the raw ingredients page.
-     *
-     * @return String representing the view name for the raw ingredients page.
+    /*
+      Displays the raw ingredients page.
+
+      @return String representing the view name for the raw ingredients page.
      */
 
     /**
