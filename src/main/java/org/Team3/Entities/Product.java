@@ -17,7 +17,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="product_id")
+    @Column(name = "product_id")
     private Long id;
 
     @Column(name = "product_name")
@@ -26,7 +26,7 @@ public class Product {
     @Column(name = "sku_code", unique = true)
     private String skuCode;
 
-    @Column(name="product_description")
+    @Column(name = "product_description")
     private String description;
 
     @Column(name = "shelf_life_in_days")
@@ -34,6 +34,9 @@ public class Product {
 
     @Column(name = "expiry_date")
     private LocalDate expiryDate;
+
+//    @Column(name = "expiry_date")
+//    private String dateString;
 
     @Column(name = "unit_selling_price")
     private double sellingPrice;
@@ -138,4 +141,11 @@ public class Product {
         this.imageURL = imageURL;
     }
 
+//    public String getDateString() {
+//        return dateString;
+//    }
+//
+//    public void setDateString(String dateString) {
+//        this.dateString = dateString;
+//    }
 }

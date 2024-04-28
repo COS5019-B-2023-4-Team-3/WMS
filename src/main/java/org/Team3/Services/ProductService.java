@@ -38,7 +38,7 @@ public class ProductService {
 
     /**
      * Creates a new product based on the provided ProductDto.
-     * @param productDto The DTO containing product details
+     * @param product The DTO containing product details
      * @return The newly created product
      */
 //    public Product createProduct(ProductDto productDto) {

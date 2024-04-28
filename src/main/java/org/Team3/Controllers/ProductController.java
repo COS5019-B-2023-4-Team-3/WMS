@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 /**
@@ -86,6 +89,29 @@ public class ProductController {
             return "redirect:/products/create?error=failed_to_create_product";
         }
     }
+//    @PostMapping("/products-create")
+//    public String createProduct(@ModelAttribute Product product, @RequestParam("expiryDate") String expiryDate, Model model) {
+//        try {
+//            // Parse the expiry date string to a LocalDate object
+//            LocalDate parsedExpiryDate = LocalDate.parse(expiryDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+////
+////            // Set the parsed expiry date to the product
+//            product.setExpiryDate(parsedExpiryDate);
+//
+//            // Save the product
+//            productService.createProduct(product);
+//
+//            return "redirect:/products";
+//        } catch (DateTimeParseException e) {
+//            model.addAttribute("error", "Invalid expiry date format");
+//            return "redirect:/products/create?error=invalid_date_format";
+//        } catch (Exception e) {
+//            model.addAttribute("error", "Failed to create product");
+//            return "redirect:/products/create?error=product_already_exists";
+//        }
+//    }
+
+
 
 //    @PostMapping("/products-create")
 //    public ResponseEntity<Product> createProduct( @RequestBody ProductDto productDto){
@@ -124,12 +150,17 @@ public String updateProduct(@PathVariable Long id, @ModelAttribute("product") Pr
     existingProduct.setSkuCode(product.getSkuCode());
     existingProduct.setDescription(product.getDescription());
     existingProduct.setShelfLife(product.getShelfLife());
-    existingProduct.setExpiryDate(product.getExpiryDate());
+//    existingProduct.setExpiryDate(product.getExpiryDate());
     existingProduct.setCurrentStockLevel(product.getCurrentStockLevel());
     existingProduct.setMinStockLevel(product.getMinStockLevel());
     existingProduct.setSellingPrice(product.getSellingPrice());
     existingProduct.setUnitCost(product.getUnitCost());
     existingProduct.setImageURL(product.getImageURL());
+//    existingProduct.setDateString(product.getDateString());
+
+//    String[] tokens = product.getDateString().split("-");
+//
+//    product.setExpiryDate(LocalDate.of(Integer.parseInt(tokens[0]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[3])));
 
     productService.updateProduct(existingProduct);
     return "redirect:/products";
