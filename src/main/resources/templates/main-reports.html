@@ -32,30 +32,30 @@
                 <div id="reportsChart" style="min-height: 365px;"></div>
 
                 <script th:inline="javascript">
-                /*<![CDATA[*/
-                 document.addEventListener("DOMContentLoaded", () => {
-                 let salesData = /*[[${salesData}]]*/ [];
+                    /*<![CDATA[*/
+                     document.addEventListener("DOMContentLoaded", () => {
+                     let salesData = /*[[${salesData}]]*/ [];
 
-                 let seriesData = salesData.map(sale => ({x: sale.date, y: sale.income}));
+                     let seriesData = salesData.map(sale => ({x: sale.date, y: sale.income}));
 
-                 new ApexCharts(document.querySelector("#reportsChart"), {
-                    series: [{
-                        name: 'sales',
-                        data: seriesData,
-                    }],
-                    chart: {
-                        height: 350,
-                        type: 'line',
-                        zoom: {
-                            enabled: false
-                        }
-                    },
+                     new ApexCharts(document.querySelector("#reportsChart"), {
+                        series: [{
+                            name: 'revenue',
+                            data: seriesData,
+                        }],
+                        chart: {
+                            height: 350,
+                            type: 'line',
+                            zoom: {
+                                enabled: false
+                            }
+                        },
 
-                    // rest of the code
+                        // rest of the code
 
-                    }).render();
-                });
-                /*]]>*/
+                        }).render();
+                    });
+                    /*]]>*/
                 </script>
             </div>
         </div>
