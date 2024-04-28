@@ -59,7 +59,7 @@ public class ProductService {
 //    }
 
     public Product createProduct(Product product) {
-        // You may want to check if the product already exists before saving it to the database
+        // may want to check if the product already exists before saving it to the database
         return productRepository.save(product);
     }
     /**

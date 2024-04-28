@@ -129,6 +129,7 @@ public String updateProduct(@PathVariable Long id, @ModelAttribute("product") Pr
     existingProduct.setMinStockLevel(product.getMinStockLevel());
     existingProduct.setSellingPrice(product.getSellingPrice());
     existingProduct.setUnitCost(product.getUnitCost());
+    existingProduct.setImageURL(product.getImageURL());
 
     productService.updateProduct(existingProduct);
     return "redirect:/products";
