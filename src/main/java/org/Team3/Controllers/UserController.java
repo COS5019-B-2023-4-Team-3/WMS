@@ -1,4 +1,5 @@
 package org.Team3.Controllers;
+import org.Team3.Entities.Role;
 import org.Team3.Entities.User;
 import org.Team3.Services.UserService;
 import org.jetbrains.annotations.NotNull;
@@ -18,17 +19,10 @@ import java.util.List;
  */
 @Controller
 public class UserController {
+
     @Autowired
     private UserService userService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = userService.getUserById(id);
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(user);
-    }
 
     @GetMapping("/users")
     public String showPage(Model model){
@@ -38,14 +32,7 @@ public class UserController {
     }
 
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
-        User createdUser = userService.createUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
-    }
-
-    @GetMapping("/users/{id}")
+    @DeleteMapping("/users/{id}")
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return "redirect:/users";
@@ -57,12 +44,35 @@ public class UserController {
         model.addAttribute("user", user);
         return "edit_user";
     }
+
     @PostMapping("/users/{id}")
     public String updateUser(@PathVariable Long id, @ModelAttribute("user") User user, Model model) {
         User existingUser = userService.getUserById(id);
         existingUser.setId(id);
         existingUser.setUsername(user.getUsername());
-        existingUser.setRole(user.getRole());
+
+        //Check the role name
+        // update the id accordingly
+
+        Role role = new Role();
+
+        switch (user.getRole().getName()) {
+            case "ADMIN":
+                role.setName("ADMIN");
+                role.setId(3L);
+                break;
+            case "EMPLOYEE":
+                role.setName("EMPLOYEE");
+                role.setId(2L);
+                break;
+            case "EXTERNAL":
+                role.setName("EXTERNAL");
+                role.setId(1L);
+                break;
+            default:
+                break;
+        }
+        existingUser.setRole(role);
 
         userService.updateUser(existingUser);
         return "redirect:/users";
