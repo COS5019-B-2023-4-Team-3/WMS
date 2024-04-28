@@ -2,7 +2,6 @@ package org.Team3.Entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.sql.*;
 
 @Entity
 @Table(name = "sales_data")
