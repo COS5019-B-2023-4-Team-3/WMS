@@ -57,7 +57,7 @@ public class ProductService {
         product.setMinStockLevel(productDto.getMinStockLevel());
         product.setSellingPrice(productDto.getUnitSellPrice());
         product.setUnitCost(productDto.getUnitCost());
-        product.setImageURL(productDto.getImageURL());
+//        product.setImageURL(productDto.getImageURL());
 
         return productRepository.save(product);
     }
@@ -68,20 +68,20 @@ public class ProductService {
      * @param productDto The DTO containing updated product details
      * @return The updated product if successful, otherwise null
      */
-    public Product updateProduct(Long id, ProductDto productDto) {
-        Product existingProduct = productRepository.findById(id).orElse(null);
-        if (existingProduct == null) {
-            return null; // Product with given id does not exist
-        }
-        // Update product details
-        existingProduct.setName(productDto.getName());
-        existingProduct.setSkuCode(productDto.getSkuCode());
-        existingProduct.setSellingPrice(productDto.getUnitCost());
-        existingProduct.setShelfLife(productDto.getShelfLife());
-        existingProduct.setCurrentStockLevel(productDto.getCurrentStockLevel());
-        existingProduct.setMinStockLevel(productDto.getMinStockLevel());
-        return productRepository.save(existingProduct);
-    }
+//    public Product updateProduct(Long id, ProductDto productDto) {
+//        Product existingProduct = productRepository.findById(id).orElse(null);
+//        if (existingProduct == null) {
+//            return null; // Product with given id does not exist
+//        }
+//        // Update product details
+//        existingProduct.setName(productDto.getName());
+//        existingProduct.setSkuCode(productDto.getSkuCode());
+//        existingProduct.setSellingPrice(productDto.getUnitCost());
+//        existingProduct.setShelfLife(productDto.getShelfLife());
+//        existingProduct.setCurrentStockLevel(productDto.getCurrentStockLevel());
+//        existingProduct.setMinStockLevel(productDto.getMinStockLevel());
+//        return productRepository.save(existingProduct);
+//    }
 
     /**
      * Deletes a product with the provided ID.
@@ -127,4 +127,10 @@ public class ProductService {
     public List<Product> getLowStockProducts() {
         return productRepository.findLowStockProducts();
     }
+
+    public Product updateProduct (Product product) {
+        return productRepository.save(product);
+    }
+
+
 }

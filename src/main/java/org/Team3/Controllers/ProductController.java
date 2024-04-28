@@ -56,6 +56,18 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
+    @GetMapping("/products/create")
+    public String createProductsForm() {
+        return "products-create";
+    }
+
+    @GetMapping("/products/edit/{id}")
+    public String editProductsForm(@PathVariable ("id") Long id, Model model) {
+        Product product = productService.getProductById(id);
+        model.addAttribute("product", product);
+        return "products-edit";
+    }
+
     /**
      * Creates a new product in the database.
      *
@@ -63,11 +75,30 @@ public class ProductController {
      * @return ResponseEntity containing a Product object representing the newly created product.
      *         Returns HTTP status code CREATED (201) on success.
      */
-    @PostMapping("/product-create")
-    public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDto productDto) {
-        Product createdProduct = productService.createProduct(productDto);
-        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+
+    @PostMapping("/products/create")
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDto productDto){
+        Product product = productService.createProduct(productDto);
+
+        return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
+
+
+
+//    @PostMapping("/api/products")
+//    public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDto productDto) {
+//        try {
+//            Product product = productService.createProduct(productDto);
+//            return ResponseEntity.ok(product);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add product");
+//        }
+//    }
+//    @PostMapping("/product-create")
+//    public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDto productDto) {
+//        Product createdProduct = productService.createProduct(productDto);
+//        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+//    }
 
     /**
      * Updates an existing product in the database.
@@ -78,14 +109,34 @@ public class ProductController {
      *         Returns HTTP status code OK (200) if the product is updated successfully.
      *         Returns HTTP status code NOT_FOUND (404) if the product with the given ID is not found.
      */
-    @PutMapping("/product-update-{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
-        Product updatedProduct = productService.updateProduct(id, productDto);
-        if (updatedProduct == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
-    }
+
+@PostMapping("/products/{id}")
+public String updateProduct(@PathVariable Long id, @ModelAttribute("product") Product product, Model model) {
+    Product existingProduct = productService.getProductById(id);
+    existingProduct.setId(id);
+    existingProduct.setName(product.getName());
+    existingProduct.setSkuCode(product.getSkuCode());
+    existingProduct.setDescription(product.getDescription());
+    existingProduct.setShelfLife(product.getShelfLife());
+    existingProduct.setExpiryDate(product.getExpiryDate());
+    existingProduct.setCurrentStockLevel(product.getCurrentStockLevel());
+    existingProduct.setMinStockLevel(product.getMinStockLevel());
+    existingProduct.setSellingPrice(product.getSellingPrice());
+    existingProduct.setUnitCost(product.getUnitCost());
+    /*existingUser.setRole(user.getRole());*/
+
+    productService.updateProduct(existingProduct);
+    return "redirect:/products";
+}
+
+//    @PutMapping("/product-update-{id}")
+//    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
+//        Product updatedProduct = productService.updateProduct(id, productDto);
+//        if (updatedProduct == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+//    }
 
     /**
      * Deletes a product from the database.
@@ -95,12 +146,18 @@ public class ProductController {
      *         Returns HTTP status code NO_CONTENT (204) if the product is deleted successfully.
      *         Returns HTTP status code NOT_FOUND (404) if the product with the given ID is not found.
      */
-    @DeleteMapping("/product-delete-{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-        boolean deleted = productService.deleteProduct(id);
-        if (!deleted) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @GetMapping("/products/{id}")
+    public String deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
+        return "redirect:/products";
     }
+
+//    @DeleteMapping("/product-delete-{id}")
+//    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+//        boolean deleted = productService.deleteProduct(id);
+//        if (!deleted) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 }
