@@ -71,40 +71,46 @@ public class ProductController {
     /**
      * Creates a new product in the database.
      *
-     * @param productDto ProductDto object representing the product to create.
+     * @param product Product object representing the product to create.
      * @return ResponseEntity containing a Product object representing the newly created product.
      *         Returns HTTP status code CREATED (201) on success.
      */
 
-    @PostMapping("/products/create")
-    public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDto productDto){
-        Product product = productService.createProduct(productDto);
-
-        return new ResponseEntity<>(product, HttpStatus.CREATED);
+    @PostMapping("/products-create")
+    public String createProduct(@ModelAttribute("product") Product product, Model model) {
+        try {
+            productService.createProduct(product);
+            return "redirect:/products";
+        } catch (Exception e) {
+            model.addAttribute("error", "Failed to create product");
+            return "redirect:/products/create?error=failed_to_create_product";
+        }
     }
 
-
-
-//    @PostMapping("/api/products")
-//    public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDto productDto) {
-//        try {
-//            Product product = productService.createProduct(productDto);
-//            return ResponseEntity.ok(product);
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add product");
-//        }
+//    @PostMapping("/products-create")
+//    public ResponseEntity<Product> createProduct( @RequestBody ProductDto productDto){
+//        Product product = productService.createProduct(productDto);
+//
+//        return new ResponseEntity<>(product, HttpStatus.CREATED);
 //    }
-//    @PostMapping("/product-create")
-//    public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDto productDto) {
-//        Product createdProduct = productService.createProduct(productDto);
-//        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+
+
+//    @PostMapping("/products-create")
+//    @ResponseBody
+//    public ResponseEntity<String> createProduct(@ModelAttribute ProductDto productDto) {
+//        try {
+//            productService.createProduct(productDto);
+//            return ResponseEntity.ok("Product created successfully");
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create product");
+//        }
 //    }
 
     /**
      * Updates an existing product in the database.
      *
      * @param id         Long representing the ID of the product to update.
-     * @param productDto ProductDto object representing the updated product data.
+     * @param product ProductDto object representing the updated product data.
      * @return ResponseEntity containing a Product object representing the updated product.
      *         Returns HTTP status code OK (200) if the product is updated successfully.
      *         Returns HTTP status code NOT_FOUND (404) if the product with the given ID is not found.
@@ -123,7 +129,6 @@ public String updateProduct(@PathVariable Long id, @ModelAttribute("product") Pr
     existingProduct.setMinStockLevel(product.getMinStockLevel());
     existingProduct.setSellingPrice(product.getSellingPrice());
     existingProduct.setUnitCost(product.getUnitCost());
-    /*existingUser.setRole(user.getRole());*/
 
     productService.updateProduct(existingProduct);
     return "redirect:/products";

@@ -41,23 +41,27 @@ public class ProductService {
      * @param productDto The DTO containing product details
      * @return The newly created product
      */
-    public Product createProduct(ProductDto productDto) {
-        Product product = new Product();
-        // Set product details from DTO
-        product.setName(productDto.getName());
-        product.setSkuCode(productDto.getSkuCode());
-        product.setDescription(productDto.getDescription());
-        product.setShelfLife(productDto.getShelfLife());
-        product.setExpiryDate(productDto.getExpiryDate());
-        product.setCurrentStockLevel(productDto.getCurrentStockLevel());
-        product.setMinStockLevel(productDto.getMinStockLevel());
-        product.setSellingPrice(productDto.getUnitSellPrice());
-        product.setUnitCost(productDto.getUnitCost());
-//        product.setImageURL(productDto.getImageURL());
+//    public Product createProduct(ProductDto productDto) {
+//        Product product = new Product();
+//        // Set product details from DTO
+//        product.setName(productDto.getName());
+//        product.setSkuCode(productDto.getSkuCode());
+//        product.setDescription(productDto.getDescription());
+//        product.setShelfLife(productDto.getShelfLife());
+//        product.setExpiryDate(productDto.getExpiryDate());
+//        product.setCurrentStockLevel(productDto.getCurrentStockLevel());
+//        product.setMinStockLevel(productDto.getMinStockLevel());
+//        product.setSellingPrice(productDto.getUnitSellPrice());
+//        product.setUnitCost(productDto.getUnitCost());
+////        product.setImageURL(productDto.getImageURL());
+//
+//        return productRepository.save(product);
+//    }
 
+    public Product createProduct(Product product) {
+        // You may want to check if the product already exists before saving it to the database
         return productRepository.save(product);
     }
-
     /**
      * Updates an existing product with the provided ID using the details from the ProductDto.
      * @param id The ID of the product to update
@@ -126,6 +130,11 @@ public class ProductService {
 
     public Product updateProduct (Product product) {
         return productRepository.save(product);
+    }
+
+    public boolean productExists(Long id) {
+        // Check if a product with the id exists in the database
+        return productRepository.existsById(id);
     }
 
 
