@@ -11,47 +11,42 @@
         <h1>Alerts</h1>
         <hr>
         <h4 style="color: #29318C;">Product Details</h4>
-        <div class="dropdown">
-            <button data-mdb-button-init data-mdb-ripple-init data-mdb-dropdown-init class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-mdb-toggle="dropdown" aria-expanded="false">
-                Sort By
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="#">Expired Products</a></li>
-                <li>
-                    <a class="dropdown-item" href="#">Low Stock Products</a>
-                </li>
-            </ul>
+        <div class="sort-by">
+            <label for="Filter">Filter:</label>
+            <select id="Filter">
+                <option value="All">All</option>
+                <option value="Low in Stock">Low in Stock</option>
+                <option value="Out of Date">Out of Date</option>
+                <!-- sorting options -->
+            </select>
         </div>
         <div>
-                <div class="notification">
-                    <div class="card-body">
-                        <table class="table table-borderless datatable">
-                            <thead>
-                            <tr style="border-bottom: 1px solid #dee2e6;">
-                                <th scope="col">Alert ID</th>
-                                <th scope="col">Alert Type</th>
-                                <th scope="col">Alert Message</th>
-                                <th scope="col">Alert Timestamp</th>
-                                <th scope="col">Product ID</th>
-                            </tr>
-                            </thead>
-                            <div th:each="alert: ${alerts}" class="alert-box" >
+            <div class="notification">
+                <div class="card-body">
+                    <table class="table table-borderless datatable">
+                        <thead>
+                        <tr style="border-bottom: 1px solid #dee2e6;">
+                            <th scope="col">Alert ID</th>
+                            <th scope="col">Alert Type</th>
+                            <th scope="col">Alert Message</th>
+                            <th scope="col">Alert Timestamp</th>
+                            <th scope="col">Product ID</th>
+                        </tr>
+                        </thead>
                             <tbody>
-                            <tr style="border-bottom: 1px solid #dee2e6;">
-                                <td th:text="${alert.id}"></td>
-                                <td th:text="${alert.type}" style="color: red;">Alert Type</td>
-                                <td th:text="${alert.message}">Alert Message</td>
-                                <td th:text="${alert.timestamp}">Alert Timestamp</td>
-                                <td th:text="${alert.prod_id}">Product ID</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                <tr th:each="alert: ${alerts}" class="alert-box"  style="border-bottom: 1px solid #dee2e6;">
+                                    <td th:text="${alert.id}"></td>
+                                    <td th:text="${alert.type}" style="color: red;">Alert Type</td>
+                                    <td th:text="${alert.message}">Alert Message</td>
+                                    <td th:text="${alert.timestamp}">Alert Timestamp</td>
+                                    <td th:text="${alert.prod_id}">Product ID</td>
+                                </tr>
+                        </tbody>
+                    </table>
                 </div>
-          </div>
+            </div>
         </div>
-    </div>
+  </div>
 </main>
 </body>
 </html>
