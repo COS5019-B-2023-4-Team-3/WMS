@@ -9,8 +9,11 @@ import java.util.List;
 @Service
 public class AlertService {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
+
+    public AlertService(ProductService productService) {
+        this.productService = productService;
+    }
 
     /**
      *  Run daily at midnight

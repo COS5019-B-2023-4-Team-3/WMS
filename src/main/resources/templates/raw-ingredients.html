@@ -28,8 +28,7 @@
 <body th:fragment="body">
 
 <!-- Headers -->
-<div sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></div>
-<div sec:authorize="hasAuthority('EMPLOYEE')" th:replace="header-employee :: header"></div>
+<div th:replace="header :: header"></div>
 
 <!-- Sidebar -->
 <div th:replace="sidebar :: sidebar"></div>

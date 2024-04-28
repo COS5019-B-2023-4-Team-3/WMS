@@ -18,8 +18,12 @@ import java.util.List;
  */
 @Service
 public class ReportService {
-    @Autowired
-    private ProductService productService;
+
+    private final ProductService productService;
+
+    public ReportService(ProductService productService) {
+        this.productService = productService;
+    }
 
     @Transactional
     public void generateProductInventoryReport(String filePath) throws IOException{
@@ -49,5 +53,7 @@ public class ReportService {
                 workbook.write(fileOut);
             }
         }
+
+
     }
 }

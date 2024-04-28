@@ -12,33 +12,22 @@ class OrderTest {
 
     Order order;
     LocalDate testDate;
+
     @BeforeEach
     void setUp() {
         order = new Order();
         testDate = LocalDate.now();
         order.setDate(testDate);
-    }
-
-    @Test
-    void getId() {
         order.setId(1L);
-        assertEquals(1L, order.getId());
-    }
-
-    @Test
-    void getDate() {
-        assertEquals(testDate, order.getDate());
-    }
-
-    @Test
-    void getStatus() {
         order.setStatus("Shipped");
-        assertEquals("Shipped", order.getStatus());
+        order.setVendorId(1L);
     }
 
     @Test
-    void getVendorId() {
-        order.setVendorId(1L);
+    void testOrderProperties() {
+        assertEquals(1L, order.getId());
+        assertEquals(testDate, order.getDate());
+        assertEquals("Shipped", order.getStatus());
         assertEquals(1L, order.getVendorId());
     }
 }

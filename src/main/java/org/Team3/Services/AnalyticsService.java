@@ -19,8 +19,12 @@ import java.util.List;
  */
 @Service
 public class AnalyticsService {
-    @Autowired
-    private ProductService productService;
+
+    private final ProductService productService;
+
+    public AnalyticsService(ProductService productService) {
+        this.productService = productService;
+    }
 
     @Transactional
     public JFreeChart generateProductPriceHistogram(){
