@@ -623,10 +623,9 @@ BEGIN
         SET product_id_val = FLOOR(1 + RAND() * product_count);
 
         -- Generate random alert_type
-        SET @alert_type = CASE FLOOR(1 + RAND() * 3)
-                                WHEN 1 THEN 'Warning'
-                                WHEN 2 THEN 'Error'
-                                ELSE 'Information'
+        SET @alert_type = CASE FLOOR(1 + RAND() * 2)
+                                WHEN 1 THEN 'Out of Date'
+                                WHEN 2 THEN 'Low in Stock'
                             END;
 
         -- Generate random alert_message

@@ -8,9 +8,21 @@
 
 <main th:fragment="main" class="main" id="main">
     <div class="alert-grid">
-        <h1>Notifications</h1>
+        <h1>Alerts</h1>
         <hr>
         <h4 style="color: #29318C;">Product Details</h4>
+        <div class="dropdown">
+            <button data-mdb-button-init data-mdb-ripple-init data-mdb-dropdown-init class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-mdb-toggle="dropdown" aria-expanded="false">
+                Sort By
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="#">Expired Products</a></li>
+                <li>
+                    <a class="dropdown-item" href="#">Low Stock Products</a>
+                </li>
+            </ul>
+        </div>
         <div>
                 <div class="notification">
                     <div class="card-body">
@@ -22,7 +34,6 @@
                                 <th scope="col">Alert Message</th>
                                 <th scope="col">Alert Timestamp</th>
                                 <th scope="col">Product ID</th>
-                                <th scope="col">#</th>
                             </tr>
                             </thead>
                             <div th:each="alert: ${alerts}" class="alert-box" >
@@ -33,15 +44,10 @@
                                 <td th:text="${alert.message}">Alert Message</td>
                                 <td th:text="${alert.timestamp}">Alert Timestamp</td>
                                 <td th:text="${alert.prod_id}">Product ID</td>
-                                <td><button class="view-alert-btn">View Details</button></td>
                             </tr>
                             </tbody>
                         </table>
-
-
-
-
-                </div>
+                    </div>
                 </div>
           </div>
         </div>
