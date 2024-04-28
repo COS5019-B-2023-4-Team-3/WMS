@@ -1,4 +1,6 @@
 package org.Team3.Entities;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -32,11 +34,9 @@ public class Product {
     @Column(name = "shelf_life_in_days")
     private int shelfLife;
 
+    @DateTimeFormat(pattern="yyyy-mm-dd")
     @Column(name = "expiry_date")
     private LocalDate expiryDate;
-
-//    @Column(name = "expiry_date")
-//    private String dateString;
 
     @Column(name = "unit_selling_price")
     private double sellingPrice;
