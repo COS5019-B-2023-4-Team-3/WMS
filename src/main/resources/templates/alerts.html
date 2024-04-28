@@ -29,15 +29,22 @@
 </head>
 <body>
 
-<header sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></header>
+<!--header-->
+<div th:replace="header :: header"></div>
+
+<!--sidebar-->
 <header th:replace="sidebar :: sidebar"></header>
 
+<!--main-->
 <main>
     <h1>Notifications</h1> <!-- Added heading for Notifications -->
     <div th:replace="main-alerts :: main"></div> <!-- Included main content -->
 </main>
 
+<!--footer-->
 <footer th:replace="footer :: footer"></footer>
+
+<!--back-to-top button-->
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- jQuery -->

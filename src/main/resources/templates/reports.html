@@ -11,9 +11,16 @@
   <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-<div sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></div>
+<!--header-->
+<div th:replace="header :: header"></div>
+
+<!--sidebar-->
 <div th:replace="sidebar :: sidebar"></div>
+
+<!--main-->
 <main sec:authorize="hasAuthority('ADMIN')" th:replace="main-reports :: main"></main>
+
+<!--footer-->
 <footer th:replace="footer :: footer"></footer>
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
