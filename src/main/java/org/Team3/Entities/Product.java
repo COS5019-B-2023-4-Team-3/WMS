@@ -1,5 +1,10 @@
 package org.Team3.Entities;
+import org.hibernate.annotations.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
 
@@ -13,11 +18,15 @@ import java.time.LocalDate;
  */
 @Entity
 @Table(name = "products")
+//@SQLDelete(sql = "UPDATE products SET deleted = true WHERE id=?")
+//@FilterDef(name = "deletedProductFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
+//@Filter(name = "deletedProductFilter", condition = "deleted = :isDeleted")
+//@Where(clause = "deleted=false")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="product_id")
+    @Column(name = "product_id")
     private Long id;
 
     @Column(name = "product_name")
@@ -26,12 +35,13 @@ public class Product {
     @Column(name = "sku_code", unique = true)
     private String skuCode;
 
-    @Column(name="product_description")
+    @Column(name = "product_description")
     private String description;
 
     @Column(name = "shelf_life_in_days")
     private int shelfLife;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @Column(name = "expiry_date")
     private LocalDate expiryDate;
 
@@ -49,6 +59,8 @@ public class Product {
 
     @Column(name = "image_url")
     private String imageURL;
+
+    private boolean deleted = Boolean.FALSE;
 
     public Long getId() {
         return id;
@@ -138,4 +150,11 @@ public class Product {
         this.imageURL = imageURL;
     }
 
+//    public String getDateString() {
+//        return dateString;
+//    }
+//
+//    public void setDateString(String dateString) {
+//        this.dateString = dateString;
+//    }
 }
