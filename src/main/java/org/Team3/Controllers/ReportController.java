@@ -1,5 +1,6 @@
 package org.Team3.Controllers;
 
+import com.itextpdf.text.DocumentException;
 import org.Team3.Entities.Sale;
 import org.Team3.Services.PDFGeneratorService;
 import org.Team3.Services.ReportService;
@@ -40,12 +41,12 @@ public class ReportController {
      */
     @GetMapping("/reports")
     public String showPage(Model model) {
-        List<Map<String, Object>> salesInRange = saleService.getLastWeekSales();
-
-        System.out.println(salesInRange);
-
-        model.addAttribute("salesData", salesInRange);
+        model.addAttribute("salesData", getLastWeekSales());
         return "reports";
+    }
+
+    private List<Map<String, Object>> getLastWeekSales() {
+        return saleService.getLastWeekSales();
     }
     @GetMapping("generate-pdf")
     public void generatePDF(HttpServletResponse response) throws IOException {
@@ -57,7 +58,11 @@ public class ReportController {
         String headerValue = "attachment; filename=pdf" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        this.pdfGeneratorService.export(response);
+        try {
+            this.pdfGeneratorService.export(response, getLastWeekSales());
+        } catch (DocumentException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 
