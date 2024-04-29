@@ -6,41 +6,77 @@
 <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
 </head>
 <body>
 <main th:fragment="main">
-    <div class="table-responsive" style="margin-left: 300px; margin-top: 60px;">
+    <div class="container" style="margin-top: 60px">
         <h1>Ingredients</h1>
-    </div>
-    <div style="overflow-y:auto;">
-        <table class="table-hover">
-<!--            <thead>-->
-
-<!--                <th> Product Name </th>-->
-<!--                <th> SKU code </th>-->
-<!--                <th> Shelf life </th>-->
-<!--                <th> Expiry date </th>-->
-<!--                <th> Current stock levels</th>-->
-<!--                <th> Minimum stock level </th>-->
-
-<!--            </thead>
-            </tr>/*-->
-
-            <tbody class="rawIngredients-grid">
-                <div th:each="rawIngredient : ${rawIngredients}" class="rawIngredients-box">
-                    <div class="rawIngredients">
-                        <h3 th:text="'Product ID: '+${rawIngredient.id}">ID</h3>
-                        <p th:text="${rawIngredient.name}">Name</p>
-                        <p th:text="${rawIngredient.description}">description</p>
-                        <p th:text="${rawIngredient.quantity}">Quantity</p>
-                    </div>
+    <div>
+        <div class="sort-by">
+            <label for="sortBy">Sort By:</label>
+            <select id="sortBy">
+                <option value="default">Select Sorting Option</option>
+                <option value="name">Name</option>
+                <option value="Quantity">Quantity</option>
+                <option value="expiry-date">Expiry Date</option>
+                <!-- sorting options -->
+            </select>
+        </div>
+        <a th:href="@{/raw-ingredients/create}" class="btn btn-primary"> Create </a>
+<!--        <a th:href="@{/raw-ingredients/update}" class="btn btn-primary"> Update </a>-->
+<!--        <a th:href="@{/raw-ingredients/delete}" class="btn btn-primary"> Delete </a>-->
+        <table class="RawIngredients-table">
+            <tr>
+                <th>Ingredient ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Action</th>
+            </tr>
+            <tbody>
+            <div class="rawIngredients">
+                    <tr th:each="rawIngredient : ${rawIngredients}">
+                        <td th:text="'ID: '+${rawIngredient.id}">Ingredient ID</td>
+                        <td th:text="${rawIngredient.name}">Name</td>
+                        <td th:text="${rawIngredient.description}">Description</td>
+                        <td th:text="${rawIngredient.quantity}">Quantity</td>
+                        <td>
+                            <a th:href = "@{/raw-ingredients/edit/{id}(id=${rawIngredient.id})}" class="btn btn-warning btn-sm edit">Edit</a>
+                            <a th:href = "@{/raw-ingredients/delete/{id}(id=${rawIngredient.id})}" class="btn btn-danger btn-sm delete">Delete</a>
+                        </td>
+                    </tr>
                 </div>
             </tbody>
         </table>
     </div>
         <button type="button" class="btn btn-warning" >Expiring soon!</button>
     </div>
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get the selected element
+            var select = document.getElementById("sortBy");
+
+            // Add a change event listener to select the element
+            select.addEventListener("change", function() {
+                // Get the selected option
+                var selectedOption = this.value;
+                console.log("Selected Sorting Option:", selectedOption);
+
+                // Redirect to the appropriate sorting URL based on the selected option
+                if (selectedOption === "name") {
+                    window.location.href = /*[[ @{/raw-ingredients/sort-by-name} ]]*/ '';
+                } else if (selectedOption === "Quantity") {
+                    window.location.href = /*[[ @{/raw-ingredients/sort-by-Quantity} ]]*/ '';
+                }
+                // Add more conditions for other sorting options as needed
+            });
+        });
+        /*]]>*/
+    </script>
 </main>
 </body>
 </html>

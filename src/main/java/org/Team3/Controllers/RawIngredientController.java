@@ -1,7 +1,6 @@
 package org.Team3.Controllers;
 
 import org.Team3.DTO.RawIngredientDto;
-import org.Team3.Entities.Product;
 import org.Team3.Entities.RawIngredient;
 import org.Team3.Services.RawIngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * RawIngredientController class defines endpoints to handle CRUD (Create, Read, Update, Delete) operations related to raw ingredients.
- *
+ * RawIngredientController class defines endpoints to handle CRUD (Create, Read, Update, Delete) operations related to raw ingredients.*
  * This controller is responsible for processing HTTP requests and returning appropriate responses for operations
  * on raw ingredients such as creating a new raw ingredient, updating an existing raw ingredient, and deleting a raw ingredient.
  */
@@ -23,14 +21,13 @@ import java.util.List;
 
 public class RawIngredientController {
 
-    @Autowired
-    private RawIngredientService rawIngredientService;
 
-    /**
-     * Displays the raw ingredients page.
-     *
-     * @return String representing the view name for the raw ingredients page.
-     */
+    private final RawIngredientService rawIngredientService;
+
+    public RawIngredientController(RawIngredientService rawIngredientService){
+        this.rawIngredientService = rawIngredientService;
+    }
+
 
     /**
      * Creates a new raw ingredient in the database.
@@ -40,9 +37,14 @@ public class RawIngredientController {
      *         Returns HTTP status code CREATED (201) on success.
      */
     @PostMapping("/raw-ingredients-create")
-    public ResponseEntity<RawIngredient> createRawMaterial(@RequestBody RawIngredientDto rawIngredientDto) {
-        RawIngredient createdRawIngredient = rawIngredientService.createRawMaterial(rawIngredientDto);
-        return new ResponseEntity<>(createdRawIngredient, HttpStatus.CREATED);
+    public String createRawIngredient(@ModelAttribute("rawIngredient") RawIngredient rawIngredient, Model model) {
+        try {
+            rawIngredientService.createRawMaterial(rawIngredient);
+            return "redirect:/raw-ingredients";
+        } catch (Exception e) {
+            model.addAttribute("error", "Failed to create ingredient");
+            return "redirect:/raw-ingredients/create?error=failed_to_create_product";
+        }
     }
 
     /**
@@ -82,6 +84,52 @@ public class RawIngredientController {
     @GetMapping("/raw-ingredients")
     public String showRawIngredientPage(Model model) {
         List<RawIngredient> ingredients = rawIngredientService.getAllRawMaterials() ;
+        model.addAttribute("rawIngredients", ingredients);
+        return "/raw-ingredients";
+    }
+
+    @GetMapping("/raw-ingredients/create")
+    public String rawIngredientsCreate() {
+        return "/raw-ingredients-create";
+    }
+
+    @GetMapping("/raw-ingredients/edit/{id}")
+    public String updateRawMaterialForm(@PathVariable ("id") Long id, Model model) {
+       RawIngredient rawIngredient = rawIngredientService.getRawMaterialById(id);
+       model.addAttribute("rawIngredient", rawIngredient);
+       return "/raw-ingredients-update";
+    }
+
+    //    @GetMapping("/raw-ingredients/delete")
+//    public String rawIngredientsDelete() {
+//        return "raw-ingredients-delete";
+//    }
+
+    @GetMapping("/raw-ingredients/delete/{id}")
+    public String deleteRawIngredient(@PathVariable Long id) {
+        rawIngredientService.deleteRawMaterial(id);
+        return "redirect:/raw-ingredients";
+    }
+
+    @PostMapping("/raw-ingredients-update/{id}")
+    public String updateRawIngredient(@PathVariable Long id, @ModelAttribute("raw-ingredient") RawIngredient rawingredient, Model model) {
+        RawIngredient existingrawIngredient = rawIngredientService.getRawMaterialById(id);
+        existingrawIngredient.setName(rawingredient.getName());
+        existingrawIngredient.setDescription(rawingredient.getDescription());
+        existingrawIngredient.setQuantity(rawingredient.getQuantity());
+
+        rawIngredientService.updateRawIngredient(existingrawIngredient);
+        return "redirect:/raw-ingredients";
+    }
+    @GetMapping("/raw-ingredients/sort-by-name")
+    public String showIngredientsPageSorted(Model model) {
+        List<RawIngredient> ingredients = rawIngredientService.getAllIngredientsByName();
+        model.addAttribute("rawIngredients", ingredients);
+        return "raw-ingredients";
+    }
+    @GetMapping("/raw-ingredients/sort-by-Quantity")
+    public String showIngredientsPageSortedByQuantity(Model model) {
+        List<RawIngredient> ingredients = rawIngredientService.getAllIngredientsByQuantity();
         model.addAttribute("rawIngredients", ingredients);
         return "raw-ingredients";
     }
