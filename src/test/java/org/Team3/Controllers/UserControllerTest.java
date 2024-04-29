@@ -23,7 +23,7 @@ class UserControllerTest {
     @WithMockUser(username="test_admin", roles={"ADMIN"})
     void shouldShowPage() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/users")
-                .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -47,7 +47,7 @@ class UserControllerTest {
     @WithMockUser(username="test_admin", roles={"ADMIN"}, value = "1")
     void shouldDeleteUser() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete("/users/1")
-                .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is3xxRedirection());
     }
 
@@ -55,7 +55,7 @@ class UserControllerTest {
     @WithMockUser(username="test_admin", roles={"ADMIN"})
     void shouldShowEditUserForm() throws Exception{
         mockMvc.perform(MockMvcRequestBuilders.get("/users/edit/1")
-                .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 

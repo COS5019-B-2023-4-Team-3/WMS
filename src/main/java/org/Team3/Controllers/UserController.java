@@ -23,7 +23,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
     @GetMapping("/users")
     public String showPage(Model model){
         List<User> users = userService.getAllUsers();
@@ -31,8 +30,7 @@ public class UserController {
         return "users";
     }
 
-
-    @DeleteMapping("/users/{id}")
+    @GetMapping("/users/{id}")
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return "redirect:/users";
