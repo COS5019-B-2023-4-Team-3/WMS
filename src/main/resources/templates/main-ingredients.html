@@ -14,6 +14,16 @@
     <div class="container" style="margin-top: 60px">
         <h1>Ingredients</h1>
     <div>
+        <div class="sort-by">
+            <label for="sortBy">Sort By:</label>
+            <select id="sortBy">
+                <option value="default">Select Sorting Option</option>
+                <option value="name">Name</option>
+                <option value="Quantity">Quantity</option>
+                <option value="expiry-date">Expiry Date</option>
+                <!-- sorting options -->
+            </select>
+        </div>
         <a th:href="@{/raw-ingredients/create}" class="btn btn-primary"> Create </a>
 <!--        <a th:href="@{/raw-ingredients/update}" class="btn btn-primary"> Update </a>-->
 <!--        <a th:href="@{/raw-ingredients/delete}" class="btn btn-primary"> Delete </a>-->
@@ -44,6 +54,29 @@
         <button type="button" class="btn btn-warning" >Expiring soon!</button>
     </div>
     </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get the selected element
+            var select = document.getElementById("sortBy");
+
+            // Add a change event listener to select the element
+            select.addEventListener("change", function() {
+                // Get the selected option
+                var selectedOption = this.value;
+                console.log("Selected Sorting Option:", selectedOption);
+
+                // Redirect to the appropriate sorting URL based on the selected option
+                if (selectedOption === "name") {
+                    window.location.href = /*[[ @{/raw-ingredients/sort-by-name} ]]*/ '';
+                } else if (selectedOption === "Quantity") {
+                    window.location.href = /*[[ @{/raw-ingredients/sort-by-Quantity} ]]*/ '';
+                }
+                // Add more conditions for other sorting options as needed
+            });
+        });
+        /*]]>*/
+    </script>
 </main>
 </body>
 </html>
