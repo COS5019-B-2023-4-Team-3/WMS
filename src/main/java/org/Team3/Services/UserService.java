@@ -22,14 +22,19 @@ import java.util.List;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    //TODO: remove logger
+
     // Logger for logging user-related activities
     private static final Logger logger = LogManager.getLogger(UserService.class);
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     /**
      * Retrieves all users from the database.

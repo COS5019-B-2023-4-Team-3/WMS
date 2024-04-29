@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class RegisterController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public RegisterController(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * Displays the user registration form.

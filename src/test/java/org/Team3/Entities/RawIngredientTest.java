@@ -15,19 +15,13 @@ class RawIngredientTest {
     }
 
     @Test
-    void getId() {
+    void testRawIngredientProperties() {
         rawIngredient.setId(1L);
         assertEquals(1L, rawIngredient.getId());
-    }
 
-    @Test
-    void getName() {
         rawIngredient.setName("Test Ingredient");
         assertEquals("Test Ingredient", rawIngredient.getName());
-    }
 
-    @Test
-    void getQuantity() {
         rawIngredient.setQuantity(10);
         assertEquals(10, rawIngredient.getQuantity());
     }

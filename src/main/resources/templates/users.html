@@ -14,9 +14,10 @@
   <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
 </head>
 
-<body th:fragment="body">
+<body>
 
-<div sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></div>
+<!--header-->
+<div th:replace="header :: header"></div>
 <div th:replace="sidebar :: sidebar"></div>
 <main style="margin-top: 50px;" sec:authorize="hasAuthority('ADMIN')" th:replace="main-users :: main" id="main-users" class="main"></main>
 <footer th:replace="footer :: footer"></footer>

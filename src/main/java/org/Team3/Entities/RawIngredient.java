@@ -21,6 +21,8 @@ public class RawIngredient {
     @Column(name = "raw_ingredient_quantity")
     private int quantity;
 
+    @Column(name= "raw_ingredient_description")
+    private String description;
     public RawIngredient(){}
 
     /**
@@ -56,5 +58,13 @@ public class RawIngredient {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

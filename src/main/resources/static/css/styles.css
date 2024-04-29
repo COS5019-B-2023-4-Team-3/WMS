@@ -2242,3 +2242,21 @@ dashboard .info-card h6 {
 #productForm .form-group {
     margin-bottom: 2px; /* Adjust */
 }
+--------------------------------------------------------------
+# rawIngredients
+--------------------------------------------------------------*/
+.rawIngredients-grid  {
+    display: grid;
+    width: 100%
+    style="overflow-y:auto;
+
+}
+.rawIngredients-box {
+    border: 1px solid #ccc;
+    padding: 0px;
+}
+.rawIngredients-box .rawIngredients {
+    text-align: center;
+}
+
+}
