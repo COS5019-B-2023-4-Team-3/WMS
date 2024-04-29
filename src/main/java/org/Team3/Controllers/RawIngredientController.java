@@ -30,17 +30,27 @@ public class RawIngredientController {
       @return String representing the view name for the raw ingredients page.
      */
 
-    /**
-     * Creates a new raw ingredient in the database.
-     *
-     * @param rawIngredientDto RawMaterialDto object representing the raw material to create.
-     * @return ResponseEntity containing a RawIngredient object representing the newly created raw ingredient.
-     *         Returns HTTP status code CREATED (201) on success.
-     */
+//    /**
+//     * Creates a new raw ingredient in the database.
+//     *
+//     * @param rawIngredientDTO RawMaterialDto object representing the raw material to create.
+//     * @return ResponseEntity containing a RawIngredient object representing the newly created raw ingredient.
+//     *         Returns HTTP status code CREATED (201) on success.
+//     */
+//    @PostMapping("/raw-ingredients-create")
+//    public ResponseEntity<RawIngredient> createRawMaterial(@RequestBody RawIngredientDto rawIngredientDto) {
+//        RawIngredient createdRawIngredient = rawIngredientService.createRawMaterial(rawIngredientDto);
+//        return new ResponseEntity<>(createdRawIngredient, HttpStatus.CREATED);
+//    }
     @PostMapping("/raw-ingredients-create")
-    public ResponseEntity<RawIngredient> createRawMaterial(@RequestBody RawIngredientDto rawIngredientDto) {
-        RawIngredient createdRawIngredient = rawIngredientService.createRawMaterial(rawIngredientDto);
-        return new ResponseEntity<>(createdRawIngredient, HttpStatus.CREATED);
+    public String createRawIngredient(@ModelAttribute("rawIngredient") RawIngredient rawIngredient, Model model) {
+        try {
+            rawIngredientService.createRawMaterial(rawIngredient);
+            return "redirect:/raw-ingredients";
+        } catch (Exception e) {
+            model.addAttribute("error", "Failed to create ingredient");
+            return "redirect:/raw-ingredients/create?error=failed_to_create_product";
+        }
     }
 
     /**
@@ -81,13 +91,14 @@ public class RawIngredientController {
     public String showRawIngredientPage(Model model) {
         List<RawIngredient> ingredients = rawIngredientService.getAllRawMaterials() ;
         model.addAttribute("rawIngredients", ingredients);
-        return "raw-ingredients";
+        return "/raw-ingredients";
     }
 
     @GetMapping("/raw-ingredients/create")
     public String rawIngredientsCreate() {
-        return "raw-ingredients-create";
+        return "/raw-ingredients-create";
     }
+
     @GetMapping("/raw-ingredients/edit/{id}")
     public String updateRawMaterialForm(@PathVariable ("id") Long id, Model model) {
        RawIngredient rawIngredient = rawIngredientService.getRawMaterialById(id);
@@ -116,8 +127,16 @@ public class RawIngredientController {
         rawIngredientService.updateRawIngredient(existingrawIngredient);
         return "redirect:/raw-ingredients";
     }
-
-
-
-
+    @GetMapping("/raw-ingredients/sort-by-name")
+    public String showIngredientsPageSorted(Model model) {
+        List<RawIngredient> ingredients = rawIngredientService.getAllIngredientsByName();
+        model.addAttribute("rawIngredients", ingredients);
+        return "raw-ingredients";
+    }
+    @GetMapping("/raw-ingredients/sort-by-Quantity")
+    public String showIngredientsPageSortedByQuantity(Model model) {
+        List<RawIngredient> ingredients = rawIngredientService.getAllIngredientsByQuantity();
+        model.addAttribute("rawIngredients", ingredients);
+        return "raw-ingredients";
+    }
 }
