@@ -49,8 +49,8 @@ public class PDFGeneratorService {
     private void tableData(PdfPTable table) {
         for (Sale sale : getAllSales) {
             table.addCell(String.valueOf(sale.getId()));
-            table.addCell(String.valueOf(sale.getDate()));
-            table.addCell(String.valueOf(sale.getIncome()));
+            table.addCell(sale.getDate().toString());
+            table.addCell(sale.getIncome().toString());
             table.addCell(String.valueOf(sale.getVolume()));
             table.addCell(String.valueOf(sale.getOrderId()));
         }
