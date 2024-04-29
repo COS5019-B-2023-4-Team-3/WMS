@@ -32,8 +32,12 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public List<Product> getAllProductsByName() {
+    public List<Product> getAllProductsByNameAZ() {
         return productRepository.findAll(Sort.by(Sort.Direction.ASC,"name"));
+    }
+
+    public List<Product> getAllProductsByNameZA() {
+        return productRepository.findAll(Sort.by(Sort.Direction.DESC,"name"));
     }
 
     public List<Product> getAllProductsByExpiryDate() {

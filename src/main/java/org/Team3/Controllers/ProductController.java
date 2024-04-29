@@ -42,9 +42,16 @@ public class ProductController {
         return "products";
     }
 
-    @GetMapping("/products/sort-by-name")
-    public String showProductsPageSorted(Model model) {
-        List<Product> products = productService.getAllProductsByName();
+    @GetMapping("/products/sort-by-name-az")
+    public String showProductsPageSortedAZ(Model model) {
+        List<Product> products = productService.getAllProductsByNameAZ();
+        model.addAttribute("products", products);
+        return "products";
+    }
+
+    @GetMapping("/products/sort-by-name-za")
+    public String showProductsPageSortedZA(Model model) {
+        List<Product> products = productService.getAllProductsByNameZA();
         model.addAttribute("products", products);
         return "products";
     }
