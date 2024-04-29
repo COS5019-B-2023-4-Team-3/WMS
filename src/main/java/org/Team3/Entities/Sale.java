@@ -17,7 +17,7 @@ public class Sale {
     private LocalDate date;
 
     @Column(name = "revenue")
-    private Long revenue;
+    private Long income;
 
     @Column(name = "order_volume")
     private Long volume;
@@ -42,11 +42,11 @@ public class Sale {
     }
 
     public Long getIncome() {
-        return revenue;
+        return income;
     }
 
     public void setIncome(Long income) {
-        this.revenue = income;
+        this.income = income;
     }
     public Long getVolume() {
         return volume;
@@ -69,7 +69,7 @@ public class Sale {
         return "Sale{" +
                 "id=" + id +
                 ", date=" + date +
-                ", revenue=" + revenue +
+                ", revenue=" + income +
                 ", volume=" + volume +
                 ", orderId=" + orderId +
                 '}';
