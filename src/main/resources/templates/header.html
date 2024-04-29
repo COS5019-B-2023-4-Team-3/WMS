@@ -62,8 +62,8 @@
                     <li class="notification-item">
                         <i class="bi bi-exclamation-circle text-warning"></i>
                         <div>
-                            <h4>Lorem Ipsum</h4>
-                            <p>Quae dolorem earum veritatis odittseno</p>
+                            <h4>Warning: Low Stock Product</h4>
+                            <p>Product 503 is low in stock</p>
                             <p>30 min. ago</p>
                         </div>
                     </li>
@@ -74,46 +74,47 @@
                     <li class="notification-item">
                         <i class="bi bi-x-circle text-danger"></i>
                         <div>
-                            <h4>Atque rerum nesciunt</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
+                            <h4>Warning:Product Out of Date</h4>
+                            <p>Product 277 has expired.</p>
                             <p>1 hr. ago</p>
                         </div>
                     </li>
+                    <li class="notification-item">
+                        <i class="bi bi-x-circle text-danger"></i>
+                        <div>
+                            <h4>Warning:Product Out of Date</h4>
+                            <p>Product 918 has expired.</p>
+                            <p>1 hr. ago</p>
+                        </div>
+                    </li>
+                    <li class="notification-item">
+                        <i class="bi bi-exclamation-circle text-warning"></i>
+                        <div>
+                            <h4>Warning: Low Stock Product</h4>
+                            <p>Product 666 is low in stock</p>
+                            <p>30 min. ago</p>
+                        </div>
+                    </li>
+
 
                     <li>
                         <hr class="dropdown-divider">
                     </li>
 
-                    <li class="notification-item">
-                        <i class="bi bi-check-circle text-success"></i>
-                        <div>
-                            <h4>Sit rerum fuga</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>2 hrs. ago</p>
-                        </div>
-                    </li>
 
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li class="notification-item">
-                        <i class="bi bi-info-circle text-primary"></i>
-                        <div>
-                            <h4>Dicta reprehenderit</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>4 hrs. ago</p>
-                        </div>
-                    </li>
 
                     <li>
                         <hr class="dropdown-divider">
                     </li>
                     <li class="dropdown-footer">
-                        <a th:href="@{/under-construction}">Show all notifications</a>
+                        <a th:href="@{/under-construction}">Show all alerts</a>
+                    </li>
+                    <li class="dropdown-footer">
+                        <a href="#" onclick="clearAllAlerts()">Clear all alerts</a>
                     </li>
                 </ul>
-            </li><!-- End Notification Nav -->
+            </li>
+            <!-- End Notification Nav -->
 
             <li class="nav-item dropdown">
                 <a class="nav-link nav-icon" th:href="@{/under-construction}" data-dropdown-menu-class="messages">
@@ -241,10 +242,19 @@
 
 </header><!-- End Header -->
 
+
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Vendor JS Files -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function clearAllAlerts() {
+       var notificationItems = document.querySelectorAll('.notification-item');
+       notificationItems.forEach(function(item) {
+           item.remove();
+       });
+   }
+</script>
 
 </body>
 </html>
