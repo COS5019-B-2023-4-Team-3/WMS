@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>create</title>
 </head>
 <body>
 <h1>Add Raw Material</h1>
-<form id="addRawMaterialForm">
+<form th:action="@{/raw-ingredients-create}" method="POST" id="createRawMaterialForm" autocomplete="off">
 <!-- unnecessary!!!! keep for update :)-->
 <!--    <label for="Product ID">Product ID:</label>-->
 <!--    <input type="number" id="Product ID" name="Product ID" required><br><br>-->
