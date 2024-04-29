@@ -15,14 +15,15 @@
         <h1>Ingredients</h1>
     <div>
         <a th:href="@{/raw-ingredients/create}" class="btn btn-primary"> Create </a>
-        <a th:href="@{/raw-ingredients/update}" class="btn btn-primary"> Update </a>
-        <a th:href="@{/raw-ingredients/delete}" class="btn btn-primary"> Delete </a>
+<!--        <a th:href="@{/raw-ingredients/update}" class="btn btn-primary"> Update </a>-->
+<!--        <a th:href="@{/raw-ingredients/delete}" class="btn btn-primary"> Delete </a>-->
         <table class="RawIngredients-table">
             <tr>
                 <th>Ingredient ID</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Quantity</th>
+                <th>Action</th>
             </tr>
             <tbody>
             <div class="rawIngredients">
@@ -31,6 +32,10 @@
                         <td th:text="${rawIngredient.name}">Name</td>
                         <td th:text="${rawIngredient.description}">Description</td>
                         <td th:text="${rawIngredient.quantity}">Quantity</td>
+                        <td>
+                            <a th:href = "@{/raw-ingredients/edit/{id}(id=${rawIngredient.id})}" class="btn btn-warning btn-sm edit">Edit</a>
+                            <a th:href = "@{/raw-ingredients/delete/{id}(id=${rawIngredient.id})}" class="btn btn-danger btn-sm delete">Delete</a>
+                        </td>
                     </tr>
                 </div>
             </tbody>

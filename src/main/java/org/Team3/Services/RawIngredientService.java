@@ -1,6 +1,7 @@
 package org.Team3.Services;
 
 import org.Team3.DTO.RawIngredientDto;
+import org.Team3.Entities.Product;
 import org.Team3.Entities.RawIngredient;
 import org.Team3.Repositories.RawIngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,17 +55,17 @@ public class RawIngredientService {
      * @param rawIngredientDto The DTO containing updated raw material details
      * @return The updated raw ingredient if successful, otherwise null
      */
-    public RawIngredient updateRawMaterial(Long id, RawIngredientDto rawIngredientDto) {
-        RawIngredient existingRawIngredient = rawIngredientRepository.findById(id).orElse(null);
-        if (existingRawIngredient == null) {
-            return null; // Raw material with given id does not exist
-        }
-        // Update raw material details
-        existingRawIngredient.setName(rawIngredientDto.getName());
-        existingRawIngredient.setQuantity(rawIngredientDto.getQuantity());
-        existingRawIngredient.setDescription(rawIngredientDto.getDescription());
-        return rawIngredientRepository.save(existingRawIngredient);
-    }
+//    public RawIngredient updateRawMaterial(Long id, RawIngredientDto rawIngredientDto) {
+//        RawIngredient existingRawIngredient = rawIngredientRepository.findById(id).orElse(null);
+//        if (existingRawIngredient == null) {
+//            return null; // Raw material with given id does not exist
+//        }
+//        // Update raw material details
+//        existingRawIngredient.setName(rawIngredientDto.getName());
+//        existingRawIngredient.setQuantity(rawIngredientDto.getQuantity());
+//        existingRawIngredient.setDescription(rawIngredientDto.getDescription());
+//        return rawIngredientRepository.save(existingRawIngredient);
+//    }
 
     /**
      * Deletes a raw material with the provided ID.
@@ -77,6 +78,10 @@ public class RawIngredientService {
         }
         rawIngredientRepository.deleteById(id);
         return true;
+    }
+
+    public RawIngredient updateRawIngredient(RawIngredient rawIngredient) {
+        return rawIngredientRepository.save(rawIngredient);
     }
 }
 

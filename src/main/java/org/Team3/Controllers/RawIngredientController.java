@@ -52,14 +52,14 @@ public class RawIngredientController {
      *         Returns HTTP status code OK (200) if the raw ingredient is updated successfully.
      *         Returns HTTP status code NOT_FOUND (404) if the raw ingredient with the given ID is not found.
      */
-    @PutMapping("/raw-ingredients-update-{id}")
-    public ResponseEntity<RawIngredient> updateRawMaterial(@PathVariable Long id, @RequestBody RawIngredientDto rawIngredientDto) {
-        RawIngredient updatedRawIngredient = rawIngredientService.updateRawMaterial(id, rawIngredientDto);
-        if (updatedRawIngredient == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(updatedRawIngredient, HttpStatus.OK);
-    }
+//    @PutMapping("/raw-ingredients-update-{id}")
+//    public ResponseEntity<RawIngredient> updateRawMaterial(@PathVariable Long id, @RequestBody RawIngredientDto rawIngredientDto) {
+//        RawIngredient updatedRawIngredient = rawIngredientService.updateRawMaterial(id, rawIngredientDto);
+//        if (updatedRawIngredient == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(updatedRawIngredient, HttpStatus.OK);
+//    }
 
     /**
      * Deletes a raw ingredient from the database.
@@ -69,14 +69,14 @@ public class RawIngredientController {
      *         Returns HTTP status code NO_CONTENT (204) if the raw ingredient is deleted successfully.
      *         Returns HTTP status code NOT_FOUND (404) if the raw ingredient with the given ID is not found.
      */
-    @DeleteMapping("/raw-ingredients-delete-{id}")
-    public ResponseEntity<Void> deleteRawMaterial(@PathVariable Long id) {
-        boolean deleted = rawIngredientService.deleteRawMaterial(id);
-        if (!deleted) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+//    @DeleteMapping("/raw-ingredients-delete-{id}")
+//    public ResponseEntity<Void> deleteRawMaterial(@PathVariable Long id) {
+//        boolean deleted = rawIngredientService.deleteRawMaterial(id);
+//        if (!deleted) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
     @GetMapping("/raw-ingredients")
     public String showRawIngredientPage(Model model) {
         List<RawIngredient> ingredients = rawIngredientService.getAllRawMaterials() ;
@@ -88,13 +88,36 @@ public class RawIngredientController {
     public String rawIngredientsCreate() {
         return "raw-ingredients-create";
     }
-    @GetMapping("/raw-ingredients/update")
-    public String rawIngredientsUpdate() {
-        return "raw-ingredients-update";
+    @GetMapping("/raw-ingredients/edit/{id}")
+    public String updateRawMaterialForm(@PathVariable ("id") Long id, Model model) {
+       RawIngredient rawIngredient = rawIngredientService.getRawMaterialById(id);
+       model.addAttribute("rawIngredient", rawIngredient);
+       return "/raw-ingredients-update";
     }
-    @GetMapping("/raw-ingredients/delete")
-    public String rawIngredientsDelete() {
-        return "raw-ingredients-delete";
+
+    //    @GetMapping("/raw-ingredients/delete")
+//    public String rawIngredientsDelete() {
+//        return "raw-ingredients-delete";
+//    }
+
+    @GetMapping("/raw-ingredients/delete/{id}")
+    public String deleteRawIngredient(@PathVariable Long id) {
+        rawIngredientService.deleteRawMaterial(id);
+        return "redirect:/raw-ingredients";
     }
+
+    @PostMapping("/raw-ingredients-update/{id}")
+    public String updateRawIngredient(@PathVariable Long id, @ModelAttribute("raw-ingredient") RawIngredient rawingredient, Model model) {
+        RawIngredient existingrawIngredient = rawIngredientService.getRawMaterialById(id);
+        existingrawIngredient.setName(rawingredient.getName());
+        existingrawIngredient.setDescription(rawingredient.getDescription());
+        existingrawIngredient.setQuantity(rawingredient.getQuantity());
+
+        rawIngredientService.updateRawIngredient(existingrawIngredient);
+        return "redirect:/raw-ingredients";
+    }
+
+
+
 
 }
