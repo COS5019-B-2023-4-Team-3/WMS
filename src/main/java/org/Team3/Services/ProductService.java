@@ -3,6 +3,7 @@ import org.Team3.DTO.ProductDto;
 import org.Team3.Entities.Product;
 import org.Team3.Repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -29,6 +30,14 @@ public class ProductService {
      */
     public List<Product> getAllProducts() {
         return productRepository.findAll();
+    }
+
+    public List<Product> getAllProductsByName() {
+        return productRepository.findAll(Sort.by(Sort.Direction.ASC,"name"));
+    }
+
+    public List<Product> getAllProductsByExpiryDate() {
+        return productRepository.findAll(Sort.by(Sort.Direction.ASC,"expiryDate"));
     }
 
     /**
