@@ -17,16 +17,14 @@
     <div class="container" style="margin-top: 60px;">
         <div class="title">
             <h1>Products </h1>
-            <!--            <button id="createProductBtn">Create New Product</button>-->
-<!--            <a th:href = "@{/products/create}" class="btn btn-warning btn-sm edit">Create New Product</a>-->
-
         </div>
         <div class="col-12" style="margin-top: 40px;"></div>
         <div class="sort-by">
             <label for="sortBy">Sort By:</label>
             <select id="sortBy">
-                <option value="name">Name</option>
-                <option value="expiry date">Expiry Date</option>
+                <option value="default">Select Option</option>
+                <option value="nameAZ">Name A-Z</option>
+                <option value="nameZA">Name Z-A</option>
                 <!-- sorting options -->
             </select>
         </div>
@@ -61,8 +59,32 @@
             </div>
         </div>
     </div>
-</main>
 <script src="/js/main.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the selected element
+        var select = document.getElementById("sortBy");
+
+        // Add a change event listener to select the element
+        select.addEventListener("change", function() {
+            // Get the selected option
+            var selectedOption = this.value;
+            console.log("Selected Sorting Option:", selectedOption);
+
+            // Redirect to the appropriate sorting URL based on the selected option
+            if (selectedOption === "nameAZ") {
+                window.location.href = /*[[ @{/products/sort-by-name-az} ]]*/ '';
+            } if (selectedOption === "nameZA") {
+                window.location.href = /*[[ @{/products/sort-by-name-za} ]]*/ '';
+            } else if (selectedOption === "expiry-date") {
+                window.location.href = /*[[ @{/products/sort-by-date} ]]*/ '';
+            }
+            // Add more conditions for other sorting options as needed
+        });
+    });
+    /*]]>*/
+</script>
 <script>
     // Get all elements with class "view-product-btn"
 var buttons = document.querySelectorAll(".view-product-btn");
@@ -105,5 +127,6 @@ function toggleForm() {
   });
 
 </script>
+</main>
 </body>
 </html>
