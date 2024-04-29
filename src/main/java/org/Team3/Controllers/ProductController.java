@@ -161,30 +161,16 @@ public class ProductController {
      *         Returns HTTP status code OK (200) if the product is updated successfully.
      *         Returns HTTP status code NOT_FOUND (404) if the product with the given ID is not found.
      */
+    @PostMapping("/products/{id}")
+    public String updateProduct(@PathVariable Long id, @ModelAttribute("product") Product product, Model model) {
+        if(productService.getProductById(id) == null){
+            model.addAttribute("error", "Product not found");
+            return "redirect:/products";
+        }
 
-@PostMapping("/products/{id}")
-public String updateProduct(@PathVariable Long id, @ModelAttribute("product") Product product, Model model) {
-    Product existingProduct = productService.getProductById(id);
-    existingProduct.setId(id);
-    existingProduct.setName(product.getName());
-    existingProduct.setSkuCode(product.getSkuCode());
-    existingProduct.setDescription(product.getDescription());
-    existingProduct.setShelfLife(product.getShelfLife());
-//    existingProduct.setExpiryDate(product.getExpiryDate());
-    existingProduct.setCurrentStockLevel(product.getCurrentStockLevel());
-    existingProduct.setMinStockLevel(product.getMinStockLevel());
-    existingProduct.setSellingPrice(product.getSellingPrice());
-    existingProduct.setUnitCost(product.getUnitCost());
-    existingProduct.setImageURL(product.getImageURL());
-//    existingProduct.setDateString(product.getDateString());
-
-//    String[] tokens = product.getDateString().split("-");
-//
-//    product.setExpiryDate(LocalDate.of(Integer.parseInt(tokens[0]),Integer.parseInt(tokens[1]),Integer.parseInt(tokens[3])));
-
-    productService.updateProduct(existingProduct);
-    return "redirect:/products";
-}
+        productService.updateProduct(id, product);
+        return "redirect:/products";
+    }
 
 //    @PutMapping("/product-update-{id}")
 //    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {

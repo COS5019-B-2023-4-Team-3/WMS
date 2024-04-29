@@ -41,7 +41,7 @@ public class Product {
     @Column(name = "shelf_life_in_days")
     private int shelfLife;
 
-    @DateTimeFormat(pattern="yyyy-mm-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @Column(name = "expiry_date")
     private LocalDate expiryDate;
 

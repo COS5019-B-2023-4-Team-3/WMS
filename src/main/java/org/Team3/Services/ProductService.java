@@ -82,23 +82,24 @@ public class ProductService {
     /**
      * Updates an existing product with the provided ID using the details from the ProductDto.
      * @param id The ID of the product to update
-     * @param productDto The DTO containing updated product details
+     * @param product The DTO containing updated product details
      * @return The updated product if successful, otherwise null
      */
-//    public Product updateProduct(Long id, ProductDto productDto) {
-//        Product existingProduct = productRepository.findById(id).orElse(null);
-//        if (existingProduct == null) {
-//            return null; // Product with given id does not exist
-//        }
-//        // Update product details
-//        existingProduct.setName(productDto.getName());
-//        existingProduct.setSkuCode(productDto.getSkuCode());
-//        existingProduct.setSellingPrice(productDto.getUnitCost());
-//        existingProduct.setShelfLife(productDto.getShelfLife());
-//        existingProduct.setCurrentStockLevel(productDto.getCurrentStockLevel());
-//        existingProduct.setMinStockLevel(productDto.getMinStockLevel());
-//        return productRepository.save(existingProduct);
-//    }
+    public Product updateProduct(Long id, Product product) {
+        Product existingProduct = productRepository.findById(id).orElse(null);
+        if (existingProduct == null) {
+            return null; // Product with given id does not exist
+        }
+        // Update product details
+        existingProduct.setName(product.getName());
+        existingProduct.setSkuCode(product.getSkuCode());
+        existingProduct.setSellingPrice(product.getUnitCost());
+        existingProduct.setShelfLife(product.getShelfLife());
+        existingProduct.setCurrentStockLevel(product.getCurrentStockLevel());
+        existingProduct.setMinStockLevel(product.getMinStockLevel());
+        existingProduct.setExpiryDate(product.getExpiryDate());
+        return productRepository.save(existingProduct);
+    }
 
     /**
      * Deletes a product with the provided ID.
@@ -145,9 +146,6 @@ public class ProductService {
         return productRepository.findLowStockProducts();
     }
 
-    public Product updateProduct (Product product) {
-        return productRepository.save(product);
-    }
 
     public boolean productExists(Long id) {
         // Check if a product with the id exists in the database

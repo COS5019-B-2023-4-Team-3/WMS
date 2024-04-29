@@ -24,8 +24,8 @@
             <textarea id="description" name="description" th:field="*{description}"></textarea>
             <label for="shelfLife">Shelf Life (in days):</label>
             <input type="number" id="shelfLife" name="shelfLife" min="0" required th:field="*{shelfLife}">
-<!--            <label for="expiryDate">Expiry Date:</label>-->
-<!--            <input type="text" id="expiryDate" name="expiryDate" placeholder="yyyy-mm-dd" required th:field="*{expiryDate}">-->
+            <label for="expiryDate">Expiry Date:</label>
+            <input type="date" id="expiryDate" name="expiryDate" placeholder="yyyy-mm-dd" required th:field="*{expiryDate}">
             <label for="currentStockLevel">Current Stock Level:</label>
             <input type="number" id="currentStockLevel" name="currentStockLevel" min="0" required th:field="*{currentStockLevel}">
             <label for="minStockLevel">Minimum Stock Level:</label>
