@@ -42,6 +42,19 @@ public class ProductController {
         return "products";
     }
 
+    @GetMapping("/products/sort-by-name")
+    public String showProductsPageSorted(Model model) {
+        List<Product> products = productService.getAllProductsByName();
+        model.addAttribute("products", products);
+        return "products";
+    }
+
+    @GetMapping("/products/sort-by-date")
+    public String showProductsPageSortedByDate(Model model) {
+        List<Product> products = productService.getAllProductsByExpiryDate();
+        model.addAttribute("products", products);
+        return "products";
+    }
     /**
      * Retrieves a product by its ID from the database.
      *
