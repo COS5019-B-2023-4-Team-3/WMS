@@ -1,10 +1,10 @@
 package org.Team3.Services;
 
 import org.Team3.DTO.RawIngredientDto;
-import org.Team3.Entities.Product;
 import org.Team3.Entities.RawIngredient;
 import org.Team3.Repositories.RawIngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,12 +15,8 @@ import java.util.List;
  */
 @Service
 public class RawIngredientService {
-
-    private final RawIngredientRepository rawIngredientRepository;
-
-    public RawIngredientService(RawIngredientRepository rawIngredientRepository) {
-        this.rawIngredientRepository = rawIngredientRepository;
-    }
+    @Autowired
+    private RawIngredientRepository rawIngredientRepository;
 
     /**
      * Retrieves all raw materials from the repository.
@@ -44,8 +40,12 @@ public class RawIngredientService {
      * @param rawIngredientDto The DTO containing raw material details
      * @return The newly created raw ingredient
      */
-    public RawIngredient createRawMaterial(RawIngredientDto rawIngredientDto) {
-        RawIngredient rawIngredient = new RawIngredient(rawIngredientDto.getName(), rawIngredientDto.getQuantity(), rawIngredientDto.getDescription());
+//    public RawIngredient createRawMaterial(RawIngredientDto rawIngredientDto) {
+//        RawIngredient rawIngredient = new RawIngredient(rawIngredientDto.getName(), rawIngredientDto.getQuantity(), rawIngredientDto.getDescription());
+//        return rawIngredientRepository.save(rawIngredient);
+//    }
+    public RawIngredient createRawMaterial(RawIngredient rawIngredient) {
+        // may want to check if the product already exists before saving it to the database
         return rawIngredientRepository.save(rawIngredient);
     }
 
@@ -55,17 +55,16 @@ public class RawIngredientService {
      * @param rawIngredientDto The DTO containing updated raw material details
      * @return The updated raw ingredient if successful, otherwise null
      */
-//    public RawIngredient updateRawMaterial(Long id, RawIngredientDto rawIngredientDto) {
-//        RawIngredient existingRawIngredient = rawIngredientRepository.findById(id).orElse(null);
-//        if (existingRawIngredient == null) {
-//            return null; // Raw material with given id does not exist
-//        }
-//        // Update raw material details
-//        existingRawIngredient.setName(rawIngredientDto.getName());
-//        existingRawIngredient.setQuantity(rawIngredientDto.getQuantity());
-//        existingRawIngredient.setDescription(rawIngredientDto.getDescription());
-//        return rawIngredientRepository.save(existingRawIngredient);
-//    }
+    public RawIngredient updateRawMaterial(Long id, RawIngredientDto rawIngredientDto) {
+        RawIngredient existingRawIngredient = rawIngredientRepository.findById(id).orElse(null);
+        if (existingRawIngredient == null) {
+            return null; // Raw material with given id does not exist
+        }
+        // Update raw material details
+        existingRawIngredient.setName(rawIngredientDto.getName());
+        existingRawIngredient.setQuantity(rawIngredientDto.getQuantity());
+        return rawIngredientRepository.save(existingRawIngredient);
+    }
 
     /**
      * Deletes a raw material with the provided ID.
@@ -80,8 +79,16 @@ public class RawIngredientService {
         return true;
     }
 
-    public RawIngredient updateRawIngredient(RawIngredient rawIngredient) {
+    public RawIngredient updateRawIngredient(RawIngredient rawIngredient){
         return rawIngredientRepository.save(rawIngredient);
+    }
+
+    public List<RawIngredient> getAllIngredientsByName() {
+        return rawIngredientRepository.findAll(Sort.by(Sort.Direction.ASC,"name"));
+    }
+
+    public List<RawIngredient> getAllIngredientsByQuantity() {
+        return rawIngredientRepository.findAll(Sort.by(Sort.Direction.ASC,"quantity"));
     }
 }
 

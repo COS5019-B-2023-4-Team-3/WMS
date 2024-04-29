@@ -12,6 +12,8 @@ public class RawIngredientDto {
     private String name;
     @NotNull
     private int quantity;
+
+    @NotBlank
     private String description;
 
     public String getName() {
