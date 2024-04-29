@@ -58,8 +58,6 @@ public class ReportController {
         response.setHeader(headerKey, headerValue);
 
         this.pdfGeneratorService.export(response);
-
     }
-
 }
 
