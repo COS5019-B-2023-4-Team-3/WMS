@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 /**
@@ -39,6 +42,26 @@ public class ProductController {
         return "products";
     }
 
+    @GetMapping("/products/sort-by-name-az")
+    public String showProductsPageSortedAZ(Model model) {
+        List<Product> products = productService.getAllProductsByNameAZ();
+        model.addAttribute("products", products);
+        return "products";
+    }
+
+    @GetMapping("/products/sort-by-name-za")
+    public String showProductsPageSortedZA(Model model) {
+        List<Product> products = productService.getAllProductsByNameZA();
+        model.addAttribute("products", products);
+        return "products";
+    }
+
+    @GetMapping("/products/sort-by-date")
+    public String showProductsPageSortedByDate(Model model) {
+        List<Product> products = productService.getAllProductsByExpiryDate();
+        model.addAttribute("products", products);
+        return "products";
+    }
     /**
      * Retrieves a product by its ID from the database.
      *
@@ -71,63 +94,83 @@ public class ProductController {
     /**
      * Creates a new product in the database.
      *
-     * @param productDto ProductDto object representing the product to create.
+     * @param product Product object representing the product to create.
      * @return ResponseEntity containing a Product object representing the newly created product.
      *         Returns HTTP status code CREATED (201) on success.
      */
 
-    @PostMapping("/products/create")
-    public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDto productDto){
-        Product product = productService.createProduct(productDto);
-
-        return new ResponseEntity<>(product, HttpStatus.CREATED);
+    @PostMapping("/products-create")
+    public String createProduct(@ModelAttribute("product") Product product, Model model) {
+        try {
+            productService.createProduct(product);
+            return "redirect:/products";
+        } catch (Exception e) {
+            model.addAttribute("error", "Failed to create product");
+            return "redirect:/products/create?error=failed_to_create_product";
+        }
     }
-
-
-
-//    @PostMapping("/api/products")
-//    public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDto productDto) {
+//    @PostMapping("/products-create")
+//    public String createProduct(@ModelAttribute Product product, @RequestParam("expiryDate") String expiryDate, Model model) {
 //        try {
-//            Product product = productService.createProduct(productDto);
-//            return ResponseEntity.ok(product);
+//            // Parse the expiry date string to a LocalDate object
+//            LocalDate parsedExpiryDate = LocalDate.parse(expiryDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+////
+////            // Set the parsed expiry date to the product
+//            product.setExpiryDate(parsedExpiryDate);
+//
+//            // Save the product
+//            productService.createProduct(product);
+//
+//            return "redirect:/products";
+//        } catch (DateTimeParseException e) {
+//            model.addAttribute("error", "Invalid expiry date format");
+//            return "redirect:/products/create?error=invalid_date_format";
 //        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add product");
+//            model.addAttribute("error", "Failed to create product");
+//            return "redirect:/products/create?error=product_already_exists";
 //        }
 //    }
-//    @PostMapping("/product-create")
-//    public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDto productDto) {
-//        Product createdProduct = productService.createProduct(productDto);
-//        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+
+
+
+//    @PostMapping("/products-create")
+//    public ResponseEntity<Product> createProduct( @RequestBody ProductDto productDto){
+//        Product product = productService.createProduct(productDto);
+//
+//        return new ResponseEntity<>(product, HttpStatus.CREATED);
+//    }
+
+
+//    @PostMapping("/products-create")
+//    @ResponseBody
+//    public ResponseEntity<String> createProduct(@ModelAttribute ProductDto productDto) {
+//        try {
+//            productService.createProduct(productDto);
+//            return ResponseEntity.ok("Product created successfully");
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create product");
+//        }
 //    }
 
     /**
      * Updates an existing product in the database.
      *
      * @param id         Long representing the ID of the product to update.
-     * @param productDto ProductDto object representing the updated product data.
+     * @param product ProductDto object representing the updated product data.
      * @return ResponseEntity containing a Product object representing the updated product.
      *         Returns HTTP status code OK (200) if the product is updated successfully.
      *         Returns HTTP status code NOT_FOUND (404) if the product with the given ID is not found.
      */
+    @PostMapping("/products/{id}")
+    public String updateProduct(@PathVariable Long id, @ModelAttribute("product") Product product, Model model) {
+        if(productService.getProductById(id) == null){
+            model.addAttribute("error", "Product not found");
+            return "redirect:/products";
+        }
 
-@PostMapping("/products/{id}")
-public String updateProduct(@PathVariable Long id, @ModelAttribute("product") Product product, Model model) {
-    Product existingProduct = productService.getProductById(id);
-    existingProduct.setId(id);
-    existingProduct.setName(product.getName());
-    existingProduct.setSkuCode(product.getSkuCode());
-    existingProduct.setDescription(product.getDescription());
-    existingProduct.setShelfLife(product.getShelfLife());
-    existingProduct.setExpiryDate(product.getExpiryDate());
-    existingProduct.setCurrentStockLevel(product.getCurrentStockLevel());
-    existingProduct.setMinStockLevel(product.getMinStockLevel());
-    existingProduct.setSellingPrice(product.getSellingPrice());
-    existingProduct.setUnitCost(product.getUnitCost());
-    /*existingUser.setRole(user.getRole());*/
-
-    productService.updateProduct(existingProduct);
-    return "redirect:/products";
-}
+        productService.updateProduct(id, product);
+        return "redirect:/products";
+    }
 
 //    @PutMapping("/product-update-{id}")
 //    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
@@ -146,7 +189,7 @@ public String updateProduct(@PathVariable Long id, @ModelAttribute("product") Pr
      *         Returns HTTP status code NO_CONTENT (204) if the product is deleted successfully.
      *         Returns HTTP status code NOT_FOUND (404) if the product with the given ID is not found.
      */
-    @GetMapping("/products/{id}")
+    @GetMapping("/products/delete/{id}")
     public String deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return "redirect:/products";
