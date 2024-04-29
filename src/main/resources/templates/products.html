@@ -61,29 +61,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js"></script>
 
 <script src="/js/main.js"></script>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    document.addEventListener("DOMContentLoaded", function() {
-        // Get the selected element
-        var select = document.getElementById("sortBy");
-
-        // Add a change event listener to select the element
-        select.addEventListener("change", function() {
-            // Get the selected option
-            var selectedOption = this.value;
-            console.log("Selected Sorting Option:", selectedOption);
-
-            // Redirect to the appropriate sorting URL based on the selected option
-            if (selectedOption === "name") {
-                window.location.href = /*[[ @{/products/sort-by-name} ]]*/ '';
-            } else if (selectedOption === "expiry-date") {
-                window.location.href = /*[[ @{/products/sort-by-date} ]]*/ '';
-            }
-            // Add more conditions for other sorting options as needed
-        });
-    });
-    /*]]>*/
-</script>
 <script>
     // Get all elements with class "view-product-btn"
 var buttons = document.querySelectorAll(".view-product-btn");
@@ -129,7 +106,7 @@ document.getElementById('createProductBtn').addEventListener('click', function(e
         document.getElementById('productForm').addEventListener('submit', async function(event) {
             event.preventDefault();
             const formData = new FormData(this);
-            const response = await fetch('/api/products', {
+            const response = await fetch('/products-create', {
                 method: 'POST',
                 body: formData
             });
