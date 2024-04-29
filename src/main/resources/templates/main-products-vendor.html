@@ -16,7 +16,7 @@
 <main th:fragment="main" id="main" class="main">
     <div class="container" style="margin-top: 60px;">
         <div class="title">
-            <h1>Products e</h1>
+            <h1>Products </h1>
             <!--            <button id="createProductBtn">Create New Product</button>-->
 <!--            <a th:href = "@{/products/create}" class="btn btn-warning btn-sm edit">Create New Product</a>-->
 
@@ -48,18 +48,10 @@
                                     <h2 th:text="${product.name}">Product Name</h2>
                                     <p th:text="'SKU code: ' + ${product.SkuCode}">Product SKU Code</p>
                                     <p th:text="'Product Description: ' + ${product.description}">Product Description</p>
-                                    <p th:text="'Product Shelf Life: ' + ${product.ShelfLife}">Product Shelf Life</p>
-                                    <p th:text="'Product Expiry Date: ' + ${product.ExpiryDate}">Product Expiry Date</p>
-                                    <p th:text="'Current Stock Level: ' + ${product.CurrentStockLevel}">Current Stock Level</p>
-                                    <p th:text="'Selling Price: ' + ${product.SellingPrice}">Selling Price</p>
-                                    <p th:text="'Unit Cost: ' + ${product.UnitCost}">Unit Cost</p>
+                                    <p th:text="'Price: ' + ${product.SellingPrice}">Price</p>
                                     <div class="action-buttons">
-                                        <a th:href = "@{/products/edit/{id}(id=${product.id})}" class="btn btn-warning btn-sm edit">Edit Product</a>
-                                        <!--                                        <button class="edit-product-btn" onclick="toggleForm()">Edit Product</button>-->
-                                        <a th:href = "@{/products/{id}(id=${product.id})}" class="btn btn-danger btn-sm delete">Delete</a>
-                                        <!--                                        <button class="delete-product-btn">Delete Product</button>-->
+                                        <a class="btn btn-warning btn-sm edit">Add to Cart</a>
                                     </div>
-                                    <!-- Hidden edit form -->
 
                                 </div>
                             </div>
