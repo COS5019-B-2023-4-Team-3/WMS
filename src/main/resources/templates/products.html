@@ -31,8 +31,12 @@
 <!-- Sidebar -->
 <div th:replace="sidebar :: sidebar"></div>
 
+<!--<main th:replace="main-products :: main" id="main-products" class="main"></main>-->
+
 <!-- Mains -->
-<main th:replace="main-products :: main" id="main-products" class="main"></main>
+<main sec:authorize="hasAuthority('ADMIN')" th:replace="main-products :: main" id="main-products" class="main"></main>
+<main sec:authorize="hasAuthority('EMPLOYEE')" th:replace="main-products-employee :: main" id="main-products-employee" class="main"></main>
+<main sec:authorize="hasAuthority('EXTERNAL')" th:replace="main-products-vendor :: main" id="main-products-vendor" class="main"></main>
 
 <!-- Footer -->
 <footer th:replace="footer :: footer"></footer>
