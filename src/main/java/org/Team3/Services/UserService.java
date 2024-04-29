@@ -72,13 +72,13 @@ public class UserService {
      * @param user User object representing the updated user data.
      * @return User object representing the updated user, or null if the user with the given ID does not exist.
      */
-    public User updateUser(Long id, User user) {
+    /*public User updateUser(Long id, User user) {
         if (!userRepository.existsById(id)) {
             return null; // User with given id does not exist
         }
         user.setId(id);
         return userRepository.save(user);
-    }
+    }*/
 
     /**
      * Deletes a user from the database.
@@ -165,5 +165,8 @@ public class UserService {
         logger.debug("user: {} saved! password: {}, encodedPassword: {}", username, password, encodedPassword);
 
         return true; // User registered successfully
+    }
+    public User updateUser (User user) {
+        return userRepository.save(user);
     }
 }
