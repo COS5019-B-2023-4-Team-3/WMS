@@ -183,7 +183,7 @@ public String updateProduct(@PathVariable Long id, @ModelAttribute("product") Pr
      *         Returns HTTP status code NO_CONTENT (204) if the product is deleted successfully.
      *         Returns HTTP status code NOT_FOUND (404) if the product with the given ID is not found.
      */
-    @GetMapping("/products/{id}")
+    @GetMapping("/products/delete/{id}")
     public String deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return "redirect:/products";
