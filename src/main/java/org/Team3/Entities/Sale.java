@@ -1,5 +1,7 @@
 package org.Team3.Entities;
 
+import com.lowagie.text.pdf.PdfPCell;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -16,6 +18,12 @@ public class Sale {
 
     @Column(name = "revenue")
     private Long revenue;
+
+    @Column(name = "order_volume")
+    private Long volume;
+
+    @Column(name = "order_id")
+    private Long orderId;
 
     public Long getId() {
         return id;
@@ -40,6 +48,21 @@ public class Sale {
     public void setIncome(Long income) {
         this.revenue = income;
     }
+    public Long getVolume() {
+        return volume;
+    }
+
+    public void setVolume(Long volume) {
+        this.volume = volume;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
 
     @Override
     public String toString() {
@@ -47,6 +70,8 @@ public class Sale {
                 "id=" + id +
                 ", date=" + date +
                 ", revenue=" + revenue +
+                ", volume=" + volume +
+                ", orderId=" + orderId +
                 '}';
     }
 }
