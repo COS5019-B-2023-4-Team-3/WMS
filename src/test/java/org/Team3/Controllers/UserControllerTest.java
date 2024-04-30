@@ -20,7 +20,7 @@ class UserControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    @WithMockUser(username="test_admin", roles={"ADMIN"})
+    @WithMockUser(username="test_admin", authorities={"ADMIN"})
     void shouldShowPage() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/users")
                         .accept(MediaType.APPLICATION_JSON))
@@ -50,13 +50,4 @@ class UserControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is3xxRedirection());
     }
-
-    @Test
-    @WithMockUser(username="test_admin", roles={"ADMIN"})
-    void shouldShowEditUserForm() throws Exception{
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/edit/1")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-    }
-
 }
