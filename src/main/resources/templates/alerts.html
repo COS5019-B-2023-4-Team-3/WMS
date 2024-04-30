@@ -7,25 +7,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
-    <style>
-        body {
-            margin: 0;
-            padding-top: 20px;
-        }
-        footer {
-            background-color: #007BFF;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-            margin-top: 20px;
-        }
-        main {
-            padding: 0 20px;
-        }
-        h1 {
-            margin-top: 20px;
-        }
-    </style>
 </head>
 <body>
 
@@ -35,11 +16,7 @@
 <!--sidebar-->
 <header th:replace="sidebar :: sidebar"></header>
 
-<!--main-->
-<main>
-    <h1>Notifications</h1> <!-- Added heading for Notifications -->
-    <div th:replace="main-alerts :: main"></div> <!-- Included main content -->
-</main>
+<main th:replace="main-alerts :: main"></main>
 
 <!--footer-->
 <footer th:replace="footer :: footer"></footer>
@@ -53,8 +30,43 @@
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="/js/dropdown.js"></script>
-<script src="/js/sidebar_toggle.js"></script>
-<script src="/js/back_to_top.js"></script>
+<script src="/js/main.js"></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the selected element
+        var select = document.getElementById("Filter");
+
+        // Add a change event listener to select the element
+        select.addEventListener("change", function() {
+            // Get the selected option
+            var selectedOption = this.value;
+            console.log("Selected Option:", selectedOption);
+
+            //Get all the alert boxes
+            var alertBoxes = document.querySelectorAll(".alert-box");
+
+            // Loop through each alert box
+            alertBoxes.forEach(function(alertBox) {
+                // Get the alert type
+                var alertType = alertBox.querySelector("td:nth-child(2)").textContent.trim();
+
+                // Check if the selected option is "All"
+                if (selectedOption === "All") {
+                    alertBox.style.display = "table-row";
+                }
+                // Check if the selected option is "Low Stock"
+                else if (selectedOption === alertType) {
+                    alertBox.style.display = "table-row";
+                }
+                else {
+                    alertBox.style.display = "none";
+                }
+            });
+        });
+    });
+    /*]]>*/
+</script>
 </body>
 </html>

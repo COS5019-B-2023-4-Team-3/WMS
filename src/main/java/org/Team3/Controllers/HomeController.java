@@ -1,5 +1,8 @@
 package org.Team3.Controllers;
 
+import org.Team3.Services.ReportService;
+import org.Team3.Services.SaleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,9 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.time.LocalDate;
 
 /**
  * HomeController class handles requests related to the application's home page.
@@ -29,12 +34,41 @@ public class HomeController {
      * @param principal Principal object representing the currently authenticated user.
      * @return String representing the logical view name of the homepage.
      */
+    @Autowired
+    private SaleService saleService;
+
     @GetMapping("/homepage")
-    public String showHomepage(Model model, Principal principal) {
+    public String showHomepage(Model model, Principal principal, String filter, HttpServletRequest request) {
         String role = getRoleForUser(principal);
         model.addAttribute("role", role);
+
+        LocalDate startDate;
+        LocalDate endDate = LocalDate.now();
+
+        if(filter == null) {
+            filter = "week";
+        }
+
+        switch (filter) {
+            case "week":
+            default:
+                startDate = endDate.minusWeeks(1);
+                break;
+            case "month":
+                startDate = endDate.minusMonths(1);
+                break;
+            case "year":
+                startDate = endDate.minusYears(1);
+                break;
+        }
+
+        model.addAttribute("salesData", saleService.getSalesInRange(startDate, endDate));
         return "homepage";
     }
+
+
+
+
 
     /**
      * Handles POST requests related to the homepage.

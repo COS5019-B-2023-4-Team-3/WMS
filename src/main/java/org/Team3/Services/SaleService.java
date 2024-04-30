@@ -15,18 +15,22 @@ import java.util.stream.Collectors;
 @Service
 public class SaleService {
 
-    @Autowired
-    private SaleRepository saleRepository;
+
+    private final SaleRepository saleRepository;
+
+    public SaleService(SaleRepository saleRepository) {
+        this.saleRepository = saleRepository;
+    }
 
     public List<Sale> getAllSales() {
         return saleRepository.findAll();
     }
 
     //TODO: reverse sorted sales it is showing backwards on the graph
-    public List<Map<String, Object>> getLastWeekSales() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM");
-        List<Sale> sales = saleRepository.findSalesAmount(LocalDate.now());
+    public List<Map<String, Object>> getSalesInRange(LocalDate startDate, LocalDate endDate) {
+        List<Sale> sales = saleRepository.getSalesInRange(startDate, endDate);
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM");
         Map<String, Double> groupSales = sales.stream()
                 .collect(Collectors.groupingBy(sale -> sale.getDate().format(formatter),
                         Collectors.summingDouble(Sale::getIncome)));

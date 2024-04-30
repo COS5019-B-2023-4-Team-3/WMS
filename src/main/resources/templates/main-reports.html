@@ -9,58 +9,51 @@
 </head>
 <body>
 <!--TODO: separate main display through authorization based on requirements for each actor-->
-<main th:fragment="main" id="main" class="main">
-    <!-- Reports -->
-    <div class="col-12" style="margin-top: 60px;">
+<main th:fragment="main" id="main" class="main" style="margin-top:60px;">
+    <div class="col-12">
         <div class="card">
             <div class="filter">
-                <a class="icon" th:href="@{/under-construction}" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                <a class="icon" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <li class="dropdown-header text-start">
                         <h6>Filter</h6>
                     </li>
-                    <li><a class="dropdown-item" th:href="@{/under-construction}">Today</a></li>
-                    <li><a class="dropdown-item" th:href="@{/under-construction}">This Month</a></li>
-                    <li><a class="dropdown-item" th:href="@{/under-construction}">This Year</a></li>
+                    <li><a class="dropdown-item" th:href="@{/line-chart?filter=week}">This Week</a></li>
+                    <li><a class="dropdown-item" th:href="@{/line-chart?filter=month}">This Month</a></li>
+                    <li><a class="dropdown-item" th:href="@{/line-chart?filter=year}">This Year</a></li>
                 </ul>
             </div>
 
             <div class="card-body">
-                <h5 class="card-title">Reports <span>/Week</span></h5>
-
+                <h5 class="card-title">Reports <span>| Week</span></h5>
                 <!-- Line Chart -->
                 <div id="reportsChart" style="min-height: 365px;"></div>
-
                 <script th:inline="javascript">
-                /*<![CDATA[*/
-                 document.addEventListener("DOMContentLoaded", () => {
-                 let salesData = /*[[${salesData}]]*/ [];
+                    /*<![CDATA[*/
+                     document.addEventListener("DOMContentLoaded", () => {
+                     let salesData = /*[[${salesData}]]*/ [];
 
-                 let seriesData = salesData.map(sale => ({x: sale.date, y: sale.income}));
+                     let seriesData = salesData.map(sale => ({x: sale.date, y: sale.income}));
 
-                 new ApexCharts(document.querySelector("#reportsChart"), {
-                    series: [{
-                        name: 'sales',
-                        data: seriesData,
-                    }],
-                    chart: {
-                        height: 350,
-                        type: 'line',
-                        zoom: {
-                            enabled: false
-                        }
-                    },
-
-                    // rest of the code
-
-                    }).render();
-                });
-                /*]]>*/
+                     new ApexCharts(document.querySelector("#reportsChart"), {
+                        series: [{
+                            name: 'sales',
+                            data: seriesData,
+                        }],
+                        chart: {
+                            height: 350,
+                            type: 'line',
+                            zoom: {
+                                enabled: false
+                            }
+                        },
+                        }).render();
+                    });
+                    /*]]>*/
                 </script>
             </div>
         </div>
-    </div>
-    <!-- End Line Chart -->
+    </div><!-- End Reports -->
     <!-- Recent Sales -->
     <div class="col-12">
         <div class="card recent-sales overflow-auto">
@@ -130,6 +123,11 @@
             </div>
         </div>
     </div><!-- End Recent Sales -->
+    <div>
+        <a th:href="@{/generate-pdf}" class="btn btn-primary" style="text-decoration: none;">
+            Generate Report
+        </a>
+    </div>
 </main>
 
 </body>

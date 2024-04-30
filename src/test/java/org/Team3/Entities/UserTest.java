@@ -2,6 +2,7 @@ package org.Team3.Entities;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -9,6 +10,7 @@ import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class UserTest {
 
     private User user;

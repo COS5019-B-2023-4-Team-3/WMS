@@ -1,43 +1,65 @@
 package org.Team3.Controllers;
-
+import org.Team3.Services.PDFGeneratorService;
+import org.Team3.Services.ReportService;
+import org.Team3.Services.SaleService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.context.support.WithAnonymousUser;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.ui.Model;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 public class ReportControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @InjectMocks
+    private ReportController reportController;
 
-    @Test
-    @WithMockUser(username = "test_employee", roles = {"EMPLOYEE"})
-    public void testShowHomepageForAuthorizedEMPLOYEE() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/reports"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("reports"));
+    @Mock
+    private ReportService reportService;
+
+    @Mock
+    private SaleService saleService;
+
+    @Mock
+    private PDFGeneratorService pdfGeneratorService;
+
+    @Mock
+    private Model model;
+
+    @Mock
+    private HttpServletRequest request;
+
+    @Mock
+    private HttpServletResponse response;
+
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    @WithMockUser(username = "test_admin", roles = {"ADMIN"})
-    public void testShowHomepageForAuthorizedADMIN() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/reports"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("reports"));
+    public void showPageReturnsReportsView() {
+        String viewName = reportController.showPage(null, model, request);
+        verify(saleService).getSalesInRange(any(LocalDate.class), any(LocalDate.class));
+        assertEquals("reports", viewName);
     }
 
     @Test
-    @WithMockUser(username = "test_vendor", roles = {"EXTERNAL"})
-    public void testShowHomepageForAuthorizedEXTERNAL() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/reports"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("reports"));
+    public void generatePDFCallsExport() throws Exception {
+        List<Map<String, Object>> salesData = List.of();
+        when(saleService.getSalesInRange(any(LocalDate.class), any(LocalDate.class))).thenReturn(salesData);
+        reportController.generatePDF(response);
+        verify(pdfGeneratorService).export(response, salesData);
     }
 }

@@ -2,7 +2,6 @@ package org.Team3.Entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.sql.*;
 
 @Entity
 @Table(name = "sales_data")
@@ -16,7 +15,13 @@ public class Sale {
     private LocalDate date;
 
     @Column(name = "revenue")
-    private Long revenue;
+    private Long income;
+
+    @Column(name = "order_volume")
+    private Long volume;
+
+    @Column(name = "order_id")
+    private Long orderId;
 
     public Long getId() {
         return id;
@@ -35,11 +40,26 @@ public class Sale {
     }
 
     public Long getIncome() {
-        return revenue;
+        return income;
     }
 
     public void setIncome(Long income) {
-        this.revenue = income;
+        this.income = income;
+    }
+    public Long getVolume() {
+        return volume;
+    }
+
+    public void setVolume(Long volume) {
+        this.volume = volume;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     @Override
@@ -47,7 +67,9 @@ public class Sale {
         return "Sale{" +
                 "id=" + id +
                 ", date=" + date +
-                ", revenue=" + revenue +
+                ", revenue=" + income +
+                ", volume=" + volume +
+                ", orderId=" + orderId +
                 '}';
     }
 }

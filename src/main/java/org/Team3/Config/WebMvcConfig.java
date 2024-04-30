@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
 /**
- * WebMvcConfig class provides configurations for Spring MVC, allowing customization
+ * WebMvcConfig class provides configurations for Spring MVC, allowing customisation
  * of various aspects of the MVC framework.
  *
  * This class is used to configure content negotiation to ensure that CSS files are served
@@ -16,7 +16,7 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
  * resources such as CSS files using resource handlers.
  *
  * By separating configuration concerns into dedicated configuration classes like WebMvcConfig,
- * the codebase becomes cleaner and more organized.
+ * the codebase becomes cleaner and more organised.
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
@@ -32,7 +32,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .favorParameter(true)  // Favor media type from request parameter
                 .parameterName("mediaType")  // Specify the request parameter name
                 .ignoreAcceptHeader(true)  // Ignore Accept header
-                .useRegisteredExtensionsOnly(false)  // Allow media type based on file extensions
+                .useRegisteredExtensionsOnly(false)  // Allow a media type based on file extensions
                 .defaultContentType(MediaType.TEXT_HTML)  // Default content type for the application
                 .mediaType("html", MediaType.TEXT_HTML)  // Media type for HTML
                 .mediaType("json", MediaType.APPLICATION_JSON)  // Media type for JSON

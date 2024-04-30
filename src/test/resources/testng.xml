@@ -1,39 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="DockerComposeTest_Suite">
-    <test name="EntityTests">
+    <test name="ChromeTest">
+        <parameter name="browser" value="chrome"/>
         <classes>
+            <class name="org.Team3.Config.SecurityConfigTest"/>
+            <class name="org.Team3.Config.WebMvcConfigTest"/>
+            <class name="org.Team3.Controllers.AlertControllerTest"/>
+            <class name="org.Team3.Controllers.HomeControllerTest"/>
+            <class name="org.Team3.Controllers.LoginControllerTest"/>
+            <class name="org.Team3.Controllers.OrderControllerTest"/>
+            <class name="org.Team3.Controllers.ProductControllerTest"/>
+            <class name="org.Team3.Controllers.RawIngredientControllerTest"/>
+            <class name="org.Team3.Controllers.RegisterControllerTest"/>
+            <class name="org.Team3.Controllers.ReportControllerTest"/>
+            <class name="org.Team3.Controllers.UnderConstructionControllerTest"/>
+            <class name="org.Team3.Controllers.UserControllerTest"/>
             <class name="org.Team3.Entities.OrderItemTest"/>
             <class name="org.Team3.Entities.OrderTest"/>
             <class name="org.Team3.Entities.ProductTest"/>
             <class name="org.Team3.Entities.RawIngredientTest"/>
             <class name="org.Team3.Entities.RoleTest"/>
             <class name="org.Team3.Entities.UserTest"/>
-
-        </classes>
-    </test>
-    <test name="ChromeTest">
-        <parameter name="browser" value="chrome"/>
-        <classes>
-            <class name="org.Team3.Controllers.HomeControllerTest"/>
-            <class name="org.Team3.Controllers.LoginControllerTest"/>
-            <class name="org.Team3.Controllers.RegisterControllerTest"/>
+            <class name="org.Team3.Services.CustomUserDetailsServiceTest"/>
+            <class name="org.Team3.Services.OrderServiceTest"/>
+            <class name="org.Team3.Services.PDFGeneratorServiceTest"/>
+            <class name="org.Team3.Services.ReportServiceTest"/>
+            <class name="org.Team3.Services.RoleServiceTest"/>
+            <class name="org.Team3.Services.SaleServiceTest"/>
+            <class name="org.Team3.Services.UserServiceTest"/>
         </classes>
     </test>
     <test name="FirefoxTest">
         <parameter name="browser" value="firefox"/>
         <classes>
+            <class name="org.Team3.Config.SecurityConfigTest"/>
+            <class name="org.Team3.Config.WebMvcConfigTest"/>
+            <class name="org.Team3.Controllers.AlertControllerTest"/>
             <class name="org.Team3.Controllers.HomeControllerTest"/>
             <class name="org.Team3.Controllers.LoginControllerTest"/>
+            <class name="org.Team3.Controllers.OrderControllerTest"/>
+            <class name="org.Team3.Controllers.ProductControllerTest"/>
+            <class name="org.Team3.Controllers.RawIngredientControllerTest"/>
             <class name="org.Team3.Controllers.RegisterControllerTest"/>
+            <class name="org.Team3.Controllers.ReportControllerTest"/>
+            <class name="org.Team3.Controllers.UnderConstructionControllerTest"/>
+            <class name="org.Team3.Controllers.UserControllerTest"/>
+            <class name="org.Team3.Entities.OrderItemTest"/>
+            <class name="org.Team3.Entities.OrderTest"/>
+            <class name="org.Team3.Entities.ProductTest"/>
+            <class name="org.Team3.Entities.RawIngredientTest"/>
+            <class name="org.Team3.Entities.RoleTest"/>
+            <class name="org.Team3.Entities.UserTest"/>
+            <class name="org.Team3.Services.CustomUserDetailsServiceTest"/>
+            <class name="org.Team3.Services.OrderServiceTest"/>
+            <class name="org.Team3.Services.PDFGeneratorServiceTest"/>
+            <class name="org.Team3.Services.ReportServiceTest"/>
+            <class name="org.Team3.Services.RoleServiceTest"/>
+            <class name="org.Team3.Services.SaleServiceTest"/>
+            <class name="org.Team3.Services.UserServiceTest"/>
         </classes>
     </test>
     <test name="EdgeTest">
         <parameter name="browser" value="edge"/>
         <classes>
+            <class name="org.Team3.Config.SecurityConfigTest"/>
+            <class name="org.Team3.Config.WebMvcConfigTest"/>
+            <class name="org.Team3.Controllers.AlertControllerTest"/>
             <class name="org.Team3.Controllers.HomeControllerTest"/>
             <class name="org.Team3.Controllers.LoginControllerTest"/>
+            <class name="org.Team3.Controllers.OrderControllerTest"/>
+            <class name="org.Team3.Controllers.ProductControllerTest"/>
+            <class name="org.Team3.Controllers.RawIngredientControllerTest"/>
             <class name="org.Team3.Controllers.RegisterControllerTest"/>
+            <class name="org.Team3.Controllers.ReportControllerTest"/>
+            <class name="org.Team3.Controllers.UnderConstructionControllerTest"/>
+            <class name="org.Team3.Controllers.UserControllerTest"/>
+            <class name="org.Team3.Entities.OrderItemTest"/>
+            <class name="org.Team3.Entities.OrderTest"/>
+            <class name="org.Team3.Entities.ProductTest"/>
+            <class name="org.Team3.Entities.RawIngredientTest"/>
+            <class name="org.Team3.Entities.RoleTest"/>
+            <class name="org.Team3.Entities.UserTest"/>
+            <class name="org.Team3.Services.CustomUserDetailsServiceTest"/>
+            <class name="org.Team3.Services.OrderServiceTest"/>
+            <class name="org.Team3.Services.PDFGeneratorServiceTest"/>
+            <class name="org.Team3.Services.ReportServiceTest"/>
+            <class name="org.Team3.Services.RoleServiceTest"/>
+            <class name="org.Team3.Services.SaleServiceTest"/>
+            <class name="org.Team3.Services.UserServiceTest"/>
         </classes>
     </test>
 </suite>

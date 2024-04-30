@@ -56,4 +56,19 @@ window.onload = function() {
             window.location.reload();
         }
     });
+
+    $(document).ready(function() {
+        $('#clear-alerts-link').click(function(e) {
+            e.preventDefault();
+            $.get('/clear-alerts', function() {
+                // Remove all notification items
+                $('.notification-item').remove();
+                // Update the notification count
+                $('.badge-number-alert').text('0');
+                $('#notification-count').text('0');
+                // Store the state in localStorage
+                localStorage.setItem('notificationsCleared', 'true');
+            });
+        });
+    });
 };

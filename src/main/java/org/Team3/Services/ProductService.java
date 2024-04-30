@@ -1,8 +1,6 @@
 package org.Team3.Services;
-import org.Team3.DTO.ProductDto;
 import org.Team3.Entities.Product;
 import org.Team3.Repositories.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -55,40 +53,37 @@ public class ProductService {
 
     /**
      * Creates a new product based on the provided ProductDto.
+     *
      * @param product The DTO containing product details
-     * @return The newly created product
      */
-//    public Product createProduct(ProductDto productDto) {
-//        Product product = new Product();
-//        // Set product details from DTO
-//        product.setName(productDto.getName());
-//        product.setSkuCode(productDto.getSkuCode());
-//        product.setDescription(productDto.getDescription());
-//        product.setShelfLife(productDto.getShelfLife());
-//        product.setExpiryDate(productDto.getExpiryDate());
-//        product.setCurrentStockLevel(productDto.getCurrentStockLevel());
-//        product.setMinStockLevel(productDto.getMinStockLevel());
-//        product.setSellingPrice(productDto.getUnitSellPrice());
-//        product.setUnitCost(productDto.getUnitCost());
-////        product.setImageURL(productDto.getImageURL());
-//
-//        return productRepository.save(product);
-//    }
+    public void createProduct(Product product) {
+        Product newProduct = new Product();
 
-    public Product createProduct(Product product) {
-        // may want to check if the product already exists before saving it to the database
-        return productRepository.save(product);
+        newProduct.setName(product.getName());
+        newProduct.setSkuCode(product.getSkuCode());
+        newProduct.setDescription(product.getDescription());
+        newProduct.setShelfLife(product.getShelfLife());
+        newProduct.setExpiryDate(product.getExpiryDate());
+        newProduct.setCurrentStockLevel(product.getCurrentStockLevel());
+        newProduct.setMinStockLevel(product.getMinStockLevel());
+        newProduct.setSellingPrice(product.getSellingPrice());
+        newProduct.setUnitCost(product.getUnitCost());
+        newProduct.setImageURL(product.getImageURL());
+        newProduct.setExpiryDate(product.getExpiryDate());
+
+        productRepository.save(newProduct);
     }
+
     /**
      * Updates an existing product with the provided ID using the details from the ProductDto.
-     * @param id The ID of the product to update
+     *
+     * @param id      The ID of the product to update
      * @param product The DTO containing updated product details
-     * @return The updated product if successful, otherwise null
      */
-    public Product updateProduct(Long id, Product product) {
+    public void updateProduct(Long id, Product product) {
         Product existingProduct = productRepository.findById(id).orElse(null);
         if (existingProduct == null) {
-            return null; // Product with given id does not exist
+            return; // Product with given id does not exist
         }
         // Update product details
         existingProduct.setName(product.getName());
@@ -98,7 +93,7 @@ public class ProductService {
         existingProduct.setCurrentStockLevel(product.getCurrentStockLevel());
         existingProduct.setMinStockLevel(product.getMinStockLevel());
         existingProduct.setExpiryDate(product.getExpiryDate());
-        return productRepository.save(existingProduct);
+        productRepository.save(existingProduct);
     }
 
     /**
@@ -145,12 +140,5 @@ public class ProductService {
     public List<Product> getLowStockProducts() {
         return productRepository.findLowStockProducts();
     }
-
-
-    public boolean productExists(Long id) {
-        // Check if a product with the id exists in the database
-        return productRepository.existsById(id);
-    }
-
 
 }

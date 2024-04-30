@@ -43,7 +43,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link nav-icon" th:href="@{/under-construction}" data-dropdown-menu-class="notifications">
                     <i class="bi bi-bell"></i>
-                    <span class="badge bg-primary badge-number">
+                    <span class="badge bg-primary badge-number-alert">
                         4
                     </span>
                 </a><!-- End Notification Icon -->
@@ -51,7 +51,7 @@
                     style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(-25px, 35px);"
                     data-popper-placement="bottom-end">
                     <li class="dropdown-header">
-                        You have 4 new notifications
+                        You have <span id="notification-count">4</span> new notifications
                         <a th:href="@{/under-construction}">
                             <span class="badge rounded-pill bg-primary p-2 ms-2">View all</span>
                         </a>
@@ -62,8 +62,8 @@
                     <li class="notification-item">
                         <i class="bi bi-exclamation-circle text-warning"></i>
                         <div>
-                            <h4>Lorem Ipsum</h4>
-                            <p>Quae dolorem earum veritatis odittseno</p>
+                            <h4>Warning: Low Stock Product</h4>
+                            <p>Product 503 is low in stock</p>
                             <p>30 min. ago</p>
                         </div>
                     </li>
@@ -74,46 +74,42 @@
                     <li class="notification-item">
                         <i class="bi bi-x-circle text-danger"></i>
                         <div>
-                            <h4>Atque rerum nesciunt</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
+                            <h4>Warning:Product Out of Date</h4>
+                            <p>Product 277 has expired.</p>
                             <p>1 hr. ago</p>
                         </div>
                     </li>
-
+                    <li class="notification-item">
+                        <i class="bi bi-x-circle text-danger"></i>
+                        <div>
+                            <h4>Warning:Product Out of Date</h4>
+                            <p>Product 918 has expired.</p>
+                            <p>1 hr. ago</p>
+                        </div>
+                    </li>
+                    <li class="notification-item">
+                        <i class="bi bi-exclamation-circle text-warning"></i>
+                        <div>
+                            <h4>Warning: Low Stock Product</h4>
+                            <p>Product 666 is low in stock</p>
+                            <p>30 min. ago</p>
+                        </div>
+                    </li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-
-                    <li class="notification-item">
-                        <i class="bi bi-check-circle text-success"></i>
-                        <div>
-                            <h4>Sit rerum fuga</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>2 hrs. ago</p>
-                        </div>
-                    </li>
-
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li class="notification-item">
-                        <i class="bi bi-info-circle text-primary"></i>
-                        <div>
-                            <h4>Dicta reprehenderit</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>4 hrs. ago</p>
-                        </div>
-                    </li>
-
                     <li>
                         <hr class="dropdown-divider">
                     </li>
                     <li class="dropdown-footer">
-                        <a th:href="@{/under-construction}">Show all notifications</a>
+                        <a th:href="@{/under-construction}">Show all alerts</a>
+                    </li>
+                    <li class="dropdown-footer">
+                        <a href="#" id="clear-alerts-link">Clear all alerts</a>
                     </li>
                 </ul>
-            </li><!-- End Notification Nav -->
+            </li>
+            <!-- End Notification Nav -->
 
             <li class="nav-item dropdown">
                 <a class="nav-link nav-icon" th:href="@{/under-construction}" data-dropdown-menu-class="messages">
@@ -240,6 +236,7 @@
     </nav><!-- End Icons Navigation -->
 
 </header><!-- End Header -->
+
 
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
