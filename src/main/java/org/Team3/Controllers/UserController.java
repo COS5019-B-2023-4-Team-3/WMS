@@ -77,11 +77,11 @@ public class UserController {
     public String editUserForm(@PathVariable ("id") Long id, Model model) {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
-        return "edit_user";
+        return "user-edit";
     }
 
     @PostMapping("/users/{id}")
-    public String updateUser(@PathVariable Long id, @ModelAttribute("user") User user, Model model) {
+    public String updateUser(@PathVariable Long id, @ModelAttribute("user") User user) {
         User existingUser = userService.getUserById(id);
         existingUser.setId(id);
         existingUser.setUsername(user.getUsername());
@@ -109,7 +109,7 @@ public class UserController {
         }
         existingUser.setRole(role);
 
-        userService.updateUser(existingUser);
+        userService.updateUser(id, existingUser);
         return "redirect:/users";
     }
 

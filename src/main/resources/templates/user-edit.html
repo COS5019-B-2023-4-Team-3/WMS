@@ -15,9 +15,9 @@
 
 <body th:fragment="body">
 
-<div sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></div>
+<div th:replace="header :: header"></div>
 <div th:replace="sidebar :: sidebar"></div>
-<main style="margin-top: 50px;" sec:authorize="hasAuthority('ADMIN')" th:replace="main-edit_user :: main" id="main-edit_user" class="main"></main>
+<main style="margin-top: 50px;" sec:authorize="hasAuthority('ADMIN')" th:replace="main-user-edit :: main" id="main-user-edit" class="main"></main>
 
 <footer th:replace="footer :: footer"></footer>
 
