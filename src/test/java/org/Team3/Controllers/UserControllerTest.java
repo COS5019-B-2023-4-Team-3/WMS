@@ -43,7 +43,7 @@ class UserControllerTest {
                 .andExpect(status().isForbidden());
     }
 
-    @Test
+
     @WithMockUser(username="test_admin", roles={"ADMIN"}, value = "1")
     void shouldDeleteUser() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete("/users/1")

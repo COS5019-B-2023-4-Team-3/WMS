@@ -61,7 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register").permitAll() // Allow access to the custom registration page
                 .antMatchers("/vendor-register").permitAll()
                 .antMatchers("/error").permitAll() // Permit access to the error page
-                .antMatchers("/homepage").authenticated() // Require authentication for accessing the homepage
+                .antMatchers("/homepage").authenticated()
+                .antMatchers("/users").hasRole("ADMIN")// Require authentication for accessing the homepage
 //                .antMatchers("/users/**").hasRole("ADMIN") // Require ADMIN role to access /users
                 .anyRequest().authenticated()
                 .and()

@@ -3,16 +3,15 @@ import org.Team3.Entities.Role;
 import org.Team3.Entities.User;
 import org.Team3.Repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-
 
 @SpringBootTest
 public class CustomUserDetailsServiceTest {
@@ -25,9 +24,9 @@ public class CustomUserDetailsServiceTest {
         customUserDetailsService = new CustomUserDetailsService(userRepository);
     }
 
+    @DisplayName("Load User By Username When User Exists")
     @Test
-    public void testLoadUserByUsernameUserExists() {
-        // Arrange
+    public void loadUserByUsernameUserExists() {
         User user = new User();
         user.setUsername("test_admin");
         user.setPassword("test");
@@ -36,22 +35,24 @@ public class CustomUserDetailsServiceTest {
         user.setRole(role);
         when(userRepository.findByUsername("test_admin")).thenReturn(user);
 
-        // Act
         UserDetails userDetails = customUserDetailsService.loadUserByUsername("test_admin");
 
-        // Assert
         assertEquals(user.getUsername(), userDetails.getUsername());
         assertEquals(user.getPassword(), userDetails.getPassword());
         assertTrue(userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN")));
     }
 
+    @DisplayName("Load User By Username When User Does Not Exist")
     @Test
-    public void testLoadUserByUsernameUserDoesNotExist() {
-        // Arrange
+    public void loadUserByUsernameUserDoesNotExist() {
         when(userRepository.findByUsername("testUser")).thenReturn(null);
 
-        // Act & Assert
         assertThrows(UsernameNotFoundException.class, () -> customUserDetailsService.loadUserByUsername("testUser"));
     }
 
+    @DisplayName("Load User By Username When Username Is Null")
+    @Test
+    public void loadUserByUsernameWhenUsernameIsNull() {
+        assertThrows(UsernameNotFoundException.class, () -> customUserDetailsService.loadUserByUsername(null));
+    }
 }

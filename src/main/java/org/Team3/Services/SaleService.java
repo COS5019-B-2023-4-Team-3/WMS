@@ -15,8 +15,12 @@ import java.util.stream.Collectors;
 @Service
 public class SaleService {
 
-    @Autowired
-    private SaleRepository saleRepository;
+
+    private final SaleRepository saleRepository;
+
+    public SaleService(SaleRepository saleRepository) {
+        this.saleRepository = saleRepository;
+    }
 
     public List<Sale> getAllSales() {
         return saleRepository.findAll();

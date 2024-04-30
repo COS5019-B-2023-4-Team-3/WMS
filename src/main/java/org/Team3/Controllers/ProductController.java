@@ -1,6 +1,6 @@
 package org.Team3.Controllers;
 
-import org.Team3.DTO.ProductDto;
+
 import org.Team3.Entities.Product;
 import org.Team3.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

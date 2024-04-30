@@ -2,10 +2,12 @@ package org.Team3.Entities;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+@SpringBootTest
 class RoleTest {
     private Role role;
 
@@ -29,7 +31,7 @@ class RoleTest {
         role.setName("ROLE_MANAGER");
         assertEquals("ROLE_MANAGER", role.getName());
 
-        String expected = "Role{id=1, name='ROLE_USER'}";
+        String expected = "Role{id=2, name='ROLE_MANAGER'}";
         assertEquals(expected, role.toString());
     }
 
