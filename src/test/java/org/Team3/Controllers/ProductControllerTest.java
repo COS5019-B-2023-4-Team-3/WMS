@@ -7,6 +7,7 @@ import org.Team3.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.web.servlet.MockMvc;
@@ -67,7 +68,7 @@ public class ProductControllerTest extends AbstractTestNGSpringContextTests {
 
     @Test
     @WithMockUser(username = "test_admin", roles = {"ADMIN"})
-    public void testShowCreateProductForm() throws Exception {
+    void shouldShowCreateProductForm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/products/create"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("products-create"));
@@ -75,7 +76,7 @@ public class ProductControllerTest extends AbstractTestNGSpringContextTests {
 
     @Test
     @WithMockUser(username = "test_admin", roles = {"ADMIN"})
-    public void testShowEditProductForm() throws Exception {
+    void shouldShowEditProductForm() throws Exception {
         long productId = 1;
         mockMvc.perform(MockMvcRequestBuilders.get("/products/edit/{id}", productId))
                 .andExpect(MockMvcResultMatchers.status().isOk())
