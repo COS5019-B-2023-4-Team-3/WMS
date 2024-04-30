@@ -10,10 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+
 import java.util.List;
 
 /**
@@ -109,48 +106,6 @@ public class ProductController {
             return "redirect:/products/create?error=failed_to_create_product";
         }
     }
-//    @PostMapping("/products-create")
-//    public String createProduct(@ModelAttribute Product product, @RequestParam("expiryDate") String expiryDate, Model model) {
-//        try {
-//            // Parse the expiry date string to a LocalDate object
-//            LocalDate parsedExpiryDate = LocalDate.parse(expiryDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-////
-////            // Set the parsed expiry date to the product
-//            product.setExpiryDate(parsedExpiryDate);
-//
-//            // Save the product
-//            productService.createProduct(product);
-//
-//            return "redirect:/products";
-//        } catch (DateTimeParseException e) {
-//            model.addAttribute("error", "Invalid expiry date format");
-//            return "redirect:/products/create?error=invalid_date_format";
-//        } catch (Exception e) {
-//            model.addAttribute("error", "Failed to create product");
-//            return "redirect:/products/create?error=product_already_exists";
-//        }
-//    }
-
-
-
-//    @PostMapping("/products-create")
-//    public ResponseEntity<Product> createProduct( @RequestBody ProductDto productDto){
-//        Product product = productService.createProduct(productDto);
-//
-//        return new ResponseEntity<>(product, HttpStatus.CREATED);
-//    }
-
-
-//    @PostMapping("/products-create")
-//    @ResponseBody
-//    public ResponseEntity<String> createProduct(@ModelAttribute ProductDto productDto) {
-//        try {
-//            productService.createProduct(productDto);
-//            return ResponseEntity.ok("Product created successfully");
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create product");
-//        }
-//    }
 
     /**
      * Updates an existing product in the database.
@@ -172,14 +127,6 @@ public class ProductController {
         return "redirect:/products";
     }
 
-//    @PutMapping("/product-update-{id}")
-//    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
-//        Product updatedProduct = productService.updateProduct(id, productDto);
-//        if (updatedProduct == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
-//    }
 
     /**
      * Deletes a product from the database.
@@ -195,12 +142,4 @@ public class ProductController {
         return "redirect:/products";
     }
 
-//    @DeleteMapping("/product-delete-{id}")
-//    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-//        boolean deleted = productService.deleteProduct(id);
-//        if (!deleted) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
 }
