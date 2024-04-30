@@ -66,17 +66,29 @@ public class ProductControllerTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    @WithMockUser(username = "test_admin", roles = {"ADMIN"})
     public void testShowCreateProductForm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/products/create"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("products-create"));
     }
 
-    //edit form test fails
     @Test
+    @WithMockUser(username = "test_admin", roles = {"ADMIN"})
     public void testShowEditProductForm() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/products/edit/{id}"))
+        long productId = 1;
+        mockMvc.perform(MockMvcRequestBuilders.get("/products/edit/{id}", productId))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("products-edit{id}"));
+                .andExpect(MockMvcResultMatchers.view().name("products-edit"));
     }
+
+    @Test
+    @WithMockUser(username = "test_admin", roles = {"ADMIN"})
+    void shouldShowProductsPageSortedByNameAZ() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/products/sort-by-name-az")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
 }
+
