@@ -143,29 +143,22 @@
                     <!-- Reports -->
                     <div class="col-12">
                         <div class="card">
-
                             <div class="filter">
-                                <a class="icon" th:href="@{/under-construction}" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <a class="icon" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                     <li class="dropdown-header text-start">
                                         <h6>Filter</h6>
                                     </li>
-
-                                    <li><a class="dropdown-item" th:href="@{/under-construction}">Today</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/under-construction}">This Month</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/under-construction}">This Year</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/line-chart?filter=week}">This Week</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/line-chart?filter=month}">This Month</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/line-chart?filter=year}">This Year</a></li>
                                 </ul>
                             </div>
 
                             <div class="card-body">
-                                <h5 class="card-title">Reports <span>/Today</span></h5>
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Reports <span>/Week</span></h5>
-
-                                    <!-- Line Chart -->
+                                <h5 class="card-title">Reports <span>| Week</span></h5>
+                                <!-- Line Chart -->
                                     <div id="reportsChart" style="min-height: 365px;"></div>
-
                                     <script th:inline="javascript">
                                         /*<![CDATA[*/
                                          document.addEventListener("DOMContentLoaded", () => {
@@ -185,15 +178,11 @@
                                                     enabled: false
                                                 }
                                             },
-
-                                            <!--//rest of the code-->
-
                                             }).render();
                                         });
                                         /*]]>*/
-                                    </script>
+                                </script>
                             </div>
-
                         </div>
                     </div><!-- End Reports -->
 
@@ -638,6 +627,29 @@
 
 </main><!-- End #main -->
 
-<!-- Vendor JS Files -->
+<!-- Custom JS -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Get all dropdown items
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+
+        // Add click event listener to each dropdown item
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', function(event) {
+                // Prevent the default action
+                event.preventDefault();
+
+                // Get the parent card of the clicked dropdown item
+                const card = event.target.closest('.card');
+
+                // Find the span element in the card
+                const span = card.querySelector('h5.card-title span');
+
+                // Update the span text based on the clicked dropdown item
+                span.textContent = '| ' + event.target.textContent;
+            });
+        });
+    });
+</script>
 </body>
 </html>

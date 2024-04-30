@@ -1,5 +1,6 @@
 package org.Team3.Controllers;
 
+import org.Team3.Services.ReportService;
 import org.Team3.Services.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -10,13 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
 
 /**
  * HomeController class handles requests related to the application's home page.
@@ -38,11 +38,37 @@ public class HomeController {
     private SaleService saleService;
 
     @GetMapping("/homepage")
-    public String showHomepage(Model model, Principal principal) {
+    public String showHomepage(Model model, Principal principal, String filter, HttpServletRequest request) {
         String role = getRoleForUser(principal);
         model.addAttribute("role", role);
+
+        LocalDate startDate;
+        LocalDate endDate = LocalDate.now();
+
+        if(filter == null) {
+            filter = "week";
+        }
+
+        switch (filter) {
+            case "week":
+            default:
+                startDate = endDate.minusWeeks(1);
+                break;
+            case "month":
+                startDate = endDate.minusMonths(1);
+                break;
+            case "year":
+                startDate = endDate.minusYears(1);
+                break;
+        }
+
+        model.addAttribute("salesData", saleService.getSalesInRange(startDate, endDate));
         return "homepage";
     }
+
+
+
+
 
     /**
      * Handles POST requests related to the homepage.
@@ -92,14 +118,5 @@ public class HomeController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return "redirect:/login?logout"; // Redirect to the login page with logout parameter
-    }
-    @RequestMapping("/homepage")
-    public String showPage(Model model) {
-        List<Map<String, Object>> salesInRange = saleService.getLastWeekSales();
-
-        System.out.println(salesInRange);
-
-        model.addAttribute("salesData", salesInRange);
-        return "homepage";
     }
 }

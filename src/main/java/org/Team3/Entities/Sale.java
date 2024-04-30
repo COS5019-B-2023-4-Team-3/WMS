@@ -1,7 +1,5 @@
 package org.Team3.Entities;
 
-import com.lowagie.text.pdf.PdfPCell;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 

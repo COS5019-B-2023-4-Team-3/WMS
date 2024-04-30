@@ -22,6 +22,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -31,7 +32,86 @@ import java.util.Map;
 
 @Service
 public class PDFGeneratorService {
-@Autowired SaleService saleService;
+
+    @Autowired
+    SaleService saleService;
+
+    public void export(HttpServletResponse response, List<Map<String, Object>> data) throws IOException, DocumentException {
+        Document document = new Document(PageSize.A4);
+        PdfWriter.getInstance(document, response.getOutputStream());
+
+        document.open();
+
+        //Title
+        document.add(setTitle());
+
+        //Create Line Chart
+        DefaultCategoryDataset dataset = createDataset(data);
+        Image chart = createLineChartFrom(dataset);
+        document.add(chart);
+
+        Font fontParagraph = FontFactory.getFont(FontFactory.HELVETICA);
+        fontParagraph.setSize(12);
+
+        Paragraph paragraph1 = new Paragraph("List of Sales", fontParagraph);
+        paragraph1.setAlignment(Paragraph.ALIGN_LEFT);
+        document.add(paragraph1);
+
+        PdfPTable table = new PdfPTable(5);
+        table.setWidthPercentage(100f);
+        table.setWidths(new float[] {1.5f, 3.5f, 3.0f, 3.0f, 1.5f});
+        table.setSpacingBefore(10);
+
+        tableHeader(table);
+        tableData(table);
+
+        document.add(table);
+
+        document.close();
+    }
+
+    private Paragraph setTitle(){
+        Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+        fontTitle.setSize(18);
+
+        DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        String currentDateTime = dateFormatter.format(date);
+
+        //Title
+        Paragraph title = new Paragraph("Sales Report : " + currentDateTime, fontTitle);
+        title.setAlignment(Paragraph.ALIGN_CENTER);
+        return title;
+    }
+
+   private DefaultCategoryDataset createDataset(List<Map<String, Object>> data) {
+    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+    for (Map<String, Object> entry : data) {
+        DateFormat dateFormatter = new SimpleDateFormat("dd-MM");
+        Date date = null;
+        try {
+            date = dateFormatter.parse((String) entry.get("date"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        dataset.addValue((Number) entry.get("income"), "Income", dateFormatter.format(date));
+    }
+    return dataset;
+}
+
+    private Image createLineChartFrom(DefaultCategoryDataset dataset) throws BadElementException, IOException {
+        //Create Line Chart
+        JFreeChart lineChart = ChartFactory.createLineChart("Sales", "Date", "Income", dataset);
+
+        //Render chart as image
+        BufferedImage bufferedImage = lineChart.createBufferedImage(500, 400);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
+
+        //Add image to PDF
+        return Image.getInstance(byteArrayOutputStream.toByteArray());
+    }
+
     private void tableHeader(PdfPTable table) {
         PdfPCell cell = new PdfPCell();
         cell.setBackgroundColor(BaseColor.WHITE);
@@ -64,69 +144,6 @@ public class PDFGeneratorService {
             table.addCell(String.valueOf(sale.getVolume()));
             table.addCell(String.valueOf(sale.getOrderId()));
         }
-    }
-    public void export(HttpServletResponse response, List<Map<String, Object>> data) throws IOException, DocumentException {
-        Document document = new Document(PageSize.A4);
-        PdfWriter.getInstance(document, response.getOutputStream());
-
-        document.open();
-
-        Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-        fontTitle.setSize(18);
-
-        DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
-        Date date = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        String currentDateTime = dateFormatter.format(date);
-
-        //Title
-        Paragraph title = new Paragraph("Sales Report : " + currentDateTime, fontTitle);
-        title.setAlignment(Paragraph.ALIGN_CENTER);
-        document.add(title);
-
-        //Create Line Chart
-        DefaultCategoryDataset dataset = createDataset(data);
-        Image chart = createLineChartFrom(dataset);
-        document.add(chart);
-
-        Font fontParagraph = FontFactory.getFont(FontFactory.HELVETICA);
-        fontParagraph.setSize(12);
-
-        Paragraph paragraph1 = new Paragraph("List of Sales", fontParagraph);
-        paragraph1.setAlignment(Paragraph.ALIGN_LEFT);
-        document.add(paragraph1);
-
-        PdfPTable table = new PdfPTable(5);
-        table.setWidthPercentage(100f);
-        table.setWidths(new float[] {1.5f, 3.5f, 3.0f, 3.0f, 1.5f});
-        table.setSpacingBefore(10);
-
-        tableHeader(table);
-        tableData(table);
-
-        document.add(table);
-
-        document.close();
-    }
-
-    private DefaultCategoryDataset createDataset(List<Map<String, Object>> data) {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        for (Map<String, Object> entry : data) {
-            dataset.addValue((Number) entry.get("income"), "Income", (String) entry.get("date"));
-        }
-        return dataset;
-    }
-
-    private Image createLineChartFrom(DefaultCategoryDataset dataset) throws BadElementException, IOException {
-        //Create Line Chart
-        JFreeChart lineChart = ChartFactory.createLineChart("Sales", "Data", "Income", dataset);
-
-        //Render chart as image
-        BufferedImage bufferedImage = lineChart.createBufferedImage(500, 400);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
-
-        //Add image to PDF
-        return Image.getInstance(byteArrayOutputStream.toByteArray());
     }
 }
 
