@@ -90,5 +90,16 @@ public class ProductControllerTest extends AbstractTestNGSpringContextTests {
                 .andExpect(status().isOk());
     }
 
-}
+    @Test
+    @WithMockUser(username = "test_admin", roles = {"ADMIN"})
+    void shouldCreateProduct() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/products-create")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", "Test Product")
+                        .param("sku_code", "12345")
+                        .param("description", "text for product")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is3xxRedirection());
+    }
 
+}
