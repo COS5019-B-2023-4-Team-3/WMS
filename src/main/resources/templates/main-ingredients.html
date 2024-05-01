@@ -1,33 +1,43 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
+<!-- Link to Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Link to Bootstrap Icons CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" rel="stylesheet">
+<!-- Link to custom CSS -->
 <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title of the page -->
     <title>Title</title>
 </head>
 <body>
+<!-- Main fragment -->
+<!-- This fragment is included in the main layout -->
 <main th:fragment="main">
+    <!-- Container for the ingredients -->
     <div class="container" style="margin-top: 60px">
+        <!-- Page title -->
         <h1>Ingredients</h1>
     <div>
+        <!-- Dropdown for sorting options -->
         <div class="sort-by">
             <label for="sortBy">Sort By:</label>
             <select id="sortBy">
+                <!-- Sorting options -->
                 <option value="default">Select Sorting Option</option>
                 <option value="name">Name</option>
                 <option value="Quantity">Quantity</option>
                 <option value="expiry-date">Expiry Date</option>
-                <!-- sorting options -->
             </select>
         </div>
+        <!-- Button for creating a new ingredient -->
         <a th:href="@{/raw-ingredients/create}" class="btn btn-primary"> Create </a>
-<!--        <a th:href="@{/raw-ingredients/update}" class="btn btn-primary"> Update </a>-->
-<!--        <a th:href="@{/raw-ingredients/delete}" class="btn btn-primary"> Delete </a>-->
+        <!-- Table for displaying the ingredients -->
         <table class="RawIngredients-table">
+            <!-- Table header -->
             <tr>
                 <th>Ingredient ID</th>
                 <th>Name</th>
@@ -35,13 +45,21 @@
                 <th>Quantity</th>
                 <th>Action</th>
             </tr>
+            <!-- Table body -->
             <tbody>
+            <!-- Container for the ingredients -->
             <div class="rawIngredients">
+                    <!-- Table row for each ingredient -->
                     <tr th:each="rawIngredient : ${rawIngredients}">
+                        <!-- Ingredient ID -->
                         <td th:text="'ID: '+${rawIngredient.id}">Ingredient ID</td>
+                        <!-- Ingredient name -->
                         <td th:text="${rawIngredient.name}">Name</td>
+                        <!-- Ingredient description -->
                         <td th:text="${rawIngredient.description}">Description</td>
+                        <!-- Ingredient quantity -->
                         <td th:text="${rawIngredient.quantity}">Quantity</td>
+                        <!-- Action buttons for editing and deleting the ingredient -->
                         <td>
                             <a th:href = "@{/raw-ingredients/edit/{id}(id=${rawIngredient.id})}" class="btn btn-warning btn-sm edit">Edit</a>
                             <a th:href = "@{/raw-ingredients/delete/{id}(id=${rawIngredient.id})}" class="btn btn-danger btn-sm delete">Delete</a>
@@ -51,9 +69,11 @@
             </tbody>
         </table>
     </div>
+        <!-- Button for displaying ingredients that are expiring soon -->
         <button type="button" class="btn btn-warning" >Expiring soon!</button>
     </div>
     </div>
+    <!-- JavaScript for handling the sorting options -->
     <script th:inline="javascript">
         /*<![CDATA[*/
         document.addEventListener("DOMContentLoaded", function() {

@@ -2,28 +2,39 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <!-- Title of the page -->
     <title>Alerts</title>
 </head>
 <body>
 
+<!-- Main fragment -->
+<!-- This fragment is included in the main layout -->
 <main th:fragment="main" class="main" id="main">
+    <!-- Grid layout for alerts -->
     <div class="alert-grid">
+        <!-- Page title -->
         <h1>Alerts</h1>
+        <!-- Horizontal line -->
         <hr>
+        <!-- Subtitle -->
         <h4 style="color: #29318C;">Product Details</h4>
+        <!-- Filter dropdown -->
         <div class="sort-by">
             <label for="Filter">Filter:</label>
             <select id="Filter">
+                <!-- Filter options -->
                 <option value="All">All</option>
                 <option value="Low in Stock">Low in Stock</option>
                 <option value="Out of Date">Out of Date</option>
-                <!-- sorting options -->
             </select>
         </div>
+        <!-- Alert notifications -->
         <div>
             <div class="notification">
+                <!-- Table for displaying alerts -->
                 <div class="card-body">
                     <table class="table table-borderless datatable">
+                        <!-- Table header -->
                         <thead>
                         <tr style="border-bottom: 1px solid #dee2e6;">
                             <th scope="col">Alert ID</th>
@@ -33,14 +44,21 @@
                             <th scope="col">Product ID</th>
                         </tr>
                         </thead>
-                            <tbody>
-                                <tr th:each="alert: ${alerts}" class="alert-box"  style="border-bottom: 1px solid #dee2e6;">
-                                    <td th:text="${alert.id}"></td>
-                                    <td th:text="${alert.type}" style="color: red;">Alert Type</td>
-                                    <td th:text="${alert.message}">Alert Message</td>
-                                    <td th:text="${alert.timestamp}">Alert Timestamp</td>
-                                    <td th:text="${alert.prod_id}">Product ID</td>
-                                </tr>
+                        <!-- Table body -->
+                        <tbody>
+                            <!-- Table row for each alert -->
+                            <tr th:each="alert: ${alerts}" class="alert-box"  style="border-bottom: 1px solid #dee2e6;">
+                                <!-- Alert ID -->
+                                <td th:text="${alert.id}"></td>
+                                <!-- Alert type -->
+                                <td th:text="${alert.type}" style="color: red;">Alert Type</td>
+                                <!-- Alert message -->
+                                <td th:text="${alert.message}">Alert Message</td>
+                                <!-- Alert timestamp -->
+                                <td th:text="${alert.timestamp}">Alert Timestamp</td>
+                                <!-- Product ID -->
+                                <td th:text="${alert.prod_id}">Product ID</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

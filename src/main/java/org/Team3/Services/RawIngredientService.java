@@ -13,7 +13,7 @@ import java.util.List;
  * It interacts with the RawIngredientRepository to perform CRUD (Create, Read, Update, Delete) operations on raw ingredients.
  */
 @Service
-public class RawIngredientService {
+public class    RawIngredientService {
     @Autowired
     private RawIngredientRepository rawIngredientRepository;
 
@@ -44,22 +44,6 @@ public class RawIngredientService {
         return rawIngredientRepository.save(rawIngredient);
     }
 
-    /**
-     * Updates an existing raw material with the provided ID using the details from the RawMaterialDto.
-     * @param id The ID of the raw material to update
-     * @param rawIngredient The DTO containing updated raw material details
-     * @return The updated raw ingredient if successful, otherwise null
-     */
-    public RawIngredient updateRawMaterial(Long id, RawIngredient rawIngredient) {
-        RawIngredient existingRawIngredient = rawIngredientRepository.findById(id).orElse(null);
-        if (existingRawIngredient == null) {
-            return null; // Raw material with given id does not exist
-        }
-        // Update raw material details
-        existingRawIngredient.setName(rawIngredient.getName());
-        existingRawIngredient.setQuantity(rawIngredient.getQuantity());
-        return rawIngredientRepository.save(existingRawIngredient);
-    }
 
     /**
      * Deletes a raw material with the provided ID.
@@ -74,14 +58,31 @@ public class RawIngredientService {
         return true;
     }
 
+    /**
+     * Updates an existing raw material with the provided ID using the details from the RawMaterialDto.
+     * @param rawIngredient The RawIngredient containing updated raw material details
+     * @return The updated raw ingredient if successful, otherwise null
+     */
     public RawIngredient updateRawIngredient(RawIngredient rawIngredient){
+        RawIngredient existingRawIngredient = rawIngredientRepository.findById(rawIngredient.getId()).orElse(null);
+        if (existingRawIngredient == null) {
+            return null; // Raw material with given id does not exist
+        }
         return rawIngredientRepository.save(rawIngredient);
     }
 
+    /**
+     * Retrieves all raw ingredients sorted by name in ascending order.
+     * @return List of all raw ingredients sorted by name
+     */
     public List<RawIngredient> getAllIngredientsByName() {
         return rawIngredientRepository.findAll(Sort.by(Sort.Direction.ASC,"name"));
     }
 
+    /**
+     * Retrieves all raw ingredients sorted by quantity in ascending order.
+     * @return List of all raw ingredients sorted by quantity
+     */
     public List<RawIngredient> getAllIngredientsByQuantity() {
         return rawIngredientRepository.findAll(Sort.by(Sort.Direction.ASC,"quantity"));
     }

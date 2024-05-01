@@ -1,16 +1,12 @@
 package org.Team3.Repositories;
 
 import org.Team3.Entities.Alert;
-import org.Team3.Entities.Order;
-import org.Team3.Entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
-import java.time.LocalDate;
-import java.util.List;
-
+/**
+ * Repository interface for the Alert entity.
+ * This interface extends JpaRepository and provides methods to interact with the alert_data table in the database.
+ */
 public interface AlertRepository extends JpaRepository<Alert, Long>{
-    @Query(value = "SELECT * FROM alert_data", nativeQuery = true)
-    List<Alert> getAllAlerts();
 
 }

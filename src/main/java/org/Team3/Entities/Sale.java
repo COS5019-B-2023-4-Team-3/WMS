@@ -3,6 +3,9 @@ package org.Team3.Entities;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+/**
+ * Entity class for the sales_data table.
+ */
 @Entity
 @Table(name = "sales_data")
 public class Sale {

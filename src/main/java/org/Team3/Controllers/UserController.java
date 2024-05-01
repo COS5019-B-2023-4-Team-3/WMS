@@ -73,6 +73,13 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
+    /**
+     * Handles GET requests to "/users/edit/{id}" and shows the form to edit a user.
+     *
+     * @param id The ID of the user to edit.
+     * @param model The model to add the user to.
+     * @return The name of the view to render, in this case "user-edit".
+     */
     @GetMapping("/users/edit/{id}")
     public String editUserForm(@PathVariable ("id") Long id, Model model) {
         User user = userService.getUserById(id);
@@ -80,13 +87,20 @@ public class UserController {
         return "user-edit";
     }
 
+    /**
+     * Handles POST requests to "/users/{id}" and updates a user.
+     *
+     * @param id The ID of the user to update.
+     * @param user The user object containing the updated user details. This object is bound to the form that was submitted.
+     * @return A redirect to the "/users" page after the user has been updated.
+     */
     @PostMapping("/users/{id}")
     public String updateUser(@PathVariable Long id, @ModelAttribute("user") User user) {
         User existingUser = userService.getUserById(id);
         existingUser.setId(id);
         existingUser.setUsername(user.getUsername());
 
-        //Check the role name
+        // Check the role name
         // update the id accordingly
 
         Role role = new Role();

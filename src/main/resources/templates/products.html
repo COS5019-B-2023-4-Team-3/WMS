@@ -31,7 +31,6 @@
 <!-- Sidebar -->
 <div th:replace="sidebar :: sidebar"></div>
 
-<!--<main th:replace="main-products :: main" id="main-products" class="main"></main>-->
 
 <!-- Mains -->
 <main sec:authorize="hasAuthority('ADMIN')" th:replace="main-products :: main" id="main-products" class="main"></main>

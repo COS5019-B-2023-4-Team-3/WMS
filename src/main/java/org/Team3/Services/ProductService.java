@@ -30,14 +30,29 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    /**
+     * Retrieves all products from the repository, sorted by name in ascending order.
+     *
+     * @return A list of all products, sorted by name in ascending order.
+     */
     public List<Product> getAllProductsByNameAZ() {
         return productRepository.findAll(Sort.by(Sort.Direction.ASC,"name"));
     }
 
+    /**
+     * Retrieves all products from the repository, sorted by name in descending order.
+     *
+     * @return A list of all products, sorted by name in descending order.
+     */
     public List<Product> getAllProductsByNameZA() {
         return productRepository.findAll(Sort.by(Sort.Direction.DESC,"name"));
     }
 
+    /**
+     * Retrieves all products from the repository, sorted by expiry date in ascending order.
+     *
+     * @return A list of all products, sorted by expiry date in ascending order.
+     */
     public List<Product> getAllProductsByExpiryDate() {
         return productRepository.findAll(Sort.by(Sort.Direction.ASC,"expiryDate"));
     }

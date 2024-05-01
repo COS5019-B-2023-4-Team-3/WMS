@@ -27,11 +27,6 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    //TODO: remove logger
-
-    // Logger for logging user-related activities
-    private static final Logger logger = LogManager.getLogger(UserService.class);
-
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -91,21 +86,9 @@ public class UserService {
     public boolean authenticateUser(String username, String password) {
         User user = userRepository.findByUsername(username);
         if (user != null) {
-            // Log the retrieved user and password
-            logger.debug("Retrieved user: {}", user.getUsername());
-            logger.debug("Retrieved password: {}", user.getPassword());
-
             // Check if the provided password matches the stored password
-            boolean passwordMatches = passwordEncoder.matches(password, user.getPassword());
-            if (passwordMatches) {
-                logger.debug("Password matches");
-            } else {
-                logger.debug("Password does not match");
-            }
-            return passwordMatches;
+            return passwordEncoder.matches(password, user.getPassword());
         } else {
-            // Log that no user was found with the given username
-            logger.debug("No user found with username: {}", username);
             return false;
         }
     }
@@ -131,7 +114,6 @@ public class UserService {
      */
     public boolean registerUser(String username, String password) {
         if (userExists(username)) {
-            logger.error("user: {} already exists", username);
             return false; // User already exists
         }
 
@@ -145,9 +127,6 @@ public class UserService {
 
         // Save the new user to the database
         userRepository.save(user);
-
-        // Log the registration details
-        logger.debug("user: {} saved! password: {}, encodedPassword: {}", username, password, encodedPassword);
 
         return true; // User registered successfully
     }

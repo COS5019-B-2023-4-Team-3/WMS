@@ -3,6 +3,9 @@ package org.Team3.Entities;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+/**
+ * Entity class for the Alert table in the database.
+ */
 @Entity
 @Table(name = "alert_data")
 public class Alert {

@@ -18,15 +18,35 @@ public class SaleService {
 
     private final SaleRepository saleRepository;
 
+
+    /**
+     * Constructor for SaleService.
+     *
+     * @param saleRepository The repository to be used by this service.
+     */
     public SaleService(SaleRepository saleRepository) {
         this.saleRepository = saleRepository;
     }
 
+    /**
+     * Retrieves all sales from the repository.
+     *
+     * @return A list of all sales.
+     */
     public List<Sale> getAllSales() {
         return saleRepository.findAll();
     }
 
-    //TODO: reverse sorted sales it is showing backwards on the graph
+    /**
+     * Retrieves sales within a specified date range.
+     * The sales are grouped by date, and the income is summed for each date.
+     * The result is sorted by date in ascending order.
+     *
+     * @param startDate The start date of the range.
+     * @param endDate The end date of the range.
+     * @return A list of maps, where each map represents a sale with the date and total income.
+     */
+    //TODO: return and ordered list of map<String, Object> based on date key
     public List<Map<String, Object>> getSalesInRange(LocalDate startDate, LocalDate endDate) {
         List<Sale> sales = saleRepository.getSalesInRange(startDate, endDate);
 

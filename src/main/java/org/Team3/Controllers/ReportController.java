@@ -21,7 +21,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The ReportController class contains endpoints for generating reports.
+ * ReportController class defines endpoints to handle report generation.
+ *
+ * This controller is responsible for processing HTTP requests related to report generation
+ * displaying reports, and handling report exports.
  */
 @Controller
 
@@ -39,10 +42,12 @@ public class ReportController {
     private LocalDate startDate;
     private LocalDate endDate;
 
+
     /**
-     * Displays the reports page.
+     * RegisterController class defines endpoints to handle user registration.
      *
-     * @return The name of the reports page template
+     * This controller is responsible for processing HTTP requests related to user registration,
+     * displaying the registration form, and handling user registration submissions.
      */
     @GetMapping("/reports")
     public String showPage(@RequestParam(required = false) String filter, Model model, HttpServletRequest request) {
@@ -52,7 +57,14 @@ public class ReportController {
         return "reports";
     }
 
-
+    /**
+     * Handles GET requests to "/line-chart" and shows the line chart.
+     *
+     * @param filter The filter to apply to the line chart.
+     * @param model The model to add attributes to.
+     * @param request The HTTP request.
+     * @return The name of the view to render.
+     */
     @GetMapping("/line-chart")
     public String showLineChart(@RequestParam(required = false) String filter, Model model, HttpServletRequest request){
         endDate = LocalDate.now();
@@ -81,10 +93,23 @@ public class ReportController {
         return "reports";
     }
 
+    /**
+     * Retrieves sales data in a given date range.
+     *
+     * @param startDate The start date of the range.
+     * @param endDate The end date of the range.
+     * @return A list of maps containing the sales data.
+     */
     private List<Map<String, Object>> getSalesInRange(LocalDate startDate, LocalDate endDate) {
         return saleService.getSalesInRange(startDate, endDate);
     }
 
+    /**
+     * Handles GET requests to "/generate-pdf" and generating a PDF report.
+     *
+     * @param response The HTTP response.
+     * @throws IOException If an I/O error occurs.
+     */
     @GetMapping("generate-pdf")
     public void generatePDF(HttpServletResponse response) throws IOException {
         response.setContentType("report/pdf");

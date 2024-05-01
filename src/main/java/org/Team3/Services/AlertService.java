@@ -20,7 +20,7 @@ public class AlertService {
     @Autowired
     private AlertRepository alertRepository;
 public List<Alert> getAllAlerts(){
-    return alertRepository.getAllAlerts();
+    return alertRepository.findAll();
 
 }
     /**
