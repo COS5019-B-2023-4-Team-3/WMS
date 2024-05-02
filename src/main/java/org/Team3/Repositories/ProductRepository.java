@@ -25,6 +25,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
      * Retrieves a list of products with current stock levels lower than their minimum stock levels.
      * @return List of products with low stock levels
      */
-    @Query("SELECT p FROM Product p WHERE p.currentStockLevel < p.minStockLevel")
+    @Query("SELECT p FROM Product p WHERE p.currentStockLevel <= p.minStockLevel + 5")
     List<Product> findLowStockProducts();
 }

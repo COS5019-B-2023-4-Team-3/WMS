@@ -39,7 +39,7 @@ public class RawIngredientController {
      */
     @GetMapping("/raw-ingredients")
     public String showRawIngredientPage(Model model) {
-        List<RawIngredient> ingredients = rawIngredientService.getAllRawMaterials() ;
+        List<RawIngredient> ingredients = rawIngredientService.getAllRawIngredients() ;
         model.addAttribute("rawIngredients", ingredients);
         return "/raw-ingredients";
     }
@@ -54,7 +54,7 @@ public class RawIngredientController {
     @PostMapping("/raw-ingredients-create")
     public String createRawIngredient(@ModelAttribute("rawIngredient") RawIngredient rawIngredient, Model model) {
         try {
-            rawIngredientService.createRawMaterial(rawIngredient);
+            rawIngredientService.createRawIngredient(rawIngredient);
             return "redirect:/raw-ingredients";
         } catch (Exception e) {
             model.addAttribute("error", "Failed to create ingredient");
@@ -81,7 +81,7 @@ public class RawIngredientController {
      */
     @GetMapping("/raw-ingredients/edit/{id}")
     public String updateRawMaterialForm(@PathVariable ("id") Long id, Model model) {
-       RawIngredient rawIngredient = rawIngredientService.getRawMaterialById(id);
+       RawIngredient rawIngredient = rawIngredientService.getRawIngredientById(id);
        model.addAttribute("rawIngredient", rawIngredient);
        return "/raw-ingredients-update";
     }
@@ -97,7 +97,7 @@ public class RawIngredientController {
      */
     @PostMapping("/raw-ingredients-update/{id}")
     public String updateRawIngredient(@PathVariable Long id, @ModelAttribute("raw-ingredient") RawIngredient rawingredient, Model model) {
-        RawIngredient existingrawIngredient = rawIngredientService.getRawMaterialById(id);
+        RawIngredient existingrawIngredient = rawIngredientService.getRawIngredientById(id);
         existingrawIngredient.setName(rawingredient.getName());
         existingrawIngredient.setDescription(rawingredient.getDescription());
         existingrawIngredient.setQuantity(rawingredient.getQuantity());
@@ -114,7 +114,7 @@ public class RawIngredientController {
      */
     @GetMapping("/raw-ingredients/delete/{id}")
     public String deleteRawIngredient(@PathVariable Long id) {
-        rawIngredientService.deleteRawMaterial(id);
+        rawIngredientService.deleteRawIngredient(id);
         return "redirect:/raw-ingredients";
     }
 
@@ -126,7 +126,7 @@ public class RawIngredientController {
      */
     @DeleteMapping("/raw-ingredients-delete-{id}")
     public ResponseEntity<Void> deleteRawMaterial(@PathVariable Long id) {
-        boolean deleted = rawIngredientService.deleteRawMaterial(id);
+        boolean deleted = rawIngredientService.deleteRawIngredient(id);
         if (!deleted) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

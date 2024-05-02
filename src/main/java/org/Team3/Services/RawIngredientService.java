@@ -21,36 +21,36 @@ public class    RawIngredientService {
      * Retrieves all raw materials from the repository.
      * @return List of all raw ingredients
      */
-    public List<RawIngredient> getAllRawMaterials() {
+    public List<RawIngredient> getAllRawIngredients() {
         return rawIngredientRepository.findAll();
     }
 
     /**
-     * Retrieves a raw material by its ID.
+     * Retrieves a raw ingredient by its ID.
      * @param id The ID of the raw material to retrieve
      * @return The raw ingredient if found, otherwise null
      */
-    public RawIngredient getRawMaterialById(Long id) {
+    public RawIngredient getRawIngredientById(Long id) {
         return rawIngredientRepository.findById(id).orElse(null);
     }
 
     /**
-     * Creates a new raw material based on the provided RawMaterialDto.
+     * Creates a new raw ingredient based on the provided RawMaterialDto.
      * @param rawIngredient The DTO containing raw material details
      * @return The newly created raw ingredient
      */
-    public RawIngredient createRawMaterial(RawIngredient rawIngredient) {
+    public RawIngredient createRawIngredient(RawIngredient rawIngredient) {
         // may want to check if the product already exists before saving it to the database
         return rawIngredientRepository.save(rawIngredient);
     }
 
 
     /**
-     * Deletes a raw material with the provided ID.
+     * Deletes a raw ingredient with the provided ID.
      * @param id The ID of the raw material to delete
      * @return True if the raw material was successfully deleted, otherwise false
      */
-    public boolean deleteRawMaterial(Long id) {
+    public boolean deleteRawIngredient(Long id) {
         if (!rawIngredientRepository.existsById(id)) {
             return false; // Raw material with given id does not exist
         }
@@ -59,7 +59,7 @@ public class    RawIngredientService {
     }
 
     /**
-     * Updates an existing raw material with the provided ID using the details from the RawMaterialDto.
+     * Updates an existing raw ingredient with the provided ID using the details from the RawMaterialDto.
      * @param rawIngredient The RawIngredient containing updated raw material details
      * @return The updated raw ingredient if successful, otherwise null
      */

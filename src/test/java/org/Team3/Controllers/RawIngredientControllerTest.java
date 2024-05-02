@@ -1,43 +1,86 @@
 package org.Team3.Controllers;
 
-import org.Team3.Entities.User;
-import org.Team3.Services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.ui.Model;
+import org.Team3.Entities.RawIngredient;
+import org.Team3.Services.RawIngredientService;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import java.util.Arrays;
 
-@SpringBootTest
-public class RawIngredientControllerTest extends AbstractTestNGSpringContextTests {
+import static org.junit.jupiter.api.Assertions.*;
 
-    @Autowired
-    private WebApplicationContext webApplicationContext;
+import static org.mockito.Mockito.*;
 
-    @Autowired
-    private UserService userService;
+class RawIngredientControllerTest {
 
-    private MockMvc mockMvc;
+    @Mock
+    private RawIngredientService rawIngredientService;
 
-    @BeforeClass
-    public void setUp(){
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+    @Mock
+    private Model model;
+
+    @InjectMocks
+    private RawIngredientController rawIngredientController;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void testShowPage() throws Exception {
-        mockMvc.perform(get("/raw-ingredients")).andExpect(status().isOk())
-                .andExpect(content().contentType("text/html;charset=UTF-8"));
+    void shouldShowRawIngredientPage() {
+        RawIngredient ingredient = new RawIngredient();
+        when(rawIngredientService.getAllRawIngredients()).thenReturn(Arrays.asList(ingredient));
+
+        String viewName = rawIngredientController.showRawIngredientPage(model);
+
+        verify(model, times(1)).addAttribute("rawIngredients", Arrays.asList(ingredient));
+        assertEquals("/raw-ingredients", viewName);
     }
+
+    @Test
+    void shouldCreateRawIngredient() {
+        RawIngredient ingredient = new RawIngredient();
+        when(rawIngredientService.createRawIngredient(any(RawIngredient.class))).thenReturn(ingredient);
+
+        String viewName = rawIngredientController.createRawIngredient(ingredient, model);
+
+        assertEquals("redirect:/raw-ingredients", viewName);
+    }
+
+    @Test
+    void shouldNotCreateRawIngredientWhenServiceThrowsException() {
+        RawIngredient ingredient = new RawIngredient();
+        when(rawIngredientService.createRawIngredient(any(RawIngredient.class))).thenThrow(new RuntimeException());
+
+        String viewName = rawIngredientController.createRawIngredient(ingredient, model);
+
+        verify(model, times(1)).addAttribute("error", "Failed to create ingredient");
+        assertEquals("redirect:/raw-ingredients/create?error=failed_to_create_product", viewName);
+    }
+
+    @Test
+    void shouldUpdateRawIngredient() {
+        RawIngredient ingredient = new RawIngredient();
+        when(rawIngredientService.getRawIngredientById(anyLong())).thenReturn(ingredient);
+        when(rawIngredientService.updateRawIngredient(any(RawIngredient.class))).thenReturn(ingredient);
+
+        String viewName = rawIngredientController.updateRawIngredient(1L, ingredient, model);
+
+        assertEquals("redirect:/raw-ingredients", viewName);
+    }
+
+    @Test
+    void shouldDeleteRawIngredient() {
+        when(rawIngredientService.deleteRawIngredient(anyLong())).thenReturn(true);
+
+        String viewName = rawIngredientController.deleteRawIngredient(1L);
+
+        assertEquals("redirect:/raw-ingredients", viewName);
+    }
+
 }

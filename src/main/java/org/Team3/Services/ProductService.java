@@ -118,11 +118,11 @@ public class ProductService {
      */
     @Transactional
     public boolean deleteProduct(Long id) {
-        if (!productRepository.existsById(id)) {
-            return false; // Product with given id does not exist
+        if (productRepository.existsById(id)) {
+            productRepository.deleteById(id);
+            return true;
         }
-        productRepository.deleteById(id);
-        return true;
+        return false; // Check if the product still exists
     }
 
     /**

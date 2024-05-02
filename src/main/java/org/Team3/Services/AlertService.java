@@ -11,14 +11,17 @@ import java.util.List;
 @Service
 public class AlertService {
 
+    private final AlertRepository alertRepository;
+
     private final ProductService productService;
 
-    public AlertService(ProductService productService) {
+    public AlertService(AlertRepository alertRepository, ProductService productService) {
+        this.alertRepository = alertRepository;
         this.productService = productService;
     }
 
-    @Autowired
-    private AlertRepository alertRepository;
+
+
 public List<Alert> getAllAlerts(){
     return alertRepository.findAll();
 
