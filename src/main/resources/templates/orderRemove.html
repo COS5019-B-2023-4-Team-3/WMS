@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Rakusens</title>
+</head>
+<body>
+<a th:href="@{/orders}" class="btn btn-primary">Return To Orders</a>
+<form th:action="@{/orders/remove}" id="removeOrder" method="post">
+    <label for="id">Order ID</label><br>
+    <input type="number" name="id" id="id" required/><br>
+    <input type="submit">
+</form>
+<script>
+    const form = document.querySelector("#removeOrder");
+
+async function sendData() {
+  // Associate the FormData object with the form element
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch("remove", {
+      method: "POST",
+      // Set the FormData instance as the request body
+      body: formData,
+    });
+    console.log(await response.json());
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+// Take over form submission
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  sendData();
+});
+</script>
+</body>
+</html>

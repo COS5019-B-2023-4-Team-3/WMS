@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Rakusens</title>
+</head>
+<body>
+<a th:href="@{/orders}" class="btn btn-primary">Return To Orders</a>
+<form action="create" method="post">
+    <label>Order ID</label><br>
+    <input type="text" for="id"/><br>
+    <label>Order Date</label><br>
+    <input type="date" for="date"/><br>
+    <label>Order Status</label><br>
+    <label>Pending</label><input type="radio" for="status" name="orderStatus"/>
+    <label>Shipped</label><input type="radio" for="status" name="orderStatus"/><br>
+    <label>Vendor ID</label><br>
+    <input type="text" for="vendorId"/><br>
+    <input type="submit">
+</form>
+</body>
+</html>
