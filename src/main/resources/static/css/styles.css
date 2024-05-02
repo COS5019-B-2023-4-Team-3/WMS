@@ -2221,3 +2221,21 @@ dashboard .info-card h6 {
     margin-top: 5px; /* Add margin above the buttons */
     margin-bottom: 5px; /* Add margin below the buttons */
 }
+/*--------------------------------------------------------------
+# Orders
+--------------------------------------------------------------*/
+table{
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
