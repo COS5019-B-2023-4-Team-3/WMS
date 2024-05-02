@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link href="/static/css/styles.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <head>
     <meta charset="UTF-8">
     <title>Rakusens</title>
@@ -9,25 +11,30 @@
 <main th:fragment="main" id="main" class="main">
     <div style="margin-top: 60px;">
         <div>
-            <button type="button">Search Orders</button>
-            <input id="orderSearch" type="text">
-            <button type="button">Create Order</button>
-            <button type="button">Edit Order</button>
-            <button type="button">Remove Order</button>
-            <button type="button">Update Orders</button>
+            <a th:href="@{/orders/create}" class="btn btn-primary">Create Order</a>
+            <a th:href="@{/orders/edit}" class="btn btn-primary">Edit Order</a>
+            <a th:href="@{/orders/remove}" class="btn btn-primary">Remove Order</a>
         </div>
-        <div>
-            <table class="table table-borderless datatable">
-                <thead>
+        <table>
+            <thead>
                 <tr>
-                    <th scope="col">Order ID</th>
-                    <th scope="col">Order Date</th>
-                    <th scope="col">Order Status</th>
-                    <th scope="col">Vendor ID</th>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Vendor</th>
                 </tr>
-                </thead>
-            </table>
-        </div>
+            </thead>
+            <tbody>
+                <tr th:each="order : ${orderList}">
+                    <div>
+                        <td th:text="${order.id}">id</td>
+                        <td th:text="${order.date}">date</td>
+                        <td th:text="${order.status}">status</td>
+                        <td th:text="${order.vendorId}">vendor</td>
+                    </div>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </main><!-- End Main -->
 </body>
