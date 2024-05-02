@@ -24,24 +24,6 @@ public class RawIngredientController {
     @Autowired
     private RawIngredientService rawIngredientService;
 
-    /*
-      Displays the raw ingredients page.
-
-      @return String representing the view name for the raw ingredients page.
-     */
-
-//    /**
-//     * Creates a new raw ingredient in the database.
-//     *
-//     * @param rawIngredientDTO RawMaterialDto object representing the raw material to create.
-//     * @return ResponseEntity containing a RawIngredient object representing the newly created raw ingredient.
-//     *         Returns HTTP status code CREATED (201) on success.
-//     */
-//    @PostMapping("/raw-ingredients-create")
-//    public ResponseEntity<RawIngredient> createRawMaterial(@RequestBody RawIngredientDto rawIngredientDto) {
-//        RawIngredient createdRawIngredient = rawIngredientService.createRawMaterial(rawIngredientDto);
-//        return new ResponseEntity<>(createdRawIngredient, HttpStatus.CREATED);
-//    }
     @PostMapping("/raw-ingredients-create")
     public String createRawIngredient(@ModelAttribute("rawIngredient") RawIngredient rawIngredient, Model model) {
         try {
@@ -62,14 +44,7 @@ public class RawIngredientController {
      *         Returns HTTP status code OK (200) if the raw ingredient is updated successfully.
      *         Returns HTTP status code NOT_FOUND (404) if the raw ingredient with the given ID is not found.
      */
-//    @PutMapping("/raw-ingredients-update-{id}")
-//    public ResponseEntity<RawIngredient> updateRawMaterial(@PathVariable Long id, @RequestBody RawIngredientDto rawIngredientDto) {
-//        RawIngredient updatedRawIngredient = rawIngredientService.updateRawMaterial(id, rawIngredientDto);
-//        if (updatedRawIngredient == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(updatedRawIngredient, HttpStatus.OK);
-//    }
+
 
     /**
      * Deletes a raw ingredient from the database.
@@ -79,14 +54,6 @@ public class RawIngredientController {
      *         Returns HTTP status code NO_CONTENT (204) if the raw ingredient is deleted successfully.
      *         Returns HTTP status code NOT_FOUND (404) if the raw ingredient with the given ID is not found.
      */
-//    @DeleteMapping("/raw-ingredients-delete-{id}")
-//    public ResponseEntity<Void> deleteRawMaterial(@PathVariable Long id) {
-//        boolean deleted = rawIngredientService.deleteRawMaterial(id);
-//        if (!deleted) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
     @GetMapping("/raw-ingredients")
     public String showRawIngredientPage(Model model) {
         List<RawIngredient> ingredients = rawIngredientService.getAllRawMaterials() ;

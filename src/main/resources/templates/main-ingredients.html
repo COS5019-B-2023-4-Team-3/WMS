@@ -14,17 +14,19 @@
     <div class="container" style="margin-top: 60px">
         <h1>Ingredients</h1>
     <div>
+        <div class="container">
         <div class="sort-by">
             <label for="sortBy">Sort By:</label>
             <select id="sortBy">
                 <option value="default">Select Sorting Option</option>
                 <option value="name">Name</option>
                 <option value="Quantity">Quantity</option>
-                <option value="expiry-date">Expiry Date</option>
+<!--                <option value="expiry-date">Expiry Date</option>-->
                 <!-- sorting options -->
             </select>
         </div>
         <a th:href="@{/raw-ingredients/create}" class="btn btn-primary"> Create </a>
+        </div>
 <!--        <a th:href="@{/raw-ingredients/update}" class="btn btn-primary"> Update </a>-->
 <!--        <a th:href="@{/raw-ingredients/delete}" class="btn btn-primary"> Delete </a>-->
         <table class="RawIngredients-table">

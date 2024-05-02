@@ -40,10 +40,7 @@ public class RawIngredientService {
      * @param rawIngredientDto The DTO containing raw material details
      * @return The newly created raw ingredient
      */
-//    public RawIngredient createRawMaterial(RawIngredientDto rawIngredientDto) {
-//        RawIngredient rawIngredient = new RawIngredient(rawIngredientDto.getName(), rawIngredientDto.getQuantity(), rawIngredientDto.getDescription());
-//        return rawIngredientRepository.save(rawIngredient);
-//    }
+
     public RawIngredient createRawMaterial(RawIngredient rawIngredient) {
         // may want to check if the product already exists before saving it to the database
         return rawIngredientRepository.save(rawIngredient);
