@@ -6,28 +6,41 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
+import java.text.Normalizer;
+import java.util.List;
+import org.springframework.ui.Model;
 /**
  * defines endpoints to handle CRUD operations
  */
 @Controller
-@RequestMapping("/orders")
 public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping
-    public String showPage(){
+    @GetMapping("/orders")
+    public String showPage(Model model) {
+        List<Order> orderList = orderService.getAllOrders();
+        model.addAttribute("orderList", orderList);
         return "orders";
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<List<Order>> getAllOrders() {
-        List<Order> orders = orderService.getAllOrders();
-        return new ResponseEntity<>(orders, HttpStatus.OK);
+
+    @GetMapping("/orders/create")
+    public String createOrder() {
+        return "orderCreate";
     }
 
-    @GetMapping("/{id2}")
+    @GetMapping("/orders/edit")
+    public String editOrder() {
+        return "orderEdit";
+    }
+
+    @GetMapping("/orders/remove")
+    public String removeOrder() {
+        return "orderRemove";
+    }
+
+    @GetMapping("/{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
         Order order = orderService.getOrderById(id);
         if (order == null) {
@@ -36,13 +49,14 @@ public class OrderController {
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-        Order createdOrder = orderService.createOrder(order);
-        return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
+    @PostMapping("/orders/create")
+    public Order createOrder(@RequestBody Order newOrder) {
+        return orderService.createOrder(newOrder);
+        //Order createdOrder = orderService.createOrder(order);
+        //return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/orders/edit")
     public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestBody Order order) {
         Order updatedOrder = orderService.updateOrder(id, order);
         if (updatedOrder == null) {
@@ -51,12 +65,14 @@ public class OrderController {
         return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
-        boolean deleted = orderService.deleteOrder(id);
-        if (!deleted) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @PostMapping("/orders/remove")
+    public String deleteOrder(@RequestParam("id") Long id) {
+        if (id != null){
+            orderService.deleteOrder(id);
+            return null;
         }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        else {
+            return "redirect:/homepage";
+        }
     }
 }
