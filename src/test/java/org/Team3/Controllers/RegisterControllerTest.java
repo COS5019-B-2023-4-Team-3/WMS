@@ -1,78 +1,94 @@
 package org.Team3.Controllers;
 
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.Team3.Entities.User;
+import org.Team3.Services.UserService;
+import org.hamcrest.Matchers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 @SpringBootTest
-@AutoConfigureMockMvc
-public class RegisterControllerTest {
+public class RegisterControllerTest extends AbstractTestNGSpringContextTests {
 
-//    @Autowired
-//    private MockMvc mockMvc;
-//
-//    @Autowired
-//    private UserService userService;
-//
-//    private final String email = "newuser@example.com";
-//
-//    @BeforeEach
-//    public void setup(){
-//        // Check if user exists and remove if found
-//        if (userService.userExists(email)) {
-//            User user = null;
-//            for(User tmp: userService.getAllUsers()){
-//                if(tmp.getUsername().equals(email)){
-//                    user = tmp;
-//                    break;
-//                }
-//            }
-//            assert user != null;
-//            userService.deleteUser(user.getId());
-//        }
-//    }
-//
-//    @Test
-//    public void testShowSignupForm() throws Exception {
-//        mockMvc.perform(MockMvcRequestBuilders.get("/register"))
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.view().name("register"));
-//    }
-//
-//    @Test
-//    public void testRegisterUser_Success() throws Exception {
-//
-//
-//        // Register the new user
-//        mockMvc.perform(MockMvcRequestBuilders.post("/register")
-//                        .param("email", email)
-//                        .param("password", "password"))
-//                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-//                .andExpect(MockMvcResultMatchers.redirectedUrl("/login"));
-//    }
-//
-//    @Test
-//    public void testRegisterUser_UserAlreadyExists() throws Exception {
-//        // Assuming the user already exists in the system
-//        mockMvc.perform(MockMvcRequestBuilders.post("/register")
-//                        .param("email", "test_employee")
-//                        .param("password", "test"))
-//                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-//                .andExpect(MockMvcResultMatchers.redirectedUrl("/register?error=username_already_exists"));
-//    }
-//
-//    @AfterEach
-//    public void tearDown(){
-//        //delete the user again
-//        if (userService.userExists(email)) {
-//            User user = null;
-//            for(User tmp: userService.getAllUsers()){
-//                if(tmp.getUsername().equals(email)){
-//                    user = tmp;
-//                    break;
-//                }
-//            }
-//            assert user != null;
-//            userService.deleteUser(user.getId());
-//        }
-//    }
+    @Autowired
+    private WebApplicationContext webApplicationContext;
+
+    @Autowired
+    private UserService userService;
+
+    private MockMvc mockMvc;
+
+    @BeforeClass
+    public void setUp(){
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+    }
+
+    @Test
+    public void testShowPage() throws Exception {
+        mockMvc.perform(get("/register")).andExpect(status().isOk())
+                .andExpect(content().contentType("text/html;charset=UTF-8"));
+    }
+
+    @Test
+    public void testShowLoginForm() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/register"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("register"));
+    }
+
+    @Test
+    public void testRegisterUserWithPreExistingCredentials() throws Exception {
+        String email = "test_admin";
+        String password = "test";
+        assertTrue(userService.userExists(email));
+
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/register")
+                        .param("email", email)
+                        .param("password", password))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/register?error=username_already_exists"))
+                .andExpect(MockMvcResultMatchers.request().attribute("error", Matchers.nullValue()));
+    }
+
+
+
+    @Test
+    public void testRegisterUserWithValidCredentials() throws Exception {
+
+        String email = "testUser";
+        String password = "testPassword";
+
+        assertFalse(userService.userExists(email));
+        assertFalse(userService.authenticateUser(email, password));
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/register")
+                        .param("email", email)
+                        .param("password", password))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/login"));
+
+        User user = null;
+        for(User u: userService.getAllUsers()){
+            if(userService.userExists("testUser")){
+                user = u;
+            }
+        }
+        if(user != null){
+            userService.deleteUser(user.getId());
+        }
+    }
 }

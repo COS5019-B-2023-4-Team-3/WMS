@@ -8,21 +8,31 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
 /**
- * provides callback methods that allow you to customize the Spring MVC configuration.
- * Used to configure content negotiation to ensure that CSS files are served with the correct MIME type of "text/css".
- * separating configuration concerns into dedicated configuration classes like WebMvcConfig helps maintain a cleaner
- * and more organized codebase.
+ * WebMvcConfig class provides configurations for Spring MVC, allowing customisation
+ * of various aspects of the MVC framework.
+ *
+ * This class is used to configure content negotiation to ensure that CSS files are served
+ * with the correct MIME type of "text/css". Additionally, it handles the serving of static
+ * resources such as CSS files using resource handlers.
+ *
+ * By separating configuration concerns into dedicated configuration classes like WebMvcConfig,
+ * the codebase becomes cleaner and more organised.
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
+    /**
+     * Configures content negotiation to ensure correct MIME types for different media types.
+     *
+     * @param configurer ContentNegotiationConfigurer object to configure content negotiation.
+     */
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
         configurer
                 .favorParameter(true)  // Favor media type from request parameter
                 .parameterName("mediaType")  // Specify the request parameter name
                 .ignoreAcceptHeader(true)  // Ignore Accept header
-                .useRegisteredExtensionsOnly(false)  // Allow media type based on file extensions
+                .useRegisteredExtensionsOnly(false)  // Allow a media type based on file extensions
                 .defaultContentType(MediaType.TEXT_HTML)  // Default content type for the application
                 .mediaType("html", MediaType.TEXT_HTML)  // Media type for HTML
                 .mediaType("json", MediaType.APPLICATION_JSON)  // Media type for JSON
@@ -31,7 +41,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     /**
-     * commonly used in Spring MVC applications to serve static resources such as CSS files, JavaScript files, images, etc.
+     * Adds resource handlers for serving static resources such as CSS files.
+     *
+     * @param registry ResourceHandlerRegistry object to register resource handlers.
      */
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/css/**")
@@ -42,15 +54,20 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     /**
-     * overridden to customize the behavior of the resource resolver.
-     * determines the media type (MIME type) of the requested resource based on its file extension.
-     * In this example, it always returns text/css for CSS resources.
-     * Ensures our custom css styles are loaded in correctly
+     * Custom resource resolver class to determine the media type (MIME type) of the requested
+     * resource based on its file extension.
      */
     private static class MyPathResourceResolver extends PathResourceResolver {
+        /**
+         * Determines the media type (MIME type) of the requested resource.
+         *
+         * @param resource PathResource object representing the requested resource.
+         * @return MediaType object representing the media type of the resource.
+         */
         protected MediaType getMediaType(PathResource resource) {
             return MediaType.valueOf("text/css");
         }
     }
 }
+
 

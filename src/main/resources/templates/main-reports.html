@@ -2,109 +2,104 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <!-- Title of the page -->
     <title>Title</title>
+    <!-- Link to Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
+    <!-- Link to Bootstrap Icons CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Link to custom CSS -->
+    <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<main th:fragment="main" id="main" class="main">
-    <!-- Reports -->
-    <div class="col-12" style="margin-top: 60px;">
+<!-- Main fragment -->
+<!-- This fragment is included in the main layout -->
+<main th:fragment="main" id="main" class="main" style="margin-top:60px;">
+    <!-- Card for displaying reports -->
+    <div class="col-12">
         <div class="card">
+            <!-- Filter for reports -->
             <div class="filter">
-                <a class="icon" th:href="@{/under-construction}" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                <!-- Icon for opening the filter dropdown -->
+                <a class="icon" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                <!-- Dropdown menu for filter options -->
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <!-- Header for the dropdown menu -->
                     <li class="dropdown-header text-start">
                         <h6>Filter</h6>
                     </li>
-                    <li><a class="dropdown-item" th:href="@{/under-construction}">Today</a></li>
-                    <li><a class="dropdown-item" th:href="@{/under-construction}">This Month</a></li>
-                    <li><a class="dropdown-item" th:href="@{/under-construction}">This Year</a></li>
+                    <!-- Filter options -->
+                    <li><a class="dropdown-item" th:href="@{/line-chart?filter=week}">This Week</a></li>
+                    <li><a class="dropdown-item" th:href="@{/line-chart?filter=month}">This Month</a></li>
+                    <li><a class="dropdown-item" th:href="@{/line-chart?filter=year}">This Year</a></li>
                 </ul>
             </div>
 
+            <!-- Body of the card -->
             <div class="card-body">
-                <h5 class="card-title">Reports <span>/Today</span></h5>
-
-                <!-- Line Chart -->
+                <!-- Title of the card -->
+                <h5 class="card-title">Reports <span>| Week</span></h5>
+                <!-- Line chart for displaying reports -->
                 <div id="reportsChart" style="min-height: 365px;"></div>
-
-                <script>
+                <!-- JavaScript for generating the line chart -->
+                <script th:inline="javascript">
+                    /*<![CDATA[*/
+                    // When the page is loaded, generate the line chart
                     document.addEventListener("DOMContentLoaded", () => {
-                      new ApexCharts(document.querySelector("#reportsChart"), {
-                        series: [{
-                          name: 'Sales',
-                          data: [31, 40, 28, 51, 42, 82, 56],
-                        }, {
-                          name: 'Revenue',
-                          data: [11, 32, 45, 32, 34, 52, 41]
-                        }, {
-                          name: 'Customers',
-                          data: [15, 11, 32, 18, 9, 24, 11]
-                        }],
-                        chart: {
-                          height: 350,
-                          type: 'area',
-                          toolbar: {
-                            show: false
-                          },
-                        },
-                        markers: {
-                          size: 4
-                        },
-                        colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                        fill: {
-                          type: "gradient",
-                          gradient: {
-                            shadeIntensity: 1,
-                            opacityFrom: 0.3,
-                            opacityTo: 0.4,
-                            stops: [0, 90, 100]
-                          }
-                        },
-                        dataLabels: {
-                          enabled: false
-                        },
-                        stroke: {
-                          curve: 'smooth',
-                          width: 2
-                        },
-                        xaxis: {
-                          type: 'datetime',
-                          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                        },
-                        tooltip: {
-                          x: {
-                            format: 'dd/MM/yy HH:mm'
-                          },
-                        }
-                      }).render();
+                        // Get the sales data from the server
+                        let salesData = /*[[${salesData}]]*/ [];
+
+                        // Map the sales data to the format required by the chart
+                        let seriesData = salesData.map(sale => ({x: sale.date, y: sale.income}));
+
+                        // Create the line chart
+                        new ApexCharts(document.querySelector("#reportsChart"), {
+                            series: [{
+                                name: 'sales',
+                                data: seriesData,
+                            }],
+                            chart: {
+                                height: 350,
+                                type: 'line',
+                                zoom: {
+                                    enabled: false
+                                }
+                            },
+                        }).render();
                     });
+                    /*]]>*/
                 </script>
             </div>
         </div>
-    </div>
-                <!-- End Line Chart -->
+    </div><!-- End Reports -->
     <!-- Recent Sales -->
     <div class="col-12">
         <div class="card recent-sales overflow-auto">
 
+            <!-- Filter for recent sales -->
             <div class="filter">
+                <!-- Icon for opening the filter dropdown -->
                 <a class="icon" th:href="@{/under-construction}" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                <!-- Dropdown menu for filter options -->
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <!-- Header for the dropdown menu -->
                     <li class="dropdown-header text-start">
                         <h6>Filter</h6>
                     </li>
+                    <!-- Filter options -->
                     <li><a class="dropdown-item" th:href="@{/under-construction}">Today</a></li>
                     <li><a class="dropdown-item" th:href="@{/under-construction}">This Month</a></li>
                     <li><a class="dropdown-item" th:href="@{/under-construction}">This Year</a></li>
                 </ul>
             </div>
+            <!-- Body of the card -->
             <div class="card-body">
+                <!-- Title of the card -->
                 <h5 class="card-title">Recent Sales <span>| Today</span></h5>
 
+                <!-- Table for displaying recent sales -->
                 <table class="table table-borderless datatable">
+                    <!-- Table header -->
                     <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -114,7 +109,11 @@
                         <th scope="col">Status</th>
                     </tr>
                     </thead>
+                    <!-- Table body -->
                     <tbody>
+                    <!-- Table rows -->
+                    <!-- Each row represents a sale -->
+                    <!-- The data for each sale is hardcoded for this example -->
                     <tr>
                         <th scope="row"><a th:href="@{/under-construction}">#2457</a></th>
                         <td>Brandon Jacob</td>
@@ -139,7 +138,7 @@
                     <tr>
                         <th scope="row"><a th:href="@{/under-construction}">#2644</a></th>
                         <td>Angus Grady</td>
-                        <td><a th:href="@{/under-construction}" class="text-primar">Ut voluptatem id earum et</a></td>
+                        <td><a th:href="@{/under-construction}" class="text-primary">Ut voluptatem id earum et</a></td>
                         <td>£67</td>
                         <td><span class="badge bg-danger">Rejected</span></td>
                     </tr>
@@ -155,6 +154,13 @@
             </div>
         </div>
     </div><!-- End Recent Sales -->
+    <!-- Button for generating a report -->
+    <div>
+        <a th:href="@{/generate-pdf}" class="btn btn-primary" style="text-decoration: none;">
+            Generate Report
+        </a>
+    </div>
 </main>
+
 </body>
 </html>

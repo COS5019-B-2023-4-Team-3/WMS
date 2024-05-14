@@ -3,12 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Raw Materials</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<!--  <link rel="stylesheet" href="styles.css">-->
-  <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
+  <title>Ingredients</title>
 
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" rel="stylesheet">
@@ -20,6 +17,7 @@
   <link href=" https://cdn.jsdelivr.net/npm/simple-datatables@9.0.0/dist/style.min.css " rel="stylesheet">
   <!-- TinyMCE CSS -->
   <link href=" https://cdn.jsdelivr.net/npm/tinymce@6.8.3/skins/ui/oxide/content.min.css " rel="stylesheet">
+  <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
   <style>
     table {
         border-collapse: collapse;
@@ -28,21 +26,53 @@
   </style>
 </head>
 <body th:fragment="body">
-<div sec:authorize="hasAuthority('ADMIN')" th:replace="header-admin :: header"></div>
-<div sec:authorize="hasAuthority('ADMIN')" th:replace="sidebar-admin :: sidebar"></div>
-<footer sec:authorize="hasAuthority('ADMIN')" th:replace="footer-staff :: footer"></footer>
-<!--<main sec:authorize="hasAuthority('ADMIN')" th:replace="main-admin :: main" id="main-admin" class="main"></main>-->
+
+<!-- Headers -->
+<div th:replace="header :: header"></div>
+
+<!-- Sidebar -->
+<div th:replace="sidebar :: sidebar"></div>
+
+
+<!-- Main -->
+<main th:replace="main-ingredients :: main" id="main-admin" class="main"></main>
+
+<!-- Footer -->
+<footer th:replace="footer :: footer"></footer>
+
 <!-- Include any necessary JavaScript files here -->
 <!-- jQuery -->
-<script src="/js/dropdown.js"></script>
-<script src="/js/sidebar_toggle.js"></script>
-<script src="/js/back_to_top.js"></script>
+<script src="/js/main.js"></script>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  document.addEventListener("DOMContentLoaded", function() {
+      // Get the selected element
+      var select = document.getElementById("sortBy");
+
+      // Add a change event listener to select the element
+      select.addEventListener("change", function() {
+          // Get the selected option
+          var selectedOption = this.value;
+          console.log("Selected Sorting Option:", selectedOption);
+
+          // Redirect to the appropriate sorting URL based on the selected option
+          if (selectedOption === "name") {
+              window.location.href = /*[[ @{/raw-ingredients/sort-by-name} ]]*/ '';
+          } else if (selectedOption === "expiry-date") {
+              window.location.href = /*[[ @{/raw-ingredients/sort-by-date} ]]*/ '';
+          }
+          // Add more conditions for other sorting options as needed
+      });
+  });
+  /*]]>*/
+</script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Popper.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Bootstrap JS -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script src=" https://cdn.jsdelivr.net/npm/apexcharts@3.46.0/dist/apexcharts.min.js "></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.min.js"></script>
@@ -52,14 +82,35 @@
 <script src=" https://cdn.jsdelivr.net/npm/simple-datatables@9.0.0/dist/umd/simple-datatables.min.js "></script>
 <script src=" https://cdn.jsdelivr.net/npm/tinymce@6.8.3/tinymce.min.js "></script>
 <div class="container"></div>
-<body>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<main sec:authorize="hasAuthority('ADMIN')" th:replace="main-ingredients :: main" id="main-admin" class="main"></main>
-<script th:inline="javascript"></script>
-<script src="/js/dropdown.js"></script>
-<script src="/js/sidebar_toggle.js"></script>
-<script src="/js/back_to_top.js"></script>
+
+
+<script src="/js/main.js"></script>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  document.addEventListener("DOMContentLoaded", function() {
+      // Get the selected element
+      var select = document.getElementById("sortBy");
+
+      // Add a change event listener to select the element
+      select.addEventListener("change", function() {
+          // Get the selected option
+          var selectedOption = this.value;
+          console.log("Selected Sorting Option:", selectedOption);
+
+          // Redirect to the appropriate sorting URL based on the selected option
+          if (selectedOption === "name") {
+              window.location.href = /*[[ @{/raw-ingredients/sort-by-name} ]]*/ '';
+          } else if (selectedOption === "Quantity") {
+              window.location.href = /*[[ @{/raw-ingredients/sort-by-Quantity} ]]*/ '';
+          }
+          // Add more conditions for other sorting options as needed
+      });
+  });
+  /*]]>*/
+</script>
 </body>
 
 

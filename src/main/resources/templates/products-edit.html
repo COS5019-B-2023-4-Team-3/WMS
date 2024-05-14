@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+
+    <!-- Vendor CSS Files -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
+
+</head>
+<body th:fragment="body">
+
+<!--header-->
+<div th:replace="header :: header"></div>
+
+<!-- Sidebar -->
+<div th:replace="sidebar :: sidebar"></div>
+
+<!-- Mains -->
+<main th:replace="main-products-edit :: main" id="main-products-edit" class="main"></main>
+
+<!-- Footer -->
+<footer th:replace="footer :: footer"></footer>
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src=" https://cdn.jsdelivr.net/npm/apexcharts@3.46.0/dist/apexcharts.min.js "></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.min.js"></script>
+<script src=" https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js "></script>
+<script src=" https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js "></script>
+<script src=" https://cdn.jsdelivr.net/npm/quill@1.3.7/quill.min.js "></script>
+<script src=" https://cdn.jsdelivr.net/npm/simple-datatables@9.0.0/dist/umd/simple-datatables.min.js "></script>
+<script src=" https://cdn.jsdelivr.net/npm/tinymce@6.8.3/tinymce.min.js "></script>
+
+<!-- Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script>
+    document.getElementById('createProductBtn').addEventListener('click', function(event) {
+            event.preventDefault();
+            const productForm = document.getElementById('productForm');
+            if (productForm.style.display === 'none') {
+                productForm.style.display = 'block';
+            } else {
+                productForm.style.display = 'none';
+            }
+        });
+
+        document.getElementById('productForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const response = await fetch('/api/products', {
+                method: 'POST',
+                body: formData
+            });
+</script>
+
+</body>
+</html>

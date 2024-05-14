@@ -2,177 +2,69 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <!-- Title of the page -->
     <title>Alerts</title>
 </head>
 <body>
 
+<!-- Main fragment -->
+<!-- This fragment is included in the main layout -->
 <main th:fragment="main" class="main" id="main">
-    <h1>Notifications</h1>
-    <hr><hr>
-    <div class="notification">
-        <div class="card-body">
-            <h5 class="card-title">Product Details </h5>
-
-            <table class="table table-borderless datatable">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Customer</th>
-                    <th scope="col">Product Name</th>
-                    <th scope="col">SKU Code</th>
-                    <th scope="col">Expiry Date</th>
-                    <th scope="col">Current Stock Level</th>
-                    <th scope="col">Type of Notification Alert</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row"><a href="/under-construction">#0001</a></th>
-                    <td>Sarah Johnson</td>
-                    <td><a>Product 0</a></td>
-                    <td>SKU 0</td>
-                    <td>2024-04-15</td>
-                    <td>22</td>
-                    <td><span style="color: red;">Expired</span></td>
-                </tr>
-                <tr>
-                    <th scope="row"><a href="/under-construction">#0002</a></th>
-                    <td>Michael Patel</td>
-                    <td><a>Product 1</a></td>
-                    <td>SKU 1</td>
-                    <td>2024-05-20</td>
-                    <td>35</td>
-                    <td><span style="color: red;">Expired</span></td>
-                </tr>
-                <tr>
-                    <th scope="row"><a href="/under-construction">#0003</a></th>
-                    <td>Jennifer Thompson</td>
-                    <td><a>Product 2</a></td>
-                    <td>SKU 2</td>
-                    <td>2024-06-10</td>
-                    <td>10</td>
-                    <td><span style="color: red;">Low in Stock</span></td>
-                </tr>
-                <tr>
-                    <th scope="row"><a href="/under-construction">#0004</a></th>
-                    <td>David Rodriguez</td>
-                    <td><a>Product 3</a></td>
-                    <td>SKU 3</td>
-                    <td>2024-07-25</td>
-                    <td>18</td>
-                    <td><span style="color: red;">Expired</span></td>
-                </tr>
-                <tr>
-                    <th scope="row"><a href="/under-construction">#0005</a></th>
-                    <td>Emily Lee</td>
-                    <td><a>Product 4</a></td>
-                    <td>SKU 4</td>
-                    <td>2024-08-05</td>
-                    <td>29</td>
-                    <td><span style="color: red;">Expired</span></td>
-                </tr>
-                <tr>
-                    <th scope="row"><a href="/under-construction">#0006</a></th>
-                    <td>Christopher Brown</td>
-                    <td><a>Product 5</a></td>
-                    <td>SKU 5</td>
-                    <td>2024-09-30</td>
-                    <td>7</td>
-                    <td><span style="color: red;">Expired</span></td>
-                </tr>
-                <tr>
-                    <th scope="row"><a href="/under-construction">#0007</a></th>
-                    <td>Jessica Martinez</td>
-                    <td><a>Product 6</a></td>
-                    <td>SKU 6</td>
-                    <td>2024-10-12</td>
-                    <td>41</td>
-                    <td><span style="color: red;">Low in Stock</span></td>
-                </tr>
-                <tr>
-                    <th scope="row"><a href="/under-construction">#0008</a></th>
-                    <td>Ryan Nguyen</td>
-                    <td><a>Product 7</a></td>
-                    <td>SKU 7</td>
-                    <td>2024-11-18</td>
-                    <td>3</td>
-                    <td><span style="color: red;">Low in Stock</span></td>
-                </tr>
-                <tr>
-                    <th scope="row"><a href="/under-construction">#0009</a></th>
-                    <td>Amanda Wilson</td>
-                    <td><a>Product 8</a></td>
-                    <td>SKU 8</td>
-                    <td>2024-12-22</td>
-                    <td>25</td>
-                    <td><span style="color: red;">Expired</span></td>
-                </tr>
-                <tr>
-                    <th scope="row"><a href="/under-construction">#0010</a></th>
-                    <td>Jason Garcia</td>
-                    <td><a>Product 9</a></td>
-                    <td>SKU 9</td>
-                    <td>2025-01-08</td>
-                    <td>14</td>
-                    <td><span style="color: red;">Low in Stock</span></td>
-                </tr>
-                <tr>
-                    <th scope="row"><a href="/under-construction">#0010</a></th>
-                    <td>Chris Evans</td>
-                    <td><a>Product 10</a></td>
-                    <td>SKU 10</td>
-                    <td>2024-09-30</td>
-                    <td>7</td>
-                    <td><span style="color: red;">Expired</span></td>
-                </tr>
-                <tr>
-                    <th scope="row"><a href="/under-construction">#0011</a></th>
-                    <td>Lisa Johnson</td>
-                    <td><a>Product 11</a></td>
-                    <td>SKU 11</td>
-                    <td>2024-10-12</td>
-                    <td>41</td>
-                    <td><span style="color: red;">Expired</span></td>
-                </tr>
-                <tr>
-                    <th scope="row"><a href="/under-construction">#0012</a></th>
-                    <td>John Smith</td>
-                    <td><a>Product 12</a></td>
-                    <td>SKU 12</td>
-                    <td>2024-11-18</td>
-                    <td>3</td>
-                    <td><span style="color: red;">Expired</span></td>
-                </tr>
-                <tr>
-                    <th scope="row"><a href="/under-construction">#0013</a></th>
-                    <td>Michelle Williams</td>
-                    <td><a>Product 13</a></td>
-                    <td>SKU 13</td>
-                    <td>2024-12-22</td>
-                    <td>25</td>
-                    <td><span style="color: red;">Low in Stock</span></td>
-                </tr>
-                <tr>
-                    <th scope="row"><a href="/under-construction">#0014</a></th>
-                    <td>Robert Brown</td>
-                    <td><a>Product 14</a></td>
-                    <td>SKU 14</td>
-                    <td>2025-01-08</td>
-                    <td>14</td>
-                    <td><span style="color: red;">Expired</span></td>
-                </tr>
-
-
-                </tbody>
-            </table>
-
+    <!-- Grid layout for alerts -->
+    <div class="alert-grid">
+        <!-- Page title -->
+        <h1>Alerts</h1>
+        <!-- Horizontal line -->
+        <hr>
+        <!-- Subtitle -->
+        <h4 style="color: #29318C;">Product Details</h4>
+        <!-- Filter dropdown -->
+        <div class="sort-by">
+            <label for="Filter">Filter:</label>
+            <select id="Filter">
+                <!-- Filter options -->
+                <option value="All">All</option>
+                <option value="Low in Stock">Low in Stock</option>
+                <option value="Out of Date">Out of Date</option>
+            </select>
         </div>
-
-
-
-    </div>
-    </div>
-
+        <!-- Alert notifications -->
+        <div>
+            <div class="notification">
+                <!-- Table for displaying alerts -->
+                <div class="card-body">
+                    <table class="table table-borderless datatable">
+                        <!-- Table header -->
+                        <thead>
+                        <tr style="border-bottom: 1px solid #dee2e6;">
+                            <th scope="col">Alert ID</th>
+                            <th scope="col">Alert Type</th>
+                            <th scope="col">Alert Message</th>
+                            <th scope="col">Alert Timestamp</th>
+                            <th scope="col">Product ID</th>
+                        </tr>
+                        </thead>
+                        <!-- Table body -->
+                        <tbody>
+                            <!-- Table row for each alert -->
+                            <tr th:each="alert: ${alerts}" class="alert-box"  style="border-bottom: 1px solid #dee2e6;">
+                                <!-- Alert ID -->
+                                <td th:text="${alert.id}"></td>
+                                <!-- Alert type -->
+                                <td th:text="${alert.type}" style="color: red;">Alert Type</td>
+                                <!-- Alert message -->
+                                <td th:text="${alert.message}">Alert Message</td>
+                                <!-- Alert timestamp -->
+                                <td th:text="${alert.timestamp}">Alert Timestamp</td>
+                                <!-- Product ID -->
+                                <td th:text="${alert.prod_id}">Product ID</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+  </div>
 </main>
 </body>
 </html>

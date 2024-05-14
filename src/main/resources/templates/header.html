@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Custom styles -->
+    <link href="/static/css/styles.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<!-- ======= Header ======= -->
+<!-- This is the header fragment that can be included in other Thymeleaf templates -->
+<header class="header fixed-top d-flex align-items-center">
+    <!-- Logo and sidebar toggle button -->
+    <div class="d-flex align-items-center justify-content-between">
+        <a th:href="@{/homepage}" class="logo d-flex align-items-center">
+            <img src="/img/logo-small.jpg" alt="Logo" class="logo-img">
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn ms-3">
+        </i>
+    </div><!-- End Logo -->
+
+    <!-- Search bar -->
+    <div class="search-bar">
+        <form class="search-form d-flex align-items-center" method="POST" action="#">
+            <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+        </form>
+    </div><!-- End Search Bar -->
+
+    <!-- Navigation bar -->
+    <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+            <!-- Search Icon -->
+            <li class="nav-item d-block d-lg-none">
+                <a class="nav-link nav-icon search-bar-toggle " th:href="@{/under-construction}">
+                    <i class="bi bi-search">
+                    </i>
+                </a>
+            </li> <!-- End Search Icon -->
+
+            <!-- Notification Nav -->
+            <li class="nav-item dropdown">
+                <a class="nav-link nav-icon" th:href="@{/under-construction}" data-dropdown-menu-class="notifications">
+                    <i class="bi bi-bell"></i>
+                    <span class="badge bg-primary badge-number-alert">
+                        4
+                    </span>
+                </a><!-- End Notification Icon -->
+                <!-- Notification Dropdown Items -->
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications"
+                    style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(-25px, 35px);"
+                    data-popper-placement="bottom-end">
+                    <!-- Notification items go here -->
+                </ul>
+            </li>
+            <!-- End Notification Nav -->
+
+            <!-- Messages Nav -->
+            <li class="nav-item dropdown">
+                <a class="nav-link nav-icon" th:href="@{/under-construction}" data-dropdown-menu-class="messages">
+                    <i class="bi bi-chat-left-text"></i>
+                    <span class="badge bg-success badge-number">3</span>
+                </a><!-- End Messages Icon -->
+                <!-- Messages Dropdown Items -->
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+                    <!-- Message items go here -->
+                </ul><!-- End Messages Dropdown Items -->
+            </li><!-- End Messages Nav -->
+
+            <!-- Profile Nav -->
+            <li class="nav-item dropdown">
+                <a class="nav-link nav-profile d-flex align-items-center" th:href="@{/under-construction}" data-dropdown-menu-class="profile">
+                    <img src="/img/Monkey-Selfie.jpg" alt="Profile" class="rounded-circle">
+                    <span class="d-none d-md-block dropdown-toggle ps-2" th:text="${#authentication?.name}"></span>
+                </a><!-- End Profile Image Icon -->
+                <!-- Profile Dropdown Items -->
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                    <!-- Profile items go here -->
+                </ul><!-- End Profile Dropdown Items -->
+            </li><!-- End Profile Nav -->
+        </ul>
+    </nav><!-- End Icons Navigation -->
+</header><!-- End Header -->
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Vendor JS Files -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

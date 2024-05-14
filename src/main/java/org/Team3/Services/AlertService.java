@@ -1,5 +1,7 @@
 package org.Team3.Services;
+import org.Team3.Entities.Alert;
 import org.Team3.Entities.Product;
+import org.Team3.Repositories.AlertRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -9,9 +11,21 @@ import java.util.List;
 @Service
 public class AlertService {
 
-    @Autowired
-    private ProductService productService;
+    private final AlertRepository alertRepository;
 
+    private final ProductService productService;
+
+    public AlertService(AlertRepository alertRepository, ProductService productService) {
+        this.alertRepository = alertRepository;
+        this.productService = productService;
+    }
+
+
+
+public List<Alert> getAllAlerts(){
+    return alertRepository.findAll();
+
+}
     /**
      *  Run daily at midnight
      */

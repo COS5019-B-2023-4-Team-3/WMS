@@ -1,110 +1,135 @@
 package org.Team3.Services;
 
-class UserServiceTest {
+import org.Team3.Entities.User;
+import org.Team3.Repositories.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.util.ReflectionTestUtils;
 
-//    @Mock
-//    private UserRepository userRepository;
-//    @Mock
-//    private PasswordEncoder passwordEncoder;
-//    @InjectMocks
-//    private UserService userService;
-//
-//    private User testUser1, testUser2;
-//
-//    @BeforeEach
-//    void setUp() {
-//        MockitoAnnotations.openMocks(this);
-//        testUser1 = new User();
-//        testUser1.setId(1L);
-//        testUser1.setUsername("User1");
-//        testUser1.setPassword("password");
-//
-//        testUser2 = new User();
-//        testUser1.setId(2L);
-//        testUser1.setUsername("User2");
-//        testUser1.setPassword("password");
-//
-//    }
-//
-//    @Test
-//    void testGetAllUsers() {
-//        List<User> userList = new ArrayList<>();
-//        // Add sample users to the list
-//
-//        userList.add(testUser1);
-//        userList.add(testUser2);
-//
-//        when(userRepository.findAll()).thenReturn(userList);
-//
-//        List<User> result = userService.getAllUsers();
-//        assertEquals(2, result.size());
-//    }
-//
-//    @Test
-//    void testGetUserById() {
-//
-//        when(userRepository.findById(1L)).thenReturn(Optional.of(testUser1));
-//
-//        User result = userService.getUserById(1L);
-//        assertEquals(testUser1, result);
-//    }
-//
-//    @Test
-//    void testCreateUser() {
-//        // Mock the userRepository to return testUser1 when save is called with any User object
-//        when(userRepository.save(any(User.class))).thenReturn(testUser1);
-//
-//        // Call the createUser method with testUser1 and store the result
-//        User result = userService.createUser(testUser1);
-//
-//        // Assert that the result has the same attributes as testUser1
-//        assertEquals(testUser1.getUsername(), result.getUsername());
-//        assertEquals(testUser1.getPassword(), result.getPassword());
-//    }
-//
-//    @Test
-//    void testUpdateUser() {
-//        when(userRepository.existsById(1L)).thenReturn(true);
-//        when(userRepository.save(any(User.class))).thenReturn(testUser1);
-//
-//        User result = userService.updateUser(1L, testUser1);
-//        assertEquals(testUser1, result);
-//    }
-//
-//    @Test
-//    void testDeleteUser() {
-//        when(userRepository.existsById(1L)).thenReturn(true);
-//
-//        assertTrue(userService.deleteUser(1L));
-//        verify(userRepository, times(1)).deleteById(1L);
-//    }
-//
-//    @Test
-//    void testAuthenticateUser() {
-//        // Mock the userRepository to return the testUser1 when findByUsername is called with "user1"
-//        when(userRepository.findByUsername("user1")).thenReturn(testUser1);
-//
-//        // Mock the passwordEncoder to return true when matches is called with "password" and the encoded password
-//        when(passwordEncoder.matches("password", testUser1.getPassword())).thenReturn(true);
-//
-//        // Test the authenticateUser method with the correct username and password
-//        assertTrue(userService.authenticateUser("user1", "password"));
-//    }
-//
-//
-//    @Test
-//    void testUserExists() {
-//        when(userRepository.existsByUsername("user1")).thenReturn(true);
-//
-//        assertTrue(userService.userExists("user1"));
-//    }
-//
-//    @Test
-//    void testRegisterUser() {
-//        when(userRepository.existsByUsername("user1")).thenReturn(false);
-//        when(passwordEncoder.encode("password")).thenReturn("encodedPassword");
-//
-//        assertTrue(userService.registerUser("user1", "password"));
-//        verify(userRepository, times(1)).save(any(User.class));
-//    }
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+
+@SpringBootTest
+class UserServiceTest {
+    private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
+    private UserService userService;
+
+    @BeforeEach
+    public void setUp() {
+        //we need to mock the UserRepository and PasswordEncoder
+        // as we don't want to interact with the actual database or the password encoder during unit testing
+        userRepository = Mockito.mock(UserRepository.class);
+        passwordEncoder = Mockito.mock(PasswordEncoder.class);
+        userService = new UserService(userRepository);
+        ReflectionTestUtils.setField(userService, "passwordEncoder", passwordEncoder);
+    }
+
+    @Test
+    public void getAllUsersTest() {
+        User user1 = new User();
+        User user2 = new User();
+        when(userRepository.findAll()).thenReturn(Arrays.asList(user1, user2));
+
+        List<User> users = userService.getAllUsers();
+
+        assertEquals(2, users.size());
+        verify(userRepository, times(1)).findAll();
+    }
+
+    @Test
+    public void getUserByIdTest() {
+        User user = new User();
+        user.setId(1L);
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+
+        User foundUser = userService.getUserById(1L);
+
+        assertNotNull(foundUser);
+        assertEquals(1L, foundUser.getId());
+        verify(userRepository, times(1)).findById(1L);
+    }
+
+    @Test
+    public void createUserTest() {
+        User user = new User();
+        when(userRepository.save(user)).thenReturn(user);
+
+        User createdUser = userService.createUser(user);
+
+        assertNotNull(createdUser);
+        verify(userRepository, times(1)).save(user);
+    }
+
+    @Test
+    public void updateUserTest() {
+        User user = new User();
+        user.setId(1L);
+        when(userRepository.existsById(1L)).thenReturn(true);
+        when(userRepository.save(user)).thenReturn(user);
+
+        User updatedUser = userService.updateUser(1L, user);
+
+        assertNotNull(updatedUser);
+        assertEquals(1L, updatedUser.getId());
+        verify(userRepository, times(1)).existsById(1L);
+        verify(userRepository, times(1)).save(user);
+    }
+
+    @Test
+    public void deleteUserTest() {
+        when(userRepository.existsById(1L)).thenReturn(true);
+
+        boolean isDeleted = userService.deleteUser(1L);
+
+        assertTrue(isDeleted);
+        verify(userRepository, times(1)).existsById(1L);
+        verify(userRepository, times(1)).deleteById(1L);
+    }
+
+    @Test
+    public void authenticateUserTest() {
+        User user = new User();
+        user.setUsername("test");
+        user.setPassword("encodedPassword");
+        when(userRepository.findByUsername("test")).thenReturn(user);
+        when(passwordEncoder.matches("password", "encodedPassword")).thenReturn(true);
+
+        boolean isAuthenticated = userService.authenticateUser("test", "password");
+
+        assertTrue(isAuthenticated);
+        verify(userRepository, times(1)).findByUsername("test");
+        verify(passwordEncoder, times(1)).matches("password", "encodedPassword");
+    }
+
+    @Test
+    public void userExistsTest() {
+        when(userRepository.existsByUsername("test")).thenReturn(true);
+
+        boolean exists = userService.userExists("test");
+
+        assertTrue(exists);
+        verify(userRepository, times(1)).existsByUsername("test");
+    }
+
+    @Test
+    public void registerUserTest() {
+        when(userRepository.existsByUsername("test")).thenReturn(false);
+        when(passwordEncoder.encode("password")).thenReturn("encodedPassword");
+
+        boolean isRegistered = userService.registerUser("test", "password");
+
+        assertTrue(isRegistered);
+        verify(userRepository, times(1)).existsByUsername("test");
+        verify(passwordEncoder, times(1)).encode("password");
+    }
 }

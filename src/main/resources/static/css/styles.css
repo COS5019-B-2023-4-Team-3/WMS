@@ -2126,7 +2126,7 @@ dashboard .info-card h6 {
 
 .product-box img {
     max-width: 100%;
-    height: auto;
+    height: 200px;
 }
 
 .product-box h3 {
@@ -2167,7 +2167,6 @@ dashboard .info-card h6 {
   z-index: 1;
   left: 0;
   top: 0;
-  width: 100%;
   height: 100%;
   overflow: auto;
   background-color: rgba(0,0,0,0.4);
@@ -2179,8 +2178,8 @@ dashboard .info-card h6 {
   margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 50%; /* Adjust the width */
-  max-width: 400px; /* Set a maximum width */
+  width: 100%; /* Adjust the width */
+  max-width: 800px; /* Set a maximum width */
 }
 
 /* Close button */
@@ -2208,16 +2207,56 @@ dashboard .info-card h6 {
 }
 
 .product-details img {
-    max-width: 50%; /* Set maximum width for the image */
-    margin-right: 20px; /* Add some space between the image and text */
+    max-width: 100%; /* Set maximum width for the image */
+    margin-right: 40px; /* Add some space between the image and text */
 }
 
 .text-details {
-    flex: 1; /* Take up remaining space */
+    align-items: left;
+    margin-left: 20px;
+    text-align: left;
 }
 
 .action-buttons button {
     margin-right: 10px; /* Adjust the right margin */
     margin-top: 5px; /* Add margin above the buttons */
     margin-bottom: 5px; /* Add margin below the buttons */
+}
+/* Apply styles only to elements within the product form */
+#productForm label {
+    display: block;
+}
+
+#productForm input[type="text"],
+#productForm input[type="number"],
+#productForm textarea {
+    width: 400px;
+    padding: 4px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+
+#productForm .form-group {
+    margin-bottom: 2px; /* Adjust */
+}
+--------------------------------------------------------------
+# rawIngredients
+--------------------------------------------------------------*/
+.rawIngredients-grid  {
+    display: grid;
+    width: 100%
+    style="overflow-y:auto;
+
+}
+.rawIngredients-box {
+    border: 1px solid #ccc;
+    padding: 0px;
+}
+.rawIngredients-box .rawIngredients {
+    text-align: center;
+}
+
 }

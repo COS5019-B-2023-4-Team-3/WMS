@@ -1,5 +1,8 @@
 package org.Team3.Controllers;
 
+import org.Team3.Services.ReportService;
+import org.Team3.Services.SaleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,30 +12,84 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.time.LocalDate;
 
+/**
+ * HomeController class handles requests related to the application's home page.
+ *
+ * This controller provides methods to display the homepage, handle POST requests
+ * related to the homepage, and handle user logout.
+ */
 @Controller
 public class HomeController {
 
+    /**
+     * Displays the homepage and adds the user's role to the model.
+     *
+     * @param model Model object to add attributes for rendering the view.
+     * @param principal Principal object representing the currently authenticated user.
+     * @return String representing the logical view name of the homepage.
+     */
+    @Autowired
+    private SaleService saleService;
+
     @GetMapping("/homepage")
-    public String showHomepage(Model model, Principal principal) {
+    public String showHomepage(Model model, Principal principal, String filter, HttpServletRequest request) {
         String role = getRoleForUser(principal);
         model.addAttribute("role", role);
+
+        LocalDate startDate;
+        LocalDate endDate = LocalDate.now();
+
+        if(filter == null) {
+            filter = "week";
+        }
+
+        switch (filter) {
+            case "week":
+            default:
+                startDate = endDate.minusWeeks(1);
+                break;
+            case "month":
+                startDate = endDate.minusMonths(1);
+                break;
+            case "year":
+                startDate = endDate.minusYears(1);
+                break;
+        }
+
+        model.addAttribute("salesData", saleService.getSalesInRange(startDate, endDate));
         return "homepage";
     }
 
+
+
+
+
+    /**
+     * Handles POST requests related to the homepage.
+     *
+     * @return String representing the redirection URL to the homepage.
+     */
     @PostMapping("/homepage")
     public String handlePostRequest() {
         return "redirect:/homepage";
     }
 
+    /**
+     * Retrieves the role of the authenticated user.
+     *
+     * @param principal Principal object representing the currently authenticated user.
+     * @return String representing the role of the user.
+     */
     private String getRoleForUser(Principal principal) {
         if (principal instanceof Authentication authentication) {
             for (GrantedAuthority authority : authentication.getAuthorities()) {
                 String role = authority.getAuthority();
-                System.out.println(role);
                 if ("ROLE_ADMIN".equals(role)) {
                     return "ADMIN";
                 } else if ("ROLE_EMPLOYEE".equals(role)) {
@@ -46,6 +103,14 @@ public class HomeController {
         return "UNKNOWN";
     }
 
+    /**
+     * Handles user logout by invalidating the authentication session.
+     *
+     * @param request HttpServletRequest object representing the HTTP request.
+     * @param response HttpServletResponse object representing the HTTP response.
+     * @param model Model object to add attributes for rendering the view.
+     * @return String representing the redirection URL to the login page with a logout parameter.
+     */
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
